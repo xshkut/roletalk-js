@@ -1,0 +1,35 @@
+{
+  "name": "role-talk",
+  "version": "0.5.3",
+  "description": "WebSocket-based NodeJS library for peer-to-peer communication between microservices",
+  "main": "built/index.js",
+  "types": "built/index.d.ts",
+  "scripts": {
+    "test": "mocha built/test/test",
+    "testb": "tsc && mocha built/test/test",
+    "build": "tsc",
+    "echo": "node echo/index.js 5000"
+  },
+  "keywords": [
+    "nodejs",
+    "microservice",
+    "communication",
+    "websocket",
+    "ws",
+    "peer-to-peer",
+    "p2p"
+  ],
+  "author": "shkut",
+  "license": "ISC",
+  "dependencies": {
+    "ws": "^6.1.2"
+  },
+  "devDependencies": {
+    "@types/mocha": "^5.2.6",
+    "@types/node": "^10.12.21",
+    "@types/ws": "^6.0.1",
+    "find-free-port": "^2.0.0",
+    "mocha": "^5.2.0",
+    "typescript": "^3.3.1"
+  }
+}

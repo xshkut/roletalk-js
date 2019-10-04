@@ -96,3 +96,5 @@ export const STREAM_CHUNK_FLAG = 0
 export const STREAM_FINISH_FLAG = 1
 export const STREAM_ERROR_FLAG = 2
 export const STREAM_BP_QUOTA_FLAG = 3
+
+export const PROTOCOL_NUMBER = '1.0.0'

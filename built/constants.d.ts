@@ -38,4 +38,5 @@ export declare const STREAM_CHUNK_FLAG = 0;
 export declare const STREAM_FINISH_FLAG = 1;
 export declare const STREAM_ERROR_FLAG = 2;
 export declare const STREAM_BP_QUOTA_FLAG = 3;
+export declare const PROTOCOL_NUMBER = "1.0.0";
 //# sourceMappingURL=constants.d.ts.map

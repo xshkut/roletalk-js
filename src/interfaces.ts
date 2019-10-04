@@ -67,6 +67,7 @@ export interface PeerMetaData {
     runtime: string
     time: number;
     uptime: number
+    protocol: string
 }
 
 export interface WebSocketBindData {

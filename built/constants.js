@@ -91,4 +91,5 @@ exports.STREAM_CHUNK_FLAG = 0;
 exports.STREAM_FINISH_FLAG = 1;
 exports.STREAM_ERROR_FLAG = 2;
 exports.STREAM_BP_QUOTA_FLAG = 3;
+exports.PROTOCOL_NUMBER = '1.0.0';
 //# sourceMappingURL=constants.js.map

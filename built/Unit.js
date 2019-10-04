@@ -260,6 +260,9 @@ function handleMessage(ctx) {
     this._peer._roles.has(ctx.role) && this._peer._roles.get(ctx.role)._emitMsg(ctx);
 }
 function createHeartBeat(ws) {
+    ws.on('ping', function () {
+        ws.pong();
+    });
     let interval = setInterval(() => {
         let active = false;
         let timeout = setTimeout(() => {

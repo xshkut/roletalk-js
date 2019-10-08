@@ -261,7 +261,7 @@ function handleMessage(ctx) {
 }
 function createHeartBeat(ws) {
     ws.on('ping', function () {
-        ws.pong();
+        ws.readyState === 1 && ws.pong();
     });
     let interval = setInterval(() => {
         let active = false;

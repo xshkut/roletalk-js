@@ -277,7 +277,7 @@ function handleMessage(this: Unit, ctx: ContextData) {
 
 function createHeartBeat(ws: WebSocket) {
 	ws.on('ping', function () {
-		ws.pong()
+		ws.readyState===1&& ws.pong()
 	})
 	let interval = setInterval(() => {
 		let active = false;

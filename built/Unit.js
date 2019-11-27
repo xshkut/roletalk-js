@@ -8,6 +8,7 @@ const ReadableOverWS_1 = require("./misc/ReadableOverWS");
 const WritableOverWS_1 = require("./misc/WritableOverWS");
 const getFreeCallbackIDForEE_1 = require("./misc/getFreeCallbackIDForEE");
 const constants_1 = require("./constants");
+const Peer_1 = require("./Peer");
 const protocolConversions_1 = require("./misc/protocolConversions");
 const receiveResponse_1 = require("./misc/receiveResponse");
 class Unit extends events_1.default {
@@ -24,6 +25,7 @@ class Unit extends events_1.default {
         this._cbid = 0;
         this._timeouts = new Map();
         this._onCloseHandlers = new Set();
+        this._lastRolesUpdate = 0;
         this.id = id;
         this.name = name;
         this._peer = peer;
@@ -31,7 +33,6 @@ class Unit extends events_1.default {
         this._roles = roles;
         this._metaData = meta;
         this.once('error', err => {
-            console.error(err);
             this.close();
         });
     }
@@ -46,7 +47,8 @@ class Unit extends events_1.default {
         sendViaAny(this, datum, cb);
     }
     _sendRoles() {
-        let data = JSON.stringify(this._peer.roles.filter(role => role.active).map(role => role.name));
+        let msg = { i: this._peer._lastRolesUpdate, roles: this._peer.roles.filter(role => role.active).map(role => role.name) };
+        let data = JSON.stringify(msg);
         let datum = protocolConversions_1.serializeString(constants_1.TYPE_ROLES, data);
         sendViaAny(this, datum);
     }
@@ -284,8 +286,14 @@ function createHeartBeat(ws) {
     ws.once('close', () => clearInterval(interval));
     interval.unref();
 }
-function handleUnitRoles(roles) {
-    this.emit('_new_roles', roles);
+function handleUnitRoles(rolesMsg) {
+    if (this._lastRolesUpdate >= rolesMsg.i) {
+        return;
+    }
+    this._roles = rolesMsg.roles;
+    this._lastRolesUpdate = rolesMsg.i;
+    Peer_1.refreshPeerDestinations.call(this._peer, this);
+    this.emit('_new_roles', rolesMsg);
 }
 function handleAcquaintMessage({ id, address, roles }) {
     if (!this._peer.friendly)

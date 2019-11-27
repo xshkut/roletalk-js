@@ -1,7 +1,7 @@
 import { Readable, ReadableOptions, WritableOptions, Writable } from 'stream';
 import EventEmitter from 'events';
 import WebSocket from 'ws';
-import { MessageHeaders, InitialUnitData, AcquaintMessage, WebSocketBindData, SendableData, ContextData, InitialContextData, ContextDataForReadable, ContextDataForWritable, InitialStreamContextData, StreamContextData, PeerMetaData } from './interfaces';
+import { MessageHeaders, InitialUnitData, AcquaintMessage, WebSocketBindData, SendableData, ContextData, ContextDataForReadable, InitialStreamContextData, StreamContextData, PeerMetaData, rolesMsg } from './interfaces';
 import { ReadableOverWS } from './misc/ReadableOverWS';
 import { WritableOverWS } from './misc/WritableOverWS';
 import { getFreeCallbackIDForEE } from './misc/getFreeCallbackIDForEE';
@@ -9,7 +9,7 @@ import {
 	HEARTBEAT_INTERVAL, HEARTBEAT_TIMEOUT, DEFAULT_REQUEST_TIMEOUT, TYPE_REQ4READABLE, TYPE_MSG, TYPE_REQ, TYPE_RES,
 	TYPE_REJECT, TYPE_ACQUAINT, TYPE_ROLES, TYPE_REQ4WRITABLE, TYPE_STREAM_MSG, WS_HEARTBEAT_TIMEOUT_CLOSE_CODE, WS_MANUAL_CLOSE_CODE, TYPE_STREAM_REJECT, TYPE_STREAM_RESOLVE
 } from './constants';
-import { Peer } from './Peer';
+import { Peer, refreshPeerDestinations } from './Peer';
 import { serializeSingle, parseSingle, parseRequest, parseResponse, serializeResponse, serializeStreamRequest, parseStreamRequest, serializeRequest, serializeStreamResponse, parseStreamResponse, parseString, serializeString } from './misc/protocolConversions';
 import { receiveResponse } from './misc/receiveResponse';
 
@@ -29,6 +29,7 @@ export class Unit extends EventEmitter {
 	_timeouts: Map<number, NodeJS.Timeout> = new Map();
 	_onCloseHandlers: Set<number> = new Set();
 	_metaData: PeerMetaData
+	_lastRolesUpdate: number = 0
 	constructor ({ peer, id, friendly, name, roles, meta }: InitialUnitData) {
 		super();
 		this.id = id;
@@ -38,7 +39,6 @@ export class Unit extends EventEmitter {
 		this._roles = roles;
 		this._metaData = meta;
 		this.once('error', err => {
-			console.error(err);
 			this.close();
 		})
 	}
@@ -53,7 +53,8 @@ export class Unit extends EventEmitter {
 		sendViaAny(this, datum, cb);
 	}
 	_sendRoles() {
-		let data = JSON.stringify(this._peer.roles.filter(role => role.active).map(role => role.name));
+		let msg: rolesMsg = { i: this._peer._lastRolesUpdate, roles: this._peer.roles.filter(role => role.active).map(role => role.name) }
+		let data = JSON.stringify(msg);
 		let datum = serializeString(TYPE_ROLES, data);
 		sendViaAny(this, datum);
 	}
@@ -277,7 +278,7 @@ function handleMessage(this: Unit, ctx: ContextData) {
 
 function createHeartBeat(ws: WebSocket) {
 	ws.on('ping', function () {
-		ws.readyState===1&& ws.pong()
+		ws.readyState === 1 && ws.pong()
 	})
 	let interval = setInterval(() => {
 		let active = false;
@@ -301,8 +302,14 @@ function createHeartBeat(ws: WebSocket) {
 	interval.unref();
 }
 
-function handleUnitRoles(this: Unit, roles: string[]) {
-	this.emit('_new_roles', roles);
+function handleUnitRoles(this: Unit, rolesMsg: rolesMsg) {
+	if (this._lastRolesUpdate >= rolesMsg.i) {
+		return
+	}
+	this._roles = rolesMsg.roles;
+	this._lastRolesUpdate=rolesMsg.i
+	refreshPeerDestinations.call(this._peer, this);
+	this.emit('_new_roles', rolesMsg);
 }
 
 function handleAcquaintMessage(this: Unit, { id, address, roles }: AcquaintMessage) {

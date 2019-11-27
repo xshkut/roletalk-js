@@ -23,6 +23,7 @@ export declare class Peer extends EventEmitter {
     _path?: string;
     _listener?: Server | httpsServer;
     _constructed: number;
+    _lastRolesUpdate: number;
     constructor(options?: PeerConstructorOprions);
     listen(this: Peer, options: ListenOptions | number, cb?: Function): Promise<Peer>;
     close(cb?: Function): http.Server | https.Server | undefined;
@@ -44,4 +45,5 @@ export declare class Peer extends EventEmitter {
     onWritable(handler: WritableHandler): void;
     onData(handler: MessageHandler | RequestHandler | WritableHandler | ReadableHandler): void;
 }
+export declare function refreshPeerDestinations(this: Peer, unit: Unit): void;
 //# sourceMappingURL=Peer.d.ts.map

@@ -30,6 +30,7 @@ export class Peer extends EventEmitter {
 	_path?: string
 	_listener?: Server | httpsServer
 	_constructed: number
+	_lastRolesUpdate: number = 0
 	constructor (options: PeerConstructorOprions = {}) {
 		super();
 		this.id = crypto.randomBytes(16).toString('hex');
@@ -46,6 +47,7 @@ export class Peer extends EventEmitter {
 			!sendingNewRoles &&
 				setImmediate(() => {
 					sendingNewRoles = false;
+					this._lastRolesUpdate++
 					this.units.forEach((unit) => {
 						unit._sendRoles();
 					});
@@ -311,10 +313,10 @@ function UnitFromWS(this: Peer, ws: WebSocket, data: PeerConfirmData, address?: 
 	acquaintConnectedPeer.call(this, id, roles, address!);
 	if (exists) return unit;
 	this.emit('unit', unit);
-	unit.on('_new_roles', (new_roles: string[]) => {
-		unit._roles = new_roles;
-		refreshPeerDestinations.call(this, unit);
-	});
+	// unit.on('_new_roles', (new_roles: string[]) => {
+	// 	unit._roles = new_roles;
+	// 	refreshPeerDestinations.call(this, unit);
+	// });
 	unit.once('close', () => {
 		this._destinations.forEach(destination => destination._deleteUnit(unit));
 		this._units.delete(unit.id);
@@ -358,7 +360,7 @@ function acquaintUnitWithOthers(this: Peer, id: string) {
 	});
 }
 
-function refreshPeerDestinations(this: Peer, unit: Unit) {
+export function refreshPeerDestinations(this: Peer, unit: Unit) {
 	let unitRoles = unit.getRoles();
 	this._destinations.forEach((destination) => {
 		if (!unitRoles.includes(destination.name)) {

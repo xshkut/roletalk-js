@@ -22,6 +22,7 @@ class Peer extends events_1.default {
         this._destinations = new Map();
         this._roles = new Map();
         this._addressMap = new Map();
+        this._lastRolesUpdate = 0;
         this.id = crypto_1.default.randomBytes(16).toString('hex');
         this.name = '';
         this._requestTimeout = constants_js_1.DEFAULT_REQUEST_TIMEOUT;
@@ -36,6 +37,7 @@ class Peer extends events_1.default {
             !sendingNewRoles &&
                 setImmediate(() => {
                     sendingNewRoles = false;
+                    this._lastRolesUpdate++;
                     this.units.forEach((unit) => {
                         unit._sendRoles();
                     });
@@ -265,10 +267,6 @@ function UnitFromWS(ws, data, address) {
     if (exists)
         return unit;
     this.emit('unit', unit);
-    unit.on('_new_roles', (new_roles) => {
-        unit._roles = new_roles;
-        refreshPeerDestinations.call(this, unit);
-    });
     unit.once('close', () => {
         this._destinations.forEach(destination => destination._deleteUnit(unit));
         this._units.delete(unit.id);
@@ -322,6 +320,7 @@ function refreshPeerDestinations(unit) {
         this._destinations.has(role) && this._destinations.get(role)._addUnit(unit);
     });
 }
+exports.refreshPeerDestinations = refreshPeerDestinations;
 function startReconnectCycle(peer, address, options, i = 0, cb) {
     let addressMap = peer._addressMap;
     if (!addressMap.has(address))

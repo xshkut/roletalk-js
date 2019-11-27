@@ -108,6 +108,10 @@ export interface InitialContextData {
     };
     _correlation?: number;
 }
+export interface rolesMsg {
+    i: number;
+    roles: string[];
+}
 export interface InitialStreamContextData extends InitialContextData {
     _ctr: number;
     _correlation: number;

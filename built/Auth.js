@@ -55,7 +55,7 @@ class Auth {
                     runtime: "nodejs " + process.version,
                     time: Date.now(),
                     uptime: (Date.now() - this._peer._constructed),
-                    protocol: constants_js_1.PROTOCOL_NUMBER
+                    protocol: constants_js_1.PROTOCOL_VERSION
                 },
             };
             ws.readyState === 1 &&

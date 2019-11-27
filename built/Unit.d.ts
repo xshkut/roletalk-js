@@ -19,6 +19,7 @@ export declare class Unit extends EventEmitter {
     _timeouts: Map<number, NodeJS.Timeout>;
     _onCloseHandlers: Set<number>;
     _metaData: PeerMetaData;
+    _lastRolesUpdate: number;
     constructor({ peer, id, friendly, name, roles, meta }: InitialUnitData);
     getRoles(): string[];
     readonly meta: PeerMetaData;

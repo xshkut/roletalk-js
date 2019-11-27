@@ -7,7 +7,7 @@ import {
 	BYTE_AUTH_RESPONSE,
 	BYTE_ERROR,
 	AUTH_TIMEOUT,
-	PROTOCOL_NUMBER
+	PROTOCOL_VERSION
 } from './constants.js';
 import { PeerConfirmData } from './interfaces';
 
@@ -61,7 +61,7 @@ export class Auth {
 					runtime: "nodejs " + process.version,
 					time: Date.now(),
 					uptime: (Date.now() - this._peer._constructed),
-					protocol: PROTOCOL_NUMBER
+					protocol: PROTOCOL_VERSION
 				},
 			}
 			ws.readyState === 1 &&

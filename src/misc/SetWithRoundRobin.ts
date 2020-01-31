@@ -1,6 +1,7 @@
+/**@internal */
 export class SetWithRoundRobin<T> extends Set<T> {
     _infiniteEntryIterator: Iterator<T | undefined>
-    constructor () {
+    constructor() {
         super();
         let iter = this.values();
         let ctx = this;

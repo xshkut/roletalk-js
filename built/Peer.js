@@ -47,6 +47,9 @@ class Peer extends events_1.default {
         this.on('role', sendNewRoles);
         this.on(constants_js_1.ROLES_MESSAGE, sendNewRoles.bind(this));
     }
+    addPresharedKey(id, key) {
+        this.auth.addPresharedKey(id, key);
+    }
     listen(options, cb) {
         if (this._listener)
             throw new Error('.listen has been called already');
@@ -70,11 +73,7 @@ class Peer extends events_1.default {
             }
             else if (options.ssl) {
                 let ssl = {};
-                if (options.ssl === true) {
-                    ssl.cert = constants_js_1.PUBLICKEY;
-                    ssl.key = constants_js_1.PRIVATEKEY;
-                }
-                else if (options.ssl.cert && options.ssl.key) {
+                if (options.ssl.cert && options.ssl.key) {
                     ssl = options.ssl;
                 }
                 else {
@@ -97,8 +96,8 @@ class Peer extends events_1.default {
         }
         return _listen.call(this, cb);
     }
-    close(cb = () => { }) {
-        if (typeof cb !== 'function') {
+    close(cb) {
+        if (cb && typeof cb !== 'function') {
             throw new Error('Argument should be a function (if provided)');
         }
         this._units.forEach((unit) => unit.close());
@@ -149,7 +148,7 @@ class Peer extends events_1.default {
     role(name, active) {
         if (!this._roles.has(name)) {
             this._roles.set(name, new Role_1.Role(name, this, active));
-            this.emit('role', this._roles.get(name).name);
+            this.emit('role', this._roles.get(name));
         }
         return this._roles.get(name);
     }
@@ -332,9 +331,9 @@ function startReconnectCycle(peer, address, options, i = 0, cb) {
             startReconnectCycle(peer, address, options);
         });
         cb && cb(null, { unit, ws });
-        i > 0 && peer.emit(constants_js_1.PEER_RECONNECT_SUCCESS_EVENT, { address, count: i });
+        i > 0 && peer.emit(exports.PEER_RECONNECT_SUCCESS_EVENT, { address, count: i });
     }).catch((err) => {
-        i > 0 && peer.emit(constants_js_1.PEER_RECONNECT_FAIL_EVENT, { address, count: i, error: err });
+        i > 0 && peer.emit(exports.PEER_RECONNECT_FAIL_EVENT, { address, count: i, error: err });
         let time = reconnectIntervals[Math.min(i++, reconnectIntervals.length - 1)] * 1000;
         setTimeout(() => {
             startReconnectCycle(peer, address, options, i);
@@ -342,4 +341,6 @@ function startReconnectCycle(peer, address, options, i = 0, cb) {
         cb && cb(err);
     });
 }
+exports.PEER_RECONNECT_SUCCESS_EVENT = 'reconnect_success';
+exports.PEER_RECONNECT_FAIL_EVENT = 'reconnect_fail';
 //# sourceMappingURL=Peer.js.map

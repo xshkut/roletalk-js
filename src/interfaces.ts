@@ -6,24 +6,25 @@ import http from 'http';
 import { Unit } from './Unit';
 import { Readable, Writable } from 'stream';
 
-export interface PeerConstructorOprions {
+/**Options for Peer constructor
+ */
+export interface PeerConstructorOptions {
     friendly?: boolean;
+    /**Name of peer which could be read by remote peers (units) */
     name?: string;
 }
 
+/**@internal */
 export interface StreamConstructorObject {
     highWaterMark?: number;
     receiver: EventEmitter
 }
 
+/**@internal */
 export interface MessageHeaders {
     role?: string,
     event: string,
     timeout?: number
-}
-
-export interface MessageData extends MessageHeaders {
-    data: any
 }
 
 export interface MessageOptions {
@@ -32,19 +33,7 @@ export interface MessageOptions {
     unit?: Unit //send to specific unit
 }
 
-export interface SingleMessage {
-    role: string, event: string, data: any, origin: {
-        type: string,
-        raw: Buffer
-    },
-}
-export interface Correlative {
-    role: string, event: string, cb: number, data: any
-}
-export interface Response {
-    cb: number, data: any
-}
-
+/**@internal */
 export interface InitialUnitData {
     id: string;
     peer: Peer;
@@ -54,6 +43,7 @@ export interface InitialUnitData {
     roles: string[]
 }
 
+/**@internal */
 export interface PeerConfirmData {
     id: string;
     name: string;
@@ -62,14 +52,21 @@ export interface PeerConfirmData {
     meta: PeerMetaData
 }
 
+/**Meta data of peer. This part is not tested and therefore is not reliable*/
 export interface PeerMetaData {
+    /**Operational system*/
     os: string;
+    /**Runtime running the process*/
     runtime: string
+    /**Time when unit was connected*/
     time: number;
+    /**Time elapsed between unit spawned and connected to the peer*/
     uptime: number
+    /**Data transmition protocol version. If it is semver-incompatible, connection should be rejected*/
     protocol: string
 }
 
+/**@internal */
 export interface WebSocketBindData {
     id: string;
     roles: string[];
@@ -77,73 +74,112 @@ export interface WebSocketBindData {
     friendly: boolean;
 }
 
+/**@internal */
 export interface AcquaintMessage {
     id: string;
     address: string;
     roles: string[];
 }
 
+/**Options to listen for incoming connections*/
 export interface ListenOptions {
-    // wss?: any;
+    /**http.Server instance. If provided, peer will not listen immediately*/
     server?: https.Server | http.Server;
+    /**Number of port to listen on */
     port?: number;
+    /**Provide options to listen accept only WSS connections*/
     ssl?: SecureContextOptions;
+    /**Path to handle incoming connections*/
     path?: string
 }
 
+/**@internal */
 export interface AdditionalConnectOptions {
     permanent?: boolean
 }
 
-export interface ContextData extends InitialContextData {
-    unit: Unit,
-    role: string,
-    event: string,
-    rtt?: number //for responses only
-    response?: any; //for arbitrary use, e.g. middleware
-    error?: any; //for arbitrary use, e.g. middleware
-    next?: Function //wait untin response
-}
-
-export interface StreamContextData extends InitialStreamContextData, ContextData {
-    _correlation: number
-}
-
-
-export interface InitialContextData {
+/**@internal */
+export interface InitialContext {
     data: any,
     type: string,
     origin: {
         raw: Buffer,
         type: string
     }
+    /**@internal */
     _correlation?: number, //for requests and responses only
 }
 
+export interface Context extends InitialContext {
+    /**Payload of incoming message. Can be reassigned in middleware */
+    data: any,
+    /**Type of data. Can be reassigned in middleware */
+    type: string,
+    /**Original data. Should not be reassigned */
+    origin: {
+        /**Payload in binary representation */
+        raw: Buffer,
+        /**Type of payload */
+        type: string
+    }
+    /**[[Unit]] who sent the message (response) */
+    unit: Unit,
+    /**Name of [[Role]] to which the message belongs */
+    role: string,
+    /**Name of event to which the message belongs */
+    event: string,
+    /**You can reassign this property in middleware. If error property is defined,  */
+    response?: any;
+    /**You can reassign this property in middleware */
+    error?: any;
+    /**Round-trip time. Fom responses only*/
+    rtt?: number
+    /**wait untin next response handler will process the context. Use in middleware */
+    next?(): Promise<void>
+}
+
+/**@internal */
+export interface StreamContext extends InitialStreamContext, Context {
+    /**@internal */
+    _correlation: number
+}
+
+
+/**@internal */
 export interface rolesMsg {
     i: number,
     roles: string[]
 }
 
-export interface InitialStreamContextData extends InitialContextData {
+/**@internal */
+export interface InitialStreamContext extends InitialContext {
+    /**@internal */
     _ctr: number;
-    _correlation: number,
+    /**@internal */
+    _correlation: number
 }
 
-export interface ContextDataForReadable extends StreamContextData {
+export interface ContextForReadable extends StreamContext {
     readable: Readable
 }
 
-export interface ContextDataForWritable extends StreamContextData {
+export interface ContextForWritable extends StreamContext {
     writable: Writable
 }
 
-export type RequestCallbackFunction = (err: string | Error | undefined | null, data: SendableData) => any
+//Function used to handle incoming requests
+export type RequestCallbackFunction = (err: Error | null, data: sendableData) => void
 
+/**Any data which can be sent except functions */
 type sendableDatum = string | number | Object | Buffer | null | undefined
-export type SendableData = sendableDatum | sendableDatum[]
+/**Any data which can be sent except functions */
+export type sendableData = sendableDatum | sendableDatum[]
 
-export type MessageHandler = (ctx: ContextData) => void;
-export type RequestHandler = (ctx: ContextData, cb: RequestCallbackFunction) => void;
-export type WritableHandler = (ctx: ContextDataForWritable, cb: RequestCallbackFunction) => void
-export type ReadableHandler = (ctx: ContextDataForReadable, cb: RequestCallbackFunction) => void
+/**Handler function for incoming messages and response (including one for streams) */
+export type MessageHandler = (ctx: Context) => void;
+/**Handler function for incoming requests */
+export type RequestHandler = (ctx: Context, cb: RequestCallbackFunction) => void;
+/**Handler function for incoming requests to establish binary stream session. This end if the stream will be writable */
+export type WritableHandler = (ctx: ContextForWritable, cb: RequestCallbackFunction) => void
+/**Handler function for incoming requests to establish binary stream session. This end if the stream will be readable */
+export type ReadableHandler = (ctx: ContextForReadable, cb: RequestCallbackFunction) => void

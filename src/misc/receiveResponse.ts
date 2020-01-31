@@ -1,8 +1,9 @@
 import { Unit } from "../Unit";
 import WebSocket from 'ws'
-import { InitialContextData, ContextData } from "../interfaces";
+import { InitialContext, Context } from "../interfaces";
 
-export function receiveResponse(this: Unit, cbid: number, err: any, ctx?: InitialContextData, ws?: WebSocket) {
+/**@internal */
+export function receiveResponse(this: Unit, cbid: number, err: any, ctx?: InitialContext, ws?: WebSocket) {
     if (!this._cb.has(cbid)) {
         return
     }
@@ -10,8 +11,8 @@ export function receiveResponse(this: Unit, cbid: number, err: any, ctx?: Initia
     this._cb.delete(cbid);
     let timeout = this._timeouts.get(cbid) as any;
     ctx = ctx || { unit: this, data: null } as any
-    (ctx as ContextData).rtt = Math.ceil(process.uptime() * 1000 - timeout._idleStart);
-    (ctx as ContextData).unit = this;
+    (ctx as Context).rtt = Math.ceil(process.uptime() * 1000 - timeout._idleStart);
+    (ctx as Context).unit = this;
     clearTimeout(timeout);
     this._timeouts.delete(cbid);
     this._onCloseHandlers.delete(cbid);

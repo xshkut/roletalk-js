@@ -1,32 +1,20 @@
-import http, { Server } from 'http';
-import https, { Server as httpsServer } from 'https';
+/// <reference types="node" />
+import http from 'http';
+import https from 'https';
 import WebSocket from 'ws';
 import EventEmitter from 'events';
 import { Unit } from './Unit';
 import { Destination } from './Destination';
 import { Role } from './Role';
-import { Auth } from './Auth';
-import { PeerConstructorOprions, ListenOptions, AdditionalConnectOptions, WritableHandler, ReadableHandler, RequestHandler, MessageHandler } from './interfaces';
+import { PeerConstructorOptions, ListenOptions, AdditionalConnectOptions, WritableHandler, ReadableHandler, RequestHandler, MessageHandler } from './interfaces';
 export declare class Peer extends EventEmitter {
-    auth: Auth;
     name: string;
     readonly id: string;
     friendly: boolean;
-    _units: Map<string, Unit>;
-    _destinations: Map<string, Destination>;
-    _roles: Map<string, Role>;
-    _requestTimeout: number;
-    _addressMap: Map<string, Unit | null>;
-    _server?: http.Server | https.Server;
-    _port?: number;
-    _wss?: any;
-    _path?: string;
-    _listener?: Server | httpsServer;
-    _constructed: number;
-    _lastRolesUpdate: number;
-    constructor(options?: PeerConstructorOprions);
+    constructor(options?: PeerConstructorOptions);
+    addPresharedKey(id: string, key: string): void;
     listen(this: Peer, options: ListenOptions | number, cb?: Function): Promise<Peer>;
-    close(cb?: Function): http.Server | https.Server | undefined;
+    close(cb?: (err?: Error) => void): http.Server | https.Server | undefined;
     connect(address: string, options?: WebSocket.ClientOptions & AdditionalConnectOptions, cb?: (err?: Error, res?: {
         unit: Unit;
         ws: WebSocket;
@@ -45,5 +33,12 @@ export declare class Peer extends EventEmitter {
     onWritable(handler: WritableHandler): void;
     onData(handler: MessageHandler | RequestHandler | WritableHandler | ReadableHandler): void;
 }
+export interface Peer {
+    on(event: 'close', handler: () => void): this;
+    on(event: 'unit', handler: (unit: Unit) => void): this;
+    on(event: 'role', handler: (role: Role) => void): this;
+}
 export declare function refreshPeerDestinations(this: Peer, unit: Unit): void;
+export declare const PEER_RECONNECT_SUCCESS_EVENT = "reconnect_success";
+export declare const PEER_RECONNECT_FAIL_EVENT = "reconnect_fail";
 //# sourceMappingURL=Peer.d.ts.map

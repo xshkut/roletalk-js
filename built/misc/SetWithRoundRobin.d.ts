@@ -1,6 +1,2 @@
-export declare class SetWithRoundRobin<T> extends Set<T> {
-    _infiniteEntryIterator: Iterator<T | undefined>;
-    constructor();
-    nextValue(): T | undefined;
-}
+export {};
 //# sourceMappingURL=SetWithRoundRobin.d.ts.map

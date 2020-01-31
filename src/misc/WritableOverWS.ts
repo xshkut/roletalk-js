@@ -16,13 +16,14 @@ const wsSendOptions = {
 	binary: true
 };
 
+/**@internal */
 export class WritableOverWS extends Writable {
 	_receiver: EventEmitter;
 	_quotaRemain: number;
 	_fullCBBuffer?: Buffer;
 	_ws: WebSocket | null = null
 	_bpEvent?: string;
-	constructor (opts: StreamConstructorObject) {
+	constructor(opts: StreamConstructorObject) {
 		super(opts as any);
 		let { receiver } = opts;
 		this._receiver = receiver;

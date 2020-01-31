@@ -1,3 +1,2 @@
-import EventEmitter from 'events';
-export declare function getFreeCallbackIDForEE(ee: EventEmitter): number;
+export {};
 //# sourceMappingURL=getFreeCallbackIDForEE.d.ts.map

@@ -7,12 +7,13 @@ import {
 import { StreamConstructorObject } from '../interfaces';
 import { EventEmitter } from 'events';
 
+/**@internal */
 export class ReadableOverWS extends Readable {
     _quotaRemain: number
     _fullQuotaBuffer?: Buffer
     _ws: WebSocket | null = null
     _receiver: EventEmitter
-    constructor (opts: StreamConstructorObject) {
+    constructor(opts: StreamConstructorObject) {
         super(opts);
         let { receiver } = opts as StreamConstructorObject;
         this._receiver = receiver;

@@ -14,7 +14,7 @@ const receiveResponse_1 = require("./misc/receiveResponse");
 class Unit extends events_1.default {
     constructor({ peer, id, friendly, name, roles, meta }) {
         super();
-        this.name = undefined;
+        this._name = undefined;
         this._sockets = [];
         this._roles = [];
         this._reqHandler = new events_1.default();
@@ -27,7 +27,7 @@ class Unit extends events_1.default {
         this._onCloseHandlers = new Set();
         this._lastRolesUpdate = 0;
         this.id = id;
-        this.name = name;
+        this._name = name;
         this._peer = peer;
         this._friendly = friendly;
         this._roles = roles;
@@ -38,6 +38,9 @@ class Unit extends events_1.default {
     }
     getRoles() {
         return this._roles;
+    }
+    get name() {
+        return this._name;
     }
     get meta() {
         return this._metaData;
@@ -59,20 +62,12 @@ class Unit extends events_1.default {
         else {
             return new Promise((resolve, reject) => sendRequest.call(this, params, data, (err, res) => (err ? reject(err) : resolve(res))));
         }
-        return null;
+        return undefined;
     }
     Writable(headers, data, options) {
         return openWritableStream.call(this, headers, data, options);
     }
-    Readable(headers, data, options, cb) {
-        if (typeof data === 'function') {
-            cb = data;
-            data = undefined;
-        }
-        else if (typeof options === 'function') {
-            cb = options;
-            options = undefined;
-        }
+    Readable(headers, data, options) {
         return openReadableStream.call(this, headers, data, options);
     }
     _acquaint(payload) {
@@ -89,7 +84,7 @@ class Unit extends events_1.default {
         });
         this._roles = roles;
         this._friendly = friendly;
-        this.name = name;
+        this._name = name;
         this.emit('ws', ws);
     }
     close() {

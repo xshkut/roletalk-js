@@ -1,19 +1,24 @@
 import EventEmitter from 'events';
-import stream from 'stream';
 import { Peer } from '.';
 import { ROLES_MESSAGE } from './constants';
-import { inspect } from 'util';
-import { ContextData, ContextDataForReadable, ContextDataForWritable, RequestCallbackFunction, MessageHandler, RequestHandler, ReadableHandler, WritableHandler } from './interfaces';
+import { Context, ContextForReadable, ContextForWritable, RequestCallbackFunction, MessageHandler, RequestHandler, ReadableHandler, WritableHandler } from './interfaces';
 
+/**Role represents a service on the local Peer. It should handle incoming messages, requests and stream requests for certain functionality*/
 export class Role extends EventEmitter {
+	/**@internal */
 	_msgHandler: EventEmitter = new EventEmitter();
+	/**@internal */
 	_reqHandler: EventEmitter = new EventEmitter();
+	/**@internal */
 	_readableHandler: EventEmitter = new EventEmitter();
+	/**@internal */
 	_writableHandler: EventEmitter = new EventEmitter();
-	readonly name: string;
+	/**@internal */
 	_peer: Peer;
+	/**@internal */
 	_active: boolean;
-	constructor (name: string, peer: Peer, active?: boolean) {
+	readonly name: string;
+	constructor(name: string, peer: Peer, active?: boolean) {
 		super();
 		if (!name || typeof name !== 'string') {
 			throw new Error(`Role's name should be a string`);
@@ -86,28 +91,32 @@ export class Role extends EventEmitter {
 	get active() {
 		return this._active;
 	}
-	_emitMsg(ctx: ContextData) {
+	/**@internal */
+	_emitMsg(ctx: Context) {
 		runMiddleware(this, this._msgHandler, 'message', ctx);
 	}
-	_emitReq(ctx: ContextData, cb: RequestCallbackFunction) {
+	/**@internal */
+	_emitReq(ctx: Context, cb: RequestCallbackFunction) {
 		runMiddleware(this, this._reqHandler, 'request', ctx, cb);
 	}
-	_emitReadable(ctx: ContextDataForReadable, cb: RequestCallbackFunction) {
+	/**@internal */
+	_emitReadable(ctx: ContextForReadable, cb: RequestCallbackFunction) {
 		runMiddleware(this, this._readableHandler, 'readable', ctx, cb);
 	}
-	_emitWritable(ctx: ContextDataForWritable, cb: RequestCallbackFunction) {
+	/**@internal */
+	_emitWritable(ctx: ContextForWritable, cb: RequestCallbackFunction) {
 		runMiddleware(this, this._writableHandler, 'writable', ctx, cb);
 	}
 }
 
-function runMiddleware(role: Role, handler: EventEmitter, communicationType: string, ctx: ContextData | ContextDataForReadable | ContextDataForWritable, callback?: RequestCallbackFunction) {
+function runMiddleware(role: Role, handler: EventEmitter, communicationType: string, ctx: Context | ContextForReadable | ContextForWritable, callback?: RequestCallbackFunction) {
 	let cb;
 	let done = false;
 	let resolvers: (() => void)[] = []
 	if (callback) {
 		ctx.next = () => {
 			let bndResolve: (() => void)
-			let prom = new Promise(resolve => {
+			let prom = new Promise<void>(resolve => {
 				bndResolve = resolve;
 				resolvers.push(() => resolve);
 			})

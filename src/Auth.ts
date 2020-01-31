@@ -11,18 +11,21 @@ import {
 } from './constants.js';
 import { PeerConfirmData } from './interfaces';
 
+/**@internal */
 export class Auth {
 	_keys: Map<string, string> = new Map();;
 	_peer: Peer;
-	constructor (peer: Peer) {
+	constructor(peer: Peer) {
 		this._peer = peer;
 	}
+	/**Add preshared keypair for authentications*/
 	addPresharedKey(id: string, key: string) {
 		if (typeof id !== 'string' || typeof key !== 'string') {
 			throw new Error('both id and key should be of type string');
 		}
 		this._keys.set(id, key);
 	}
+	/**@internal */
 	_verifyWS(ws: WebSocket, cb: (err?: any, res?: any) => void) {
 		let proved = false;
 		let confirmed = false;

@@ -1,7 +1,8 @@
 import { bufferToNumber, numberToBuffer } from "./numBufConversions";
-import { InitialContextData, InitialStreamContextData, ContextData, StreamContextData } from '../interfaces'
+import { InitialContext, InitialStreamContext, Context, StreamContext } from '../interfaces'
 import { DATATYPE_BINARY, DATATYPE_NUMBER, DATATYPE_STRING, DATATYPE_JSON, DATATYPE_NULL, DATATYPE_BOOLEAN } from '../constants'
 
+/**@internal */
 export function serializeSingle(type: number, role: string = '', event: string = '', data: any) {
     let roleBuf = Buffer.from(role);
     let eventBuf = Buffer.from(event);
@@ -12,6 +13,7 @@ export function serializeSingle(type: number, role: string = '', event: string =
         roleBuf, eventBuf, markDataType(data)]);
 }
 
+/**@internal */
 export function serializeRequest(type: number, role: string = '', event: string = '', cb: number, data: any) {
     let roleBuf = Buffer.from(role);
     let eventBuf = Buffer.from(event);
@@ -24,6 +26,7 @@ export function serializeRequest(type: number, role: string = '', event: string 
         roleBuf, eventBuf, cbBuf, markDataType(data)]);
 }
 
+/**@internal */
 export function serializeStreamRequest(type: number, role: string = '', event: string = '', cb: number, ctr: number, data: any) {
     let roleBuf = Buffer.from(role);
     let eventBuf = Buffer.from(event);
@@ -39,6 +42,7 @@ export function serializeStreamRequest(type: number, role: string = '', event: s
     return buf;
 }
 
+/**@internal */
 export function serializeResponse(type: number, cb: number, data: any) {
     let cbBuf = numberToBuffer(cb);
     return Buffer.concat([
@@ -48,6 +52,7 @@ export function serializeResponse(type: number, cb: number, data: any) {
         markDataType(data)]);
 }
 
+/**@internal */
 export function serializeStreamResponse(type: number, cb: number, ctr: number, data: any) {
     let cbBuf = numberToBuffer(cb);
     let ctrBuf = numberToBuffer(ctr);
@@ -60,6 +65,7 @@ export function serializeStreamResponse(type: number, cb: number, ctr: number, d
         markDataType(data)]);
 }
 
+/**@internal */
 export function serializeString(type: number, data: string) {
     return Buffer.concat([
         Buffer.from([type]),
@@ -67,29 +73,32 @@ export function serializeString(type: number, data: string) {
     ]);
 }
 
+/**@internal */
 export function parseString(buf: Buffer): string {
     return buf.slice(1).toString();
 }
 
-export function parseSingle(buf: Buffer): ContextData {
+/**@internal */
+export function parseSingle(buf: Buffer): Context {
     let rlen = buf[1] * 256 + buf[2];
     let elen = buf[3] * 256 + buf[4];
     let lastRoleByte = rlen + 5;
     let payload = buf.slice(lastRoleByte + elen);
-    let ctx = retriveData(payload) as ContextData;
+    let ctx = retriveData(payload) as Context;
     ctx.role = buf.slice(5, lastRoleByte).toString()
     ctx.event = buf.slice(lastRoleByte, lastRoleByte + elen).toString()
     return ctx;
 }
 
 const requestRoleFrom = 6;
-export function parseRequest(buf: Buffer): ContextData {
+/**@internal */
+export function parseRequest(buf: Buffer): Context {
     let roleLen = buf[1] * 256 + buf[2];
     let eventLen = buf[3] * 256 + buf[4];
     let corlen = buf[5];
     let eventFrom = requestRoleFrom + roleLen;
     let corfrom = eventFrom + eventLen;
-    let ctx = retriveData(buf.slice(corfrom + corlen)) as ContextData;
+    let ctx = retriveData(buf.slice(corfrom + corlen)) as Context;
     ctx._correlation = bufferToNumber(buf.slice(corfrom, corfrom + corlen))
     ctx.role = buf.slice(requestRoleFrom, eventFrom).toString()
     ctx.event = buf.slice(eventFrom, corfrom).toString()
@@ -97,7 +106,8 @@ export function parseRequest(buf: Buffer): ContextData {
 }
 
 const streamRoleFrom = 7;
-export function parseStreamRequest(buf: Buffer): StreamContextData {
+/**@internal */
+export function parseStreamRequest(buf: Buffer): StreamContext {
     let rlen = buf[1] * 256 + buf[2];
     let elen = buf[3] * 256 + buf[4];
     let corLen = buf[5];
@@ -105,7 +115,7 @@ export function parseStreamRequest(buf: Buffer): StreamContextData {
     let eventFrom = streamRoleFrom + rlen;
     let correlFrom = eventFrom + elen;
     let ctrFrom = correlFrom + corLen;
-    let ctx = retriveData(buf.slice(ctrFrom + ctrLen)) as StreamContextData;
+    let ctx = retriveData(buf.slice(ctrFrom + ctrLen)) as StreamContext;
     ctx._correlation = bufferToNumber(buf.slice(correlFrom, correlFrom + corLen));
     ctx._ctr = bufferToNumber(buf.slice(ctrFrom, ctrFrom + ctrLen));
     ctx.role = buf.slice(streamRoleFrom, eventFrom).toString()
@@ -113,20 +123,22 @@ export function parseStreamRequest(buf: Buffer): StreamContextData {
     return ctx;
 }
 
-export function parseResponse(buf: Buffer): InitialContextData {
+/**@internal */
+export function parseResponse(buf: Buffer): InitialContext {
     let payload = buf.slice(buf[1] + 2);
     let ctx = retriveData(payload)
     ctx._correlation = bufferToNumber(buf.slice(2, 2 + buf[1]));
     return ctx;
 }
 
-export function parseStreamResponse(buf: Buffer): InitialStreamContextData {
+/**@internal */
+export function parseStreamResponse(buf: Buffer): InitialStreamContext {
     let ctrFrom = 3 + buf[1]
     let payloadFrom = ctrFrom + buf[2];
     let ctx = retriveData(buf.slice(payloadFrom))
     ctx._correlation = bufferToNumber(buf.slice(3, ctrFrom));
-    (<InitialStreamContextData>ctx)._ctr = bufferToNumber(buf.slice(ctrFrom, payloadFrom));
-    return <InitialStreamContextData>ctx;
+    (<InitialStreamContext>ctx)._ctr = bufferToNumber(buf.slice(ctrFrom, payloadFrom));
+    return <InitialStreamContext>ctx;
 }
 
 function serialize2Bnumber(val: number) {
@@ -152,7 +164,8 @@ function markDataType(data: any): Buffer {
     return Buffer.from([DATATYPE_NULL]);
 }
 
-function retriveData(payload: Buffer): InitialContextData {
+/**@internal */
+function retriveData(payload: Buffer): InitialContext {
     let data = payload.slice(1)
     let type: string;
     switch (payload[0]) {

@@ -55,7 +55,7 @@ describe('connection behaviour, authentication, roles detection, reconnection an
     });
     it('Corresponding id and name of peer and unit should match', () => {
         assert_1.default(peer1.id === peer2.units[0].id);
-        assert_1.default(peer1.name === peer2.units[0].name);
+        assert_1.default(peer1.name === peer2.units[0]._name);
         assert_1.default(typeof peer1.id === 'string');
         assert_1.default(typeof peer1.name === 'string');
     });

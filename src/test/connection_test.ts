@@ -1,7 +1,6 @@
 import { Peer } from "..";
 import assert from 'assert'
 import { Server } from 'http';
-import { Server as httpsServer } from 'https';
 
 const peer1 = new Peer({ name: 'PEER 1' });
 peer1.auth.addPresharedKey('foo', '111222333'); //id mismatch
@@ -43,7 +42,7 @@ describe('connection behaviour, authentication, roles detection, reconnection an
     })
     it('Corresponding id and name of peer and unit should match', () => {
         assert(peer1.id === peer2.units[0].id)
-        assert(peer1.name === peer2.units[0].name)
+        assert(peer1.name === peer2.units[0]._name)
         assert(typeof peer1.id === 'string');
         assert(typeof peer1.name === 'string');
     })

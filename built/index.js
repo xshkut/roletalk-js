@@ -12,7 +12,6 @@ let Singleton = function (options) {
 };
 exports.Singleton = Singleton;
 exports.default = Peer_1.Peer;
-__export(require("./Auth"));
 __export(require("./Unit"));
 __export(require("./Role"));
 __export(require("./Destination"));

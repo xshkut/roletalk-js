@@ -1,7 +1,6 @@
 import { Peer } from "..";
-import assert, { doesNotReject } from 'assert'
-import { ContextData } from './../interfaces';
-import { Writable } from 'stream';
+import assert from 'assert'
+import { Context } from './../interfaces';
 import { createHmac } from "crypto";
 
 const peerA1 = new Peer();
@@ -302,23 +301,23 @@ describe('communicaion API, consistency of transferred data', () => {
         peerB.role('B').onRequest('count mw', (ctx, cb) => {
             cb(null, ctx.response + '5');
         })
-        peerB.onData(async (ctx: ContextData) => {
+        peerB.onData(async (ctx: Context) => {
             ctx.response = '1';
             await ctx.next!();
             ctx.response += '1';
         })
-        peerB.onRequest(async (ctx: ContextData, cb) => {
+        peerB.onRequest(async (ctx: Context, cb) => {
             ctx.response += '2';
             ctx.next!().then(() => {
                 ctx.response += '2';
             })
         })
-        peerB.role('B').onData(async (ctx: ContextData) => {
+        peerB.role('B').onData(async (ctx: Context) => {
             ctx.response += '3';
             await ctx.next!();
             ctx.response += '3';
         })
-        peerB.role('B').onRequest(async (ctx: ContextData, cb) => {
+        peerB.role('B').onRequest(async (ctx: Context, cb) => {
             ctx.response += '4';
             await ctx.next!();
             ctx.response += '4';

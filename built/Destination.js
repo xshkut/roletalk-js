@@ -14,7 +14,7 @@ class Destination extends events_1.EventEmitter {
         return Array.from(this._set.values());
     }
     get name() { return this._name; }
-    send(event, data) {
+    send(event, data, cb) {
         let headers;
         let unit;
         if (typeof event === 'object' && event) {
@@ -32,7 +32,7 @@ class Destination extends events_1.EventEmitter {
         }
         headers.role = this.name;
         if (unit) {
-            unit.send(headers, data);
+            unit.send(headers, data, cb);
             return unit;
         }
         else {
@@ -94,7 +94,7 @@ class Destination extends events_1.EventEmitter {
             throw new Error(`No connected units with role [${this.name}]`);
         return unit.Readable(headers, data, options);
     }
-    Writable(event, data, options, cb) {
+    Writable(event, data, options) {
         let headers;
         let unit;
         if (typeof event === 'object' && event) {

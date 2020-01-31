@@ -1,9 +1,9 @@
 import { Peer } from './Peer';
-import { PeerConstructorOprions } from './interfaces';
-declare let Singleton: (options?: PeerConstructorOprions | undefined) => Peer;
+import { PeerConstructorOptions } from './interfaces';
+declare let Singleton: (options?: PeerConstructorOptions | undefined) => Peer;
 export { Peer, Singleton };
 export default Peer;
-export * from './Auth';
+export * from './interfaces';
 export * from './Unit';
 export * from './Role';
 export * from './Destination';

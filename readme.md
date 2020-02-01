@@ -2,7 +2,7 @@
 
 <!-- vscode-markdown-toc -->
 * [ Overview](#Overview)
-* [API](#API)
+* [ API](#API)
 * [ Use case](#Usecase)
 * [ Features](#Features)
 * [ Concept](#Concept)
@@ -29,9 +29,9 @@ Essentially, it is peer-to-service framework, which allows you to create multipl
 Roletalk internally uses Websocket for data transferring as TCP framing tool with minimal network overhead.
 Currently there is corresponding wire-compatible GO framework.
 
-## <a name='API'></a>API
+## <a name='API'></a> API 
 
-[API](api/README.md) is generated directly from source with [TypeDoc](https://typedoc.org)
+API referrence is available [HERE](https://xshkut.github.io/roletalk-js)
 
 ## <a name='Usecase'></a> Use case
 

@@ -1,9 +1,12 @@
 import EventEmitter from 'events';
-import { Peer } from '.';
+import { Peer } from './Peer';
 import { ROLES_MESSAGE } from './constants';
 import { Context, ContextForReadable, ContextForWritable, RequestCallbackFunction, MessageHandler, RequestHandler, ReadableHandler, WritableHandler } from './interfaces';
 
-/**Role represents a service on the local Peer. It should handle incoming messages, requests and stream requests for certain functionality*/
+/**Role represents a service on the local Peer. It should handle incoming messages, requests and stream requests for certain functionality
+ * 
+ * This class should not be instantiated directly. It is exposed for type declaration and documentation
+*/
 export class Role extends EventEmitter {
 	/**@internal */
 	_msgHandler: EventEmitter = new EventEmitter();

@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import http from 'http';
 import https from 'https';
 import WebSocket from 'ws';

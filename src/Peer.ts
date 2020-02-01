@@ -15,7 +15,7 @@ import { receiveResponse } from './misc/receiveResponse';
 const reconnectIntervals = [0, 1, 2, 3, 4, 5, 10, 30, 60];
 
 /**
- * Peer is the main class of Roletalk framework. Peer can be instantiated with counstructor. You can also use call [[Singleton]] to retrieve a peer instance shared with other modules
+ * Peer is the main class of Roletalk framework. Peer can be instantiated with counstructor. You can also use call [[Singleton]] to retrieve a peer instance shared with other modules. 
  */
 export class Peer extends EventEmitter {
     /**@internal */
@@ -392,6 +392,7 @@ function acquaintUnitWithOthers(this: Peer, id: string) {
     });
 }
 
+/**@internal */
 export function refreshPeerDestinations(this: Peer, unit: Unit) {
     let unitRoles = unit.getRoles();
     this._destinations.forEach((destination) => {

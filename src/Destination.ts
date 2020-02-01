@@ -5,7 +5,10 @@ import { MessageHeaders, MessageOptions, Context, sendableData } from './interfa
 import { Readable, Writable, ReadableOptions, WritableOptions } from 'stream';
 import { Peer } from './Peer';
 
-/**Destination represents a role (a service name) of remote peers (units). Destination is used as a gateway for outgoing communication. It implements round-robin load balancing between units */
+/**Destination represents a role (a service name) of remote peers (units). Destination is used as a gateway for outgoing communication. It implements round-robin load balancing between units 
+ * 
+ * This class should not be instantiated directly. It is exposed for type declaration and documentation
+*/
 export class Destination extends EventEmitter {
     private _name: string;
     private _ready: boolean = false;

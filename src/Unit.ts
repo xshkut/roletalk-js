@@ -13,7 +13,10 @@ import { Peer, refreshPeerDestinations } from './Peer';
 import { serializeSingle, parseSingle, parseRequest, parseResponse, serializeResponse, serializeStreamRequest, parseStreamRequest, serializeRequest, serializeStreamResponse, parseStreamResponse, parseString, serializeString } from './misc/protocolConversions';
 import { receiveResponse } from './misc/receiveResponse';
 
-/**Unit represents remote peer.*/
+/**Unit represents remote peer.
+ * 
+ * This class should not be instantiated directly. It is exposed for type declaration and documentation
+*/
 export class Unit extends EventEmitter {
     readonly id: string;
     /**@internal */

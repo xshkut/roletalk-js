@@ -38,6 +38,8 @@
 							</div>
 							<input type="checkbox" id="tsd-filter-inherited" checked />
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
 						</div>
 					</div>
 					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
@@ -96,9 +98,17 @@
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
+							<h3>Variables</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-variable"><a href="globals.html#peer_reconnect_fail_event" class="tsd-kind-icon">PEER_<wbr>RECONNECT_<wbr>FAIL_<wbr>EVENT</a></li>
+								<li class="tsd-kind-variable"><a href="globals.html#peer_reconnect_success_event" class="tsd-kind-icon">PEER_<wbr>RECONNECT_<wbr>SUCCESS_<wbr>EVENT</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function"><a href="globals.html#singleton" class="tsd-kind-icon">Singleton</a></li>
+								<li class="tsd-kind-function"><a href="globals.html#refreshpeerdestinations" class="tsd-kind-icon">refresh<wbr>Peer<wbr>Destinations</a></li>
 							</ul>
 						</section>
 					</div>
@@ -310,6 +320,29 @@
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Variables</h2>
+				<section class="tsd-panel tsd-member tsd-kind-variable">
+					<a name="peer_reconnect_fail_event" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> PEER_<wbr>RECONNECT_<wbr>FAIL_<wbr>EVENT</h3>
+					<div class="tsd-signature tsd-kind-icon">PEER_<wbr>RECONNECT_<wbr>FAIL_<wbr>EVENT<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"reconnect_fail"</span><span class="tsd-signature-symbol"> = &quot;reconnect_fail&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/Peer.ts:430</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable">
+					<a name="peer_reconnect_success_event" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> PEER_<wbr>RECONNECT_<wbr>SUCCESS_<wbr>EVENT</h3>
+					<div class="tsd-signature tsd-kind-icon">PEER_<wbr>RECONNECT_<wbr>SUCCESS_<wbr>EVENT<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"reconnect_success"</span><span class="tsd-signature-symbol"> = &quot;reconnect_success&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/Peer.ts:429</li>
+						</ul>
+					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
 				<section class="tsd-panel tsd-member tsd-kind-function">
 					<a name="singleton" class="tsd-anchor"></a>
@@ -336,6 +369,32 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="classes/peer.html" class="tsd-signature-type">Peer</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="refreshpeerdestinations" class="tsd-anchor"></a>
+					<h3>refresh<wbr>Peer<wbr>Destinations</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">refresh<wbr>Peer<wbr>Destinations<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="classes/peer.html" class="tsd-signature-type">Peer</a>, unit<span class="tsd-signature-symbol">: </span><a href="classes/unit.html" class="tsd-signature-type">Unit</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in src/Peer.ts:395</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>this: <a href="classes/peer.html" class="tsd-signature-type">Peer</a></h5>
+								</li>
+								<li>
+									<h5>unit: <a href="classes/unit.html" class="tsd-signature-type">Unit</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -402,8 +461,17 @@
 					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#sendabledata" class="tsd-kind-icon">sendable<wbr>Data</a>
 					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#peer_reconnect_fail_event" class="tsd-kind-icon">PEER_<wbr>RECONNECT_<wbr>FAIL_<wbr>EVENT</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#peer_reconnect_success_event" class="tsd-kind-icon">PEER_<wbr>RECONNECT_<wbr>SUCCESS_<wbr>EVENT</a>
+					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#singleton" class="tsd-kind-icon">Singleton</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#refreshpeerdestinations" class="tsd-kind-icon">refresh<wbr>Peer<wbr>Destinations</a>
 					</li>
 				</ul>
 			</nav>

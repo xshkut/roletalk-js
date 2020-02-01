@@ -38,6 +38,8 @@
 							</div>
 							<input type="checkbox" id="tsd-filter-inherited" checked />
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
 						</div>
 					</div>
 					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
@@ -67,6 +69,7 @@
 					<div class="lead">
 						<p>Destination represents a role (a service name) of remote peers (units). Destination is used as a gateway for outgoing communication. It implements round-robin load balancing between units</p>
 					</div>
+					<p>This class should not be instantiated directly. It is exposed for type declaration and documentation</p>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
@@ -153,7 +156,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/Destination.ts:14</li>
+									<li>Defined in src/Destination.ts:17</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -222,7 +225,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="peer.eventemitter.html">EventEmitter</a>.<a href="peer.eventemitter.html#on">on</a></p>
 								<ul>
-									<li>Defined in src/Destination.ts:176</li>
+									<li>Defined in src/Destination.ts:179</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -257,7 +260,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="peer.eventemitter.html">EventEmitter</a>.<a href="peer.eventemitter.html#on">on</a></p>
 								<ul>
-									<li>Defined in src/Destination.ts:180</li>
+									<li>Defined in src/Destination.ts:183</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -323,7 +326,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/Destination.ts:29</li>
+									<li>Defined in src/Destination.ts:32</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -345,7 +348,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/Destination.ts:164</li>
+									<li>Defined in src/Destination.ts:167</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -367,7 +370,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/Destination.ts:24</li>
+									<li>Defined in src/Destination.ts:27</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -392,7 +395,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/Destination.ts:99</li>
+									<li>Defined in src/Destination.ts:102</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -428,7 +431,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/Destination.ts:122</li>
+									<li>Defined in src/Destination.ts:125</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -510,7 +513,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/Destination.ts:56</li>
+									<li>Defined in src/Destination.ts:59</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -937,7 +940,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/Destination.ts:66</li>
+									<li>Defined in src/Destination.ts:69</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -972,7 +975,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/Destination.ts:32</li>
+									<li>Defined in src/Destination.ts:35</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1031,7 +1034,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/Destination.ts:88</li>
+									<li>Defined in src/Destination.ts:91</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1261,8 +1264,17 @@
 					<li class=" tsd-kind-type-alias">
 						<a href="../globals.html#sendabledata" class="tsd-kind-icon">sendable<wbr>Data</a>
 					</li>
+					<li class=" tsd-kind-variable">
+						<a href="../globals.html#peer_reconnect_fail_event" class="tsd-kind-icon">PEER_<wbr>RECONNECT_<wbr>FAIL_<wbr>EVENT</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="../globals.html#peer_reconnect_success_event" class="tsd-kind-icon">PEER_<wbr>RECONNECT_<wbr>SUCCESS_<wbr>EVENT</a>
+					</li>
 					<li class=" tsd-kind-function">
 						<a href="../globals.html#singleton" class="tsd-kind-icon">Singleton</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#refreshpeerdestinations" class="tsd-kind-icon">refresh<wbr>Peer<wbr>Destinations</a>
 					</li>
 				</ul>
 			</nav>

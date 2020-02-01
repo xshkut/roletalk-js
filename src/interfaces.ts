@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events';
-import { Peer } from '.';
+import { Peer } from './Peer';
 import { SecureContextOptions } from 'tls';
 import https from 'https';
 import http from 'http';

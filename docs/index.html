@@ -38,6 +38,8 @@
 							</div>
 							<input type="checkbox" id="tsd-filter-inherited" checked />
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
 						</div>
 					</div>
 					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
@@ -60,141 +62,9 @@
 	<div class="row">
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
-				<a href="#roletalk" id="roletalk" style="color: inherit; text-decoration: none;">
-					<h1>ROLETALK</h1>
-				</a>
-				<!-- vscode-markdown-toc -->
-				<ul>
-					<li><a href="#Overview"> Overview</a></li>
-					<li><a href="#API">API</a></li>
-					<li><a href="#Usecase"> Use case</a></li>
-					<li><a href="#Features"> Features</a></li>
-					<li><a href="#Concept"> Concept</a><ul>
-							<li><a href="#Structure"> Structure</a></li>
-							<li><a href="#Communication"> Communication</a></li>
-							<li><a href="#Datatypes"> Data types</a></li>
-							<li><a href="#Acquaintance"> Acquaintance</a></li>
-							<li><a href="#Security"> Security</a></li>
-						</ul>
-					</li>
-					<li><a href="#Contribution"> Contribution</a></li>
-				</ul>
-				<!-- vscode-markdown-toc-config
-    numbering=false
-    autoSave=true
-    /vscode-markdown-toc-config -->
-				<!-- /vscode-markdown-toc -->
-				<a href="#a-nameoverviewa-overview" id="a-nameoverviewa-overview" style="color: inherit; text-decoration: none;">
-					<h2><a name='Overview'></a> Overview</h2>
-				</a>
-				<p>Roletalk is peer-to-peer communication framework for microservices; asynchronous and event-driven.
-				Developed in honor of scalability, simplicity and efficiency.</p>
-				<p>Essentially, it is peer-to-service framework, which allows you to create multiple services (roles) on single peer and communicate to them with ease.</p>
-				<p>Roletalk internally uses Websocket for data transferring as TCP framing tool with minimal network overhead.
-				Currently there is corresponding wire-compatible GO framework.</p>
-				<a href="#a-nameapiaapi" id="a-nameapiaapi" style="color: inherit; text-decoration: none;">
-					<h2><a name='API'></a>API</h2>
-				</a>
-				<p><a href="api/README.md">API</a> is generated directly from source with <a href="https://typedoc.org">TypeDoc</a></p>
-				<a href="#a-nameusecasea-use-case" id="a-nameusecasea-use-case" style="color: inherit; text-decoration: none;">
-					<h2><a name='Usecase'></a> Use case</h2>
-				</a>
-				<p>Choose roletalk if you need to build brokerless architecture. Such approach brings some advantages: minimal RTT (round-trip time), less network transferring, no SPOF (single point of failure). In some scenarios broker can be a bottleneck also.</p>
-				<p>Roletalk lets you implement flexible communication patterns:</p>
-				<ul>
-					<li>Publish-Subscribe,</li>
-					<li>Remote Procedure Call (RPC),</li>
-					<li>Event (single message with optional payload),</li>
-					<li>Pipeline (sequental distributed data processing),</li>
-					<li>Bus (many-to-many communication),</li>
-					<li>Survey (request-reply to multiple peers).</li>
-				</ul>
-				<a href="#a-namefeaturesa-features" id="a-namefeaturesa-features" style="color: inherit; text-decoration: none;">
-					<h2><a name='Features'></a> Features</h2>
-				</a>
-				<p>• Client as service.
-					No matter who establishes connection. Both listener and dialer of a socket are services.
-					It allows you to deploy services not exposing them to the Internet or behind private network etc.
-				Of course such instances should connect to listeners they have network access to.</p>
-				<p>• Automatic service-recognition. Just connect peers together and each of them will know each about other&#39;s roles (services), IDs, names and meta info.
-				If peer&#39;s role gets disabled or enabled each connected peer immediately gets informed and rebuilds its internal state.</p>
-				<p>• Redunant connections support. There could be multiple connections between two peers. All communication is load-balanced between them.
-				With auto-reconnection this can be useful to keep connected two peers which are in case of one peer&#39;s IP address is changed.</p>
-				<p>• Binary streams. Transfer large or unknown amounts of data via streams.</p>
-				<p>• Round-robin client-side load balancing between units implementing a role (service);</p>
-				<p>• No internal heavy message conversions (json/xml serialization/parsing). Just binary to utf-8/int and vice-versa.</p>
-				<p>• Optional TLS on transport layer.</p>
-				<p>• Scalable and simple in-built authentication: each peer can have zero or multiple ID:KEY combinations.</p>
-				<a href="#a-nameconcepta-concept" id="a-nameconcepta-concept" style="color: inherit; text-decoration: none;">
-					<h2><a name='Concept'></a> Concept</h2>
-				</a>
-				<a href="#a-namestructurea-structure" id="a-namestructurea-structure" style="color: inherit; text-decoration: none;">
-					<h3><a name='Structure'></a> Structure</h3>
-				</a>
-				<p>Roletalk concept consists of:</p>
-				<ul>
-					<li><b>Peer</b> - local node in your peer-to-peer architecture. Peer can have Units, Roles and Destinations.</li>
-					<li><b>Unit</b> - remote node connected to the Peer</li>
-					<li><b>Connection</b> - communication link between Peer and Unit. Each Unit can have one or more connections. If there are redunant connection, communications is load-balanced between them: checking which of them is not busy or choosing random one if no vacant one found. In case of last connection gets aborted Unit gets closed and removed from the Peer</li>
-					<li><b>Role</b> - service registered on Peer. Role can have handlers for each communication type. Role can be <b>active</b> or <b>inactive</b>. When role changes its state all connected units get informed to rebuild their state</li>
-					<li><b>Destination</b> - role registered on Units. Destination includes all connected units which serve corresponding role. If last Unit gets disconnected or disables the role, Destinations gets closed.
-					All communications is performed via Destinations&#39;s methods and is load-balanced among its Units unless Unit is explicitly specified. Unit is chosen for each message / request / stream. </li>
-				</ul>
-				<a href="#a-namecommunicationa-communication" id="a-namecommunicationa-communication" style="color: inherit; text-decoration: none;">
-					<h3><a name='Communication'></a> Communication</h3>
-				</a>
-				<p>Roletalk defines three types of communication:</p>
-				<ul>
-					<li><b>Message</b> - one-way act of communication. Should be used when no delivery acknowledgement is needed. Successfully sent message means that it has been written to underlying socket</li>
-					<li><b>Request</b> - request in common meaning. Request can only be rejected or replied. Returns error when Unit rejects it, timeout exceeds or Unit disconnects after request was sent.</li>
-					<li><b>Stream</b> - one-way stream of binary data. Streams can be <b>Readable</b> and <b>Writable</b>. If Peer calls Readable (<code>Destination.Readable()</code>) then Units handle Writable (<code>Role.OnWritable()</code>) and vice-versa. Stream sessions begin with Request. After Unit replied for request, data is transferred over connection used for the reply. If  connection aborts stream destroys.</li>
-				</ul>
-				<p>Incoming messages are wrapped in <b>Context</b> - object with payload and meta info for all types of incoming messages (message, request, request for stream). </p>
-				<p>All communication is performed with two basic properties: <b>Role</b> and <b>Event</b> (name of action. Some synonyms in other frameworks: method, path, action) to identify which handler to call.
-				When Unit gets message it forwards it to corresponding role or rejects it if such role isn&#39;t specified on the Peer. If role has no handlers for event it rejects it, otherwise call handlers.</p>
-				<a href="#a-namedatatypesa-data-types" id="a-namedatatypesa-data-types" style="color: inherit; text-decoration: none;">
-					<h3><a name='Datatypes'></a> Data types</h3>
-				</a>
-				<p>Roletalk uses six data types:</p>
-				<ul>
-					<li><b>Binary</b> - <code>Buffer</code></li>
-					<li><b>Null</b> - <code>null</code></li>
-					<li><b>Bool</b> - <code>boolean</code></li>
-					<li><b>String</b> - <code>string</code></li>
-					<li><b>Number</b> - <code>number</code></li>
-					<li><b>Object</b> - <code>Object</code></li>
-				</ul>
-				<p>All communication (except stream sessions) can use data of any type. Type of data should be chosen on stage of designing microservice specification or retrieved by calling Context methods.</p>
-				<a href="#a-nameacquaintancea-acquaintance" id="a-nameacquaintancea-acquaintance" style="color: inherit; text-decoration: none;">
-					<h3><a name='Acquaintance'></a> Acquaintance</h3>
-				</a>
-				<p>One aditional feature of roletalk is acquaintance. It is could be considered as redunant but it nicely fits the use case of frameworks.</p>
-				<p>The process of it is simple. You have listener PEER_A which is connected to listener PEER_B. After some PEER_C has connected to PEER_A, PEER_A will send to PEER_C info {ID, ADDRESS, ROLES} of PEER_A. If PEER_C is FRIENDLY, has one or more destination from received ROLES and PEER_C is not connected to peer with provided ID it will start connection to the ADDRESS</p>
-				<p>Acquantance is enabled by default, but you can set Friendly option to FALSE to disable is.</p>
-				<a href="#a-namesecuritya-security" id="a-namesecuritya-security" style="color: inherit; text-decoration: none;">
-					<h3><a name='Security'></a> Security</h3>
-				</a>
-				<p>To achieve strong MITM-protection use HTTPS.</p>
-				<p>Framework is provided with simple in-built authentication mechanism: preshared ID:KEY pairs. Peers which are supposed to be connected should have at least one common ID:KEY pair.</p>
-				<p>The authentication process between two peers can be described in a simple few steps:</p>
-				<ol>
-					<li><p>Each peer sends a list of his auth ID&#39;s and randomly generated CHALLENGE to another. If no auth ID:KEY specified peer sends auth confirmation.</p>
-					</li>
-					<li><p>Each peer checks if locally registered list of ID&#39;s intersects with the one received from remote peer. If no ID matched, sends error and closes conenctions with corresponding code.</p>
-					</li>
-					<li><p>Each peer chooses random intersected ID and hashes received CHALLENGE with corresponding KEY for that ID. Sends hashed RESPONSE value in pair with that ID.</p>
-					</li>
-					<li><p>Each peer receives RESPONSE with ID and checks if CHALLENGE hashed with corresponding KEY of received ID equals received RESPONSE. In such case sends auth confirmation. Else rejects auth and closes connection.</p>
-					</li>
-					<li><p>In case of both peers confirm each others&#39;s RESPONSES the handshake process is complete and then connections take part in futher communication. If auth exceeds timeout or some peer sends error and/or closes connection handshake fails.</p>
-					</li>
-				</ol>
-				<a href="#a-namecontributiona-contribution" id="a-namecontributiona-contribution" style="color: inherit; text-decoration: none;">
-					<h2><a name='Contribution'></a> Contribution</h2>
-				</a>
-				<p>Project is MIT-licensed. </p>
-				<p>Feel free to open issues and fork. </p>
-				<p>If you have any ideas or remarks you are welcome to contact the author.</p>
+				<p>This API is generated directly from project&#39;s source with <a href="https://typedoc.org">TypeDoc</a></p>
+				<p>Due to development process of TypeDoc, overriden events are not visible unless you fill &quot;Inherited&quot; checkbox, then see <code>on</code> methods on classes to check available typed events.</p>
+				<p>Some basic examples will be added soon.</p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -258,8 +128,17 @@
 					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#sendabledata" class="tsd-kind-icon">sendable<wbr>Data</a>
 					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#peer_reconnect_fail_event" class="tsd-kind-icon">PEER_<wbr>RECONNECT_<wbr>FAIL_<wbr>EVENT</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#peer_reconnect_success_event" class="tsd-kind-icon">PEER_<wbr>RECONNECT_<wbr>SUCCESS_<wbr>EVENT</a>
+					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#singleton" class="tsd-kind-icon">Singleton</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#refreshpeerdestinations" class="tsd-kind-icon">refresh<wbr>Peer<wbr>Destinations</a>
 					</li>
 				</ul>
 			</nav>

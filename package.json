@@ -1,7 +1,7 @@
 {
   "name": "roletalk",
-  "version": "0.6.1",
-  "description": "WebSocket-based NodeJS library for peer-to-peer communication between microservices",
+  "version": "1.0.0",
+  "description": "WebSocket-based NodeJS framework for peer-to-peer communication between microservices",
   "main": "built/index.js",
   "types": "built/index.d.ts",
   "scripts": {
@@ -20,7 +20,7 @@
     "peer-to-peer",
     "p2p"
   ],
-  "author": "shkut",
+  "author": "Oleksii Shkut",
   "license": "ISC",
   "dependencies": {
     "ws": "^6.1.2"
@@ -32,7 +32,6 @@
     "find-free-port": "^2.0.0",
     "mocha": "^5.2.0",
     "typedoc": "^0.17.0-3",
-    "typedoc-plugin-markdown": "^2.2.16",
     "typescript": "^3.3.1"
   }
 }

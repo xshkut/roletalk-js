@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ContextForWritable | roletalk</title>
+	<title>InitialContext | roletalk</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,10 +54,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="contextforwritable.html">ContextForWritable</a>
+					<a href="initialcontext.html">InitialContext</a>
 				</li>
 			</ul>
-			<h1>Interface ContextForWritable</h1>
+			<h1>Interface InitialContext</h1>
 		</div>
 	</div>
 </header>
@@ -68,10 +68,13 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="streamcontext.html" class="tsd-signature-type">StreamContext</a>
+						<span class="target">InitialContext</span>
 						<ul class="tsd-hierarchy">
 							<li>
-								<span class="target">ContextForWritable</span>
+								<a href="context.html" class="tsd-signature-type">Context</a>
+							</li>
+							<li>
+								<a href="initialstreamcontext.html" class="tsd-signature-type">InitialStreamContext</a>
 							</li>
 						</ul>
 					</li>
@@ -84,22 +87,9 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-overwrite tsd-is-inherited"><a href="contextforwritable.html#data" class="tsd-kind-icon">data</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="contextforwritable.html#error" class="tsd-kind-icon">error</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="contextforwritable.html#event" class="tsd-kind-icon">event</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-overwrite tsd-is-inherited"><a href="contextforwritable.html#origin" class="tsd-kind-icon">origin</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="contextforwritable.html#response" class="tsd-kind-icon">response</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="contextforwritable.html#role" class="tsd-kind-icon">role</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="contextforwritable.html#rtt" class="tsd-kind-icon">rtt</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-overwrite tsd-is-inherited"><a href="contextforwritable.html#type-1" class="tsd-kind-icon">type</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="contextforwritable.html#unit" class="tsd-kind-icon">unit</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="contextforwritable.html#writable" class="tsd-kind-icon">writable</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section tsd-is-inherited">
-							<h3>Methods</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="contextforwritable.html#next" class="tsd-kind-icon">next</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="initialcontext.html#data" class="tsd-kind-icon">data</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="initialcontext.html#origin" class="tsd-kind-icon">origin</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="initialcontext.html#type-1" class="tsd-kind-icon">type</a></li>
 							</ul>
 						</section>
 					</div>
@@ -107,57 +97,21 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-overwrite tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="data" class="tsd-anchor"></a>
 					<h3>data</h3>
 					<div class="tsd-signature tsd-kind-icon">data<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="initialcontext.html">InitialContext</a>.<a href="initialcontext.html#data">data</a></p>
-						<p>Overrides <a href="context.html">Context</a>.<a href="context.html#data">data</a></p>
 						<ul>
 							<li>Defined in src/interfaces.ts:100</li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-					<a name="error" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> error</h3>
-					<div class="tsd-signature tsd-kind-icon">error<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
-					<aside class="tsd-sources">
-						<p>Inherited from <a href="context.html">Context</a>.<a href="context.html#error">error</a></p>
-						<ul>
-							<li>Defined in src/interfaces.ts:131</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>You can reassign this property in middleware</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-					<a name="event" class="tsd-anchor"></a>
-					<h3>event</h3>
-					<div class="tsd-signature tsd-kind-icon">event<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<p>Inherited from <a href="context.html">Context</a>.<a href="context.html#event">event</a></p>
-						<ul>
-							<li>Defined in src/interfaces.ts:127</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Name of event to which the message belongs</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-overwrite tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="origin" class="tsd-anchor"></a>
 					<h3>origin</h3>
 					<div class="tsd-signature tsd-kind-icon">origin<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>raw<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Buffer</span><span class="tsd-signature-symbol">; </span>type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="initialcontext.html">InitialContext</a>.<a href="initialcontext.html#origin">origin</a></p>
-						<p>Overrides <a href="context.html">Context</a>.<a href="context.html#origin">origin</a></p>
 						<ul>
 							<li>Defined in src/interfaces.ts:102</li>
 						</ul>
@@ -174,117 +128,15 @@
 						</ul>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-					<a name="response" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> response</h3>
-					<div class="tsd-signature tsd-kind-icon">response<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
-					<aside class="tsd-sources">
-						<p>Inherited from <a href="context.html">Context</a>.<a href="context.html#response">response</a></p>
-						<ul>
-							<li>Defined in src/interfaces.ts:129</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>You can reassign this property in middleware. If error property is defined,</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-					<a name="role" class="tsd-anchor"></a>
-					<h3>role</h3>
-					<div class="tsd-signature tsd-kind-icon">role<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<p>Inherited from <a href="context.html">Context</a>.<a href="context.html#role">role</a></p>
-						<ul>
-							<li>Defined in src/interfaces.ts:125</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Name of <a href="../classes/role.html">Role</a> to which the message belongs</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-					<a name="rtt" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> rtt</h3>
-					<div class="tsd-signature tsd-kind-icon">rtt<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<p>Inherited from <a href="context.html">Context</a>.<a href="context.html#rtt">rtt</a></p>
-						<ul>
-							<li>Defined in src/interfaces.ts:133</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Round-trip time. Fom responses only</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-overwrite tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="type-1" class="tsd-anchor"></a>
 					<h3>type</h3>
 					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="initialcontext.html">InitialContext</a>.<a href="initialcontext.html#type-1">type</a></p>
-						<p>Overrides <a href="context.html">Context</a>.<a href="context.html#type-1">type</a></p>
 						<ul>
 							<li>Defined in src/interfaces.ts:101</li>
 						</ul>
 					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-					<a name="unit" class="tsd-anchor"></a>
-					<h3>unit</h3>
-					<div class="tsd-signature tsd-kind-icon">unit<span class="tsd-signature-symbol">:</span> <a href="../classes/unit.html" class="tsd-signature-type">Unit</a></div>
-					<aside class="tsd-sources">
-						<p>Inherited from <a href="context.html">Context</a>.<a href="context.html#unit">unit</a></p>
-						<ul>
-							<li>Defined in src/interfaces.ts:123</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p><a href="../classes/unit.html">Unit</a> who sent the message (response)</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="writable" class="tsd-anchor"></a>
-					<h3>writable</h3>
-					<div class="tsd-signature tsd-kind-icon">writable<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Writable</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in src/interfaces.ts:162</li>
-						</ul>
-					</aside>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
-				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-					<a name="next" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> next</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">next<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="context.html">Context</a>.<a href="context.html#next">next</a></p>
-								<ul>
-									<li>Defined in src/interfaces.ts:135</li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>wait untin next response handler will process the context. Use in middleware</p>
-								</div>
-							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
 				</section>
 			</section>
 		</div>
@@ -319,54 +171,30 @@
 					<li class=" tsd-kind-interface">
 						<a href="contextforreadable.html" class="tsd-kind-icon">Context<wbr>For<wbr>Readable</a>
 					</li>
+					<li class=" tsd-kind-interface">
+						<a href="contextforwritable.html" class="tsd-kind-icon">Context<wbr>For<wbr>Writable</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="emitoptions.html" class="tsd-kind-icon">Emit<wbr>Options</a>
+					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface">
-						<a href="contextforwritable.html" class="tsd-kind-icon">Context<wbr>For<wbr>Writable</a>
+						<a href="initialcontext.html" class="tsd-kind-icon">Initial<wbr>Context</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-overwrite tsd-is-inherited">
-								<a href="contextforwritable.html#data" class="tsd-kind-icon">data</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="contextforwritable.html#error" class="tsd-kind-icon">error</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="contextforwritable.html#event" class="tsd-kind-icon">event</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-overwrite tsd-is-inherited">
-								<a href="contextforwritable.html#origin" class="tsd-kind-icon">origin</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="contextforwritable.html#response" class="tsd-kind-icon">response</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="contextforwritable.html#role" class="tsd-kind-icon">role</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="contextforwritable.html#rtt" class="tsd-kind-icon">rtt</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-overwrite tsd-is-inherited">
-								<a href="contextforwritable.html#type-1" class="tsd-kind-icon">type</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="contextforwritable.html#unit" class="tsd-kind-icon">unit</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="initialcontext.html#data" class="tsd-kind-icon">data</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="contextforwritable.html#writable" class="tsd-kind-icon">writable</a>
+								<a href="initialcontext.html#origin" class="tsd-kind-icon">origin</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-								<a href="contextforwritable.html#next" class="tsd-kind-icon">next</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="initialcontext.html#type-1" class="tsd-kind-icon">type</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface">
-						<a href="emitoptions.html" class="tsd-kind-icon">Emit<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="initialcontext.html" class="tsd-kind-icon">Initial<wbr>Context</a>
-					</li>
 					<li class=" tsd-kind-interface">
 						<a href="initialstreamcontext.html" class="tsd-kind-icon">Initial<wbr>Stream<wbr>Context</a>
 					</li>

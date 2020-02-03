@@ -77,13 +77,17 @@
 						<section class="tsd-index-section ">
 							<h3>Interfaces</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-interface"><a href="interfaces/connectoptions.html" class="tsd-kind-icon">Connect<wbr>Options</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/context.html" class="tsd-kind-icon">Context</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/contextforreadable.html" class="tsd-kind-icon">Context<wbr>For<wbr>Readable</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/contextforwritable.html" class="tsd-kind-icon">Context<wbr>For<wbr>Writable</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/emitoptions.html" class="tsd-kind-icon">Emit<wbr>Options</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/initialcontext.html" class="tsd-kind-icon">Initial<wbr>Context</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/initialstreamcontext.html" class="tsd-kind-icon">Initial<wbr>Stream<wbr>Context</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/listenoptions.html" class="tsd-kind-icon">Listen<wbr>Options</a></li>
-								<li class="tsd-kind-interface"><a href="interfaces/messageoptions.html" class="tsd-kind-icon">Message<wbr>Options</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/peerconstructoroptions.html" class="tsd-kind-icon">Peer<wbr>Constructor<wbr>Options</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/peermetadata.html" class="tsd-kind-icon">Peer<wbr>Meta<wbr>Data</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/streamcontext.html" class="tsd-kind-icon">Stream<wbr>Context</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -108,7 +112,6 @@
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function"><a href="globals.html#singleton" class="tsd-kind-icon">Singleton</a></li>
-								<li class="tsd-kind-function"><a href="globals.html#refreshpeerdestinations" class="tsd-kind-icon">refresh<wbr>Peer<wbr>Destinations</a></li>
 							</ul>
 						</section>
 					</div>
@@ -122,7 +125,7 @@
 					<div class="tsd-signature tsd-kind-icon">Message<wbr>Handler<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><a href="interfaces/context.html" class="tsd-signature-type">Context</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/interfaces.ts:179</li>
+							<li>Defined in src/interfaces.ts:174</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -158,7 +161,7 @@
 					<div class="tsd-signature tsd-kind-icon">Readable<wbr>Handler<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><a href="interfaces/contextforreadable.html" class="tsd-signature-type">ContextForReadable</a>, cb<span class="tsd-signature-symbol">: </span><a href="globals.html#requestcallbackfunction" class="tsd-signature-type">RequestCallbackFunction</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/interfaces.ts:185</li>
+							<li>Defined in src/interfaces.ts:180</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -197,7 +200,7 @@
 					<div class="tsd-signature tsd-kind-icon">Request<wbr>Callback<wbr>Function<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Error</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span>, data<span class="tsd-signature-symbol">: </span><a href="globals.html#sendabledata" class="tsd-signature-type">sendableData</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/interfaces.ts:171</li>
+							<li>Defined in src/interfaces.ts:166</li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -231,7 +234,7 @@
 					<div class="tsd-signature tsd-kind-icon">Request<wbr>Handler<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><a href="interfaces/context.html" class="tsd-signature-type">Context</a>, cb<span class="tsd-signature-symbol">: </span><a href="globals.html#requestcallbackfunction" class="tsd-signature-type">RequestCallbackFunction</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/interfaces.ts:181</li>
+							<li>Defined in src/interfaces.ts:176</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -270,7 +273,7 @@
 					<div class="tsd-signature tsd-kind-icon">Writable<wbr>Handler<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><a href="interfaces/contextforwritable.html" class="tsd-signature-type">ContextForWritable</a>, cb<span class="tsd-signature-symbol">: </span><a href="globals.html#requestcallbackfunction" class="tsd-signature-type">RequestCallbackFunction</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/interfaces.ts:183</li>
+							<li>Defined in src/interfaces.ts:178</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -309,7 +312,7 @@
 					<div class="tsd-signature tsd-kind-icon">sendable<wbr>Data<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">sendableDatum</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">sendableDatum</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/interfaces.ts:176</li>
+							<li>Defined in src/interfaces.ts:171</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -327,7 +330,7 @@
 					<div class="tsd-signature tsd-kind-icon">PEER_<wbr>RECONNECT_<wbr>FAIL_<wbr>EVENT<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"reconnect_fail"</span><span class="tsd-signature-symbol"> = &quot;reconnect_fail&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/Peer.ts:430</li>
+							<li>Defined in src/Peer.ts:431</li>
 						</ul>
 					</aside>
 				</section>
@@ -337,7 +340,7 @@
 					<div class="tsd-signature tsd-kind-icon">PEER_<wbr>RECONNECT_<wbr>SUCCESS_<wbr>EVENT<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"reconnect_success"</span><span class="tsd-signature-symbol"> = &quot;reconnect_success&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/Peer.ts:429</li>
+							<li>Defined in src/Peer.ts:430</li>
 						</ul>
 					</aside>
 				</section>
@@ -372,32 +375,6 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function">
-					<a name="refreshpeerdestinations" class="tsd-anchor"></a>
-					<h3>refresh<wbr>Peer<wbr>Destinations</h3>
-					<ul class="tsd-signatures tsd-kind-function">
-						<li class="tsd-signature tsd-kind-icon">refresh<wbr>Peer<wbr>Destinations<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="classes/peer.html" class="tsd-signature-type">Peer</a>, unit<span class="tsd-signature-symbol">: </span><a href="classes/unit.html" class="tsd-signature-type">Unit</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in src/Peer.ts:395</li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>this: <a href="classes/peer.html" class="tsd-signature-type">Peer</a></h5>
-								</li>
-								<li>
-									<h5>unit: <a href="classes/unit.html" class="tsd-signature-type">Unit</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
 			</section>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -423,6 +400,9 @@
 						<a href="classes/unit.html" class="tsd-kind-icon">Unit</a>
 					</li>
 					<li class=" tsd-kind-interface">
+						<a href="interfaces/connectoptions.html" class="tsd-kind-icon">Connect<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
 						<a href="interfaces/context.html" class="tsd-kind-icon">Context</a>
 					</li>
 					<li class=" tsd-kind-interface">
@@ -432,16 +412,25 @@
 						<a href="interfaces/contextforwritable.html" class="tsd-kind-icon">Context<wbr>For<wbr>Writable</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="interfaces/listenoptions.html" class="tsd-kind-icon">Listen<wbr>Options</a>
+						<a href="interfaces/emitoptions.html" class="tsd-kind-icon">Emit<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="interfaces/messageoptions.html" class="tsd-kind-icon">Message<wbr>Options</a>
+						<a href="interfaces/initialcontext.html" class="tsd-kind-icon">Initial<wbr>Context</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/initialstreamcontext.html" class="tsd-kind-icon">Initial<wbr>Stream<wbr>Context</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/listenoptions.html" class="tsd-kind-icon">Listen<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/peerconstructoroptions.html" class="tsd-kind-icon">Peer<wbr>Constructor<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/peermetadata.html" class="tsd-kind-icon">Peer<wbr>Meta<wbr>Data</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/streamcontext.html" class="tsd-kind-icon">Stream<wbr>Context</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#messagehandler" class="tsd-kind-icon">Message<wbr>Handler</a>
@@ -469,9 +458,6 @@
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#singleton" class="tsd-kind-icon">Singleton</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#refreshpeerdestinations" class="tsd-kind-icon">refresh<wbr>Peer<wbr>Destinations</a>
 					</li>
 				</ul>
 			</nav>

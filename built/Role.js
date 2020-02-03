@@ -1,17 +1,14 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const events_1 = __importDefault(require("events"));
+const events_1 = require("events");
 const constants_1 = require("./constants");
-class Role extends events_1.default {
+class Role extends events_1.EventEmitter {
     constructor(name, peer, active) {
         super();
-        this._msgHandler = new events_1.default();
-        this._reqHandler = new events_1.default();
-        this._readableHandler = new events_1.default();
-        this._writableHandler = new events_1.default();
+        this._msgHandler = new events_1.EventEmitter();
+        this._reqHandler = new events_1.EventEmitter();
+        this._readableHandler = new events_1.EventEmitter();
+        this._writableHandler = new events_1.EventEmitter();
         if (!name || typeof name !== 'string') {
             throw new Error(`Role's name should be a string`);
         }

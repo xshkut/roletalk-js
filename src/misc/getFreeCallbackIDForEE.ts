@@ -1,4 +1,4 @@
-import EventEmitter from 'events';
+import { EventEmitter } from 'events';
 import {
     STREAM_RANDOM_BYTES_LENGTH
 } from '../constants';

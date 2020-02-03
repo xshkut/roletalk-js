@@ -1,5 +1,5 @@
 import { Unit } from "../Unit";
-import WebSocket from 'ws'
+import * as WebSocket from 'ws'
 import { InitialContext, Context } from "../interfaces";
 
 /**@internal */

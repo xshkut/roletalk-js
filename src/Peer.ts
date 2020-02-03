@@ -1,15 +1,15 @@
-import http, { Server } from 'http';
-import https, { Server as httpsServer } from 'https';
-import crypto from 'crypto';
-import WebSocket from 'ws';
-import EventEmitter from 'events';
+import * as http from 'http';
+import * as https from 'https';
+import * as crypto from 'crypto';
+import * as WebSocket from 'ws';
+import { EventEmitter } from 'events';
 import { Unit } from './Unit';
 import { Destination } from './Destination';
 import { Role } from './Role';
 import { Auth } from './Auth';
 import { DEFAULT_REQUEST_TIMEOUT, ROLES_MESSAGE as ROLES_CHANGE, WS_AUTH_ERROR_CLOSE } from './constants.js';
 import { SecureContextOptions } from 'tls';
-import { PeerConstructorOptions, ListenOptions, AdditionalConnectOptions, WritableHandler, ReadableHandler, RequestHandler, MessageHandler, PeerConfirmData } from './interfaces';
+import { PeerConstructorOptions, ListenOptions, ConnectOptions, WritableHandler, ReadableHandler, RequestHandler, MessageHandler, PeerConfirmData } from './interfaces';
 import { receiveResponse } from './misc/receiveResponse';
 
 const reconnectIntervals = [0, 1, 2, 3, 4, 5, 10, 30, 60];
@@ -42,7 +42,7 @@ export class Peer extends EventEmitter {
     /**@internal */
     _path?: string
     /**@internal */
-    _listener?: Server | httpsServer
+    _listener?: http.Server | https.Server
     /**@internal */
     _constructed: number
     /**@internal */
@@ -127,7 +127,7 @@ export class Peer extends EventEmitter {
 
     connect(
         address: string,
-        options?: WebSocket.ClientOptions & AdditionalConnectOptions,
+        options?: WebSocket.ClientOptions & ConnectOptions,
         cb?: (err?: Error, res?: { unit: Unit, ws: WebSocket }) => void
     ): Promise<{ unit: Unit, ws: WebSocket }> {
         if (typeof address !== 'string') {
@@ -228,7 +228,7 @@ export class Peer extends EventEmitter {
 }
 
 function _connect(this: Peer, address: string,
-    options?: WebSocket.ClientOptions & AdditionalConnectOptions,
+    options?: WebSocket.ClientOptions & ConnectOptions,
     cb?: (err?: Error, res?: { unit: Unit, ws: WebSocket }) => void) {
     if (cb) {
         makeWS.call(this, address, undefined, options, cb);

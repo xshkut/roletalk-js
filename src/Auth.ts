@@ -1,6 +1,6 @@
-import crypto from 'crypto';
+import * as crypto from 'crypto';
 import { Peer } from './Peer';
-import WebSocket from 'ws';
+import * as WebSocket from 'ws';
 import {
 	BYTE_AUTH_CONFIRMED,
 	BYTE_AUTH_CHALLENGE,

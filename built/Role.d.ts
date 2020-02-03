@@ -1,6 +1,6 @@
 /// <reference types="node" />
-import EventEmitter from 'events';
-import { Peer } from '.';
+import { EventEmitter } from 'events';
+import { Peer } from './Peer';
 import { MessageHandler, RequestHandler, ReadableHandler, WritableHandler } from './interfaces';
 export declare class Role extends EventEmitter {
     readonly name: string;
@@ -12,6 +12,6 @@ export declare class Role extends EventEmitter {
     onData(handler: MessageHandler | RequestHandler | WritableHandler | ReadableHandler): void;
     disable(): void;
     enable(): void;
-    readonly active: boolean;
+    get active(): boolean;
 }
 //# sourceMappingURL=Role.d.ts.map

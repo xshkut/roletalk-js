@@ -1,6 +1,6 @@
 import { Readable, ReadableOptions, WritableOptions, Writable } from 'stream';
-import EventEmitter from 'events';
-import WebSocket from 'ws';
+import { EventEmitter } from 'events';
+import * as WebSocket from 'ws';
 import { MessageHeaders, InitialUnitData, AcquaintMessage, WebSocketBindData, sendableData, Context, ContextForReadable, InitialStreamContext, StreamContext, PeerMetaData, rolesMsg } from './interfaces';
 import { ReadableOverWS } from './misc/ReadableOverWS';
 import { WritableOverWS } from './misc/WritableOverWS';
@@ -49,6 +49,7 @@ export class Unit extends EventEmitter {
     _metaData: PeerMetaData
     /**@internal */
     _lastRolesUpdate: number = 0
+    /**@internal */
     constructor({ peer, id, friendly, name, roles, meta }: InitialUnitData) {
         super();
         this.id = id;
@@ -137,7 +138,7 @@ export class Unit extends EventEmitter {
 export interface Unit {
     /**@internal */
     on(event: string, handler?: (...args: any[]) => void): this
-    
+
     /**Event 'close' is dispatched when last connection gets closed
      * @event
      */

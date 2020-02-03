@@ -1,9 +1,6 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const crypto_1 = __importDefault(require("crypto"));
+const crypto = require("crypto");
 const constants_js_1 = require("./constants.js");
 class Auth {
     constructor(peer) {
@@ -22,7 +19,7 @@ class Auth {
         let confirmed = false;
         let remoteChallenge;
         let remotePeerInfo;
-        const challenge = crypto_1.default.randomBytes(32).toString('hex');
+        const challenge = crypto.randomBytes(32).toString('hex');
         const timeout = setTimeout(() => {
             sendRejection(`Authentication time elapsed. proved: ${proved}, confirmed: ${confirmed}, challenge received: ${!!remoteChallenge}`);
         }, constants_js_1.AUTH_TIMEOUT);
@@ -95,7 +92,7 @@ class Auth {
                         for (let id of data.ids) {
                             let key = this._keys.get(id);
                             if (key) {
-                                let proof = crypto_1.default.createHmac('sha256', key).update(data.challenge).digest().toString('hex');
+                                let proof = crypto.createHmac('sha256', key).update(data.challenge).digest().toString('hex');
                                 return send(constants_js_1.BYTE_AUTH_RESPONSE, { proof, id });
                             }
                         }
@@ -114,7 +111,7 @@ class Auth {
                     if (!key) {
                         return sendRejection('Verification ID is not registered: ' + data.id);
                     }
-                    if (crypto_1.default.createHmac('sha256', key).update(challenge).digest().toString('hex') === data.proof) {
+                    if (crypto.createHmac('sha256', key).update(challenge).digest().toString('hex') === data.proof) {
                         return sendConfirmation();
                     }
                     ;

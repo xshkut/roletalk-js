@@ -1,14 +1,14 @@
 /// <reference types="node" />
 import { SecureContextOptions } from 'tls';
-import https from 'https';
-import http from 'http';
+import { Server } from 'https';
+import { Server as httpServer } from 'http';
 import { Unit } from './Unit';
 import { Readable, Writable } from 'stream';
 export interface PeerConstructorOptions {
     friendly?: boolean;
     name?: string;
 }
-export interface MessageOptions {
+export interface EmitOptions {
     event: string;
     timeout?: number;
     unit?: Unit;
@@ -21,10 +21,21 @@ export interface PeerMetaData {
     protocol: string;
 }
 export interface ListenOptions {
-    server?: https.Server | http.Server;
+    server?: Server | httpServer;
     port?: number;
     ssl?: SecureContextOptions;
     path?: string;
+}
+export interface ConnectOptions {
+    permanent?: boolean;
+}
+export interface InitialContext {
+    data: any;
+    type: string;
+    origin: {
+        raw: Buffer;
+        type: string;
+    };
 }
 export interface Context extends InitialContext {
     data: any;
@@ -40,6 +51,10 @@ export interface Context extends InitialContext {
     error?: any;
     rtt?: number;
     next?(): Promise<void>;
+}
+export interface StreamContext extends InitialStreamContext, Context {
+}
+export interface InitialStreamContext extends InitialContext {
 }
 export interface ContextForReadable extends StreamContext {
     readable: Readable;

@@ -1,18 +1,16 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const __1 = require("..");
-const assert_1 = __importDefault(require("assert"));
+const assert = require("assert");
 const http_1 = require("http");
 const peer1 = new __1.Peer({ name: 'PEER 1' });
 peer1.auth.addPresharedKey('foo', '111222333');
@@ -38,7 +36,7 @@ peer2.role(someRole3);
 peer2.destination(someRole1);
 peer5.destination(someRole2);
 describe('connection behaviour, authentication, roles detection, reconnection and service discovery', () => {
-    before(() => __awaiter(this, void 0, void 0, function* () {
+    before(() => __awaiter(void 0, void 0, void 0, function* () {
         peer1.listen({ port: 0 });
         peer2.listen({ port: 0 });
         yield peer1;
@@ -48,83 +46,83 @@ describe('connection behaviour, authentication, roles detection, reconnection an
         return peer1.connect('ws://localhost:' + peer2._port);
     });
     it('Peers with id mismatch should fail handshake', () => {
-        assert_1.default.rejects(peer3.connect('ws://localhost:' + peer2._port));
+        assert.rejects(peer3.connect('ws://localhost:' + peer2._port));
     });
     it('Peers with id match but not equality should fail handshake', () => {
-        assert_1.default.rejects(peer4.connect('ws://localhost:' + peer2._port));
+        assert.rejects(peer4.connect('ws://localhost:' + peer2._port));
     });
     it('Corresponding id and name of peer and unit should match', () => {
-        assert_1.default(peer1.id === peer2.units[0].id);
-        assert_1.default(peer1.name === peer2.units[0]._name);
-        assert_1.default(typeof peer1.id === 'string');
-        assert_1.default(typeof peer1.name === 'string');
+        assert(peer1.id === peer2.units[0].id);
+        assert(peer1.name === peer2.units[0]._name);
+        assert(typeof peer1.id === 'string');
+        assert(typeof peer1.name === 'string');
     });
     it('listening with port number should start HTTP server', () => {
-        assert_1.default(peer1._listener instanceof http_1.Server);
+        assert(peer1._listener instanceof http_1.Server);
     });
     it('error when listening should reject a promise', () => {
-        assert_1.default.rejects(peer3.listen(peer1._port));
+        assert.rejects(peer3.listen(peer1._port));
     });
     it('trying to listen when already listening should throw an error', () => {
-        assert_1.default.throws(() => peer1.listen(0));
+        assert.throws(() => peer1.listen(0));
     });
     it('connect(address) should create a unit', () => {
-        assert_1.default(peer1.units.length === 1);
-        assert_1.default(peer2.units.length === 1);
-        assert_1.default(peer3.units.length === 0);
+        assert(peer1.units.length === 1);
+        assert(peer2.units.length === 1);
+        assert(peer3.units.length === 0);
     });
     it('connected units with roles should not create new destinations on the peer', () => {
-        assert_1.default(!peer1.destinations.map(dest => dest.name).includes(someRole3));
+        assert(!peer1.destinations.map(dest => dest.name).includes(someRole3));
     });
     it('connected units should be included into corresponding destinations', () => {
-        assert_1.default(peer1.destination(someRole2).units.length > 0);
-        assert_1.default(peer2.destination(someRole1).units.length > 0);
-        assert_1.default(peer2.destination(someRole3).units.length === 0);
+        assert(peer1.destination(someRole2).units.length > 0);
+        assert(peer2.destination(someRole1).units.length > 0);
+        assert(peer2.destination(someRole3).units.length === 0);
     });
     it('destinations without corresponding roles on units should not be ready', () => {
-        assert_1.default(peer1.destination('someUnregisteredRole').units.length === 0);
-        assert_1.default(peer1.destination('someUnregisteredRole').ready === false);
+        assert(peer1.destination('someUnregisteredRole').units.length === 0);
+        assert(peer1.destination('someUnregisteredRole').ready === false);
     });
     it('creating new role should open corresponding destination on units', (done) => {
         peer1.role('someNewRole');
         peer2.destination('someNewRole').once('open', done);
     });
-    it('Closed websocket should cause reconnection', () => __awaiter(this, void 0, void 0, function* () {
+    it('Closed websocket should cause reconnection', () => __awaiter(void 0, void 0, void 0, function* () {
         let unit = peer1.units[0];
         let ws = unit._sockets[0];
         ws.close(1012);
         yield new Promise((res) => ws.once('close', res));
-        assert_1.default(peer1.units.length === 0);
+        assert(peer1.units.length === 0);
         yield new Promise((res) => peer1.once('unit', res));
-        assert_1.default(peer1.units.length === 1);
+        assert(peer1.units.length === 1);
     }));
-    it('Intentionally closed unit from the socket server\'s side should cause reconnection', () => __awaiter(this, void 0, void 0, function* () {
+    it('Intentionally closed unit from the socket server\'s side should cause reconnection', () => __awaiter(void 0, void 0, void 0, function* () {
         let unit = peer2.units[0];
         let ws = unit._sockets[0];
         unit.close();
         yield new Promise((res) => ws.once('close', res));
-        assert_1.default(peer2.units.length === 0);
+        assert(peer2.units.length === 0);
         yield new Promise((res) => peer2.once('unit', res));
-        assert_1.default(peer2.units.length === 1);
+        assert(peer2.units.length === 1);
     }));
-    it('Intentionally closed unit from the socket client\'s side should prevent reconnection', () => __awaiter(this, void 0, void 0, function* () {
+    it('Intentionally closed unit from the socket client\'s side should prevent reconnection', () => __awaiter(void 0, void 0, void 0, function* () {
         let unit = peer1.units[0];
         let ws = unit._sockets[0];
         unit.close();
         yield new Promise((res) => ws.once('close', res));
-        assert_1.default(peer1.units.length === 0);
+        assert(peer1.units.length === 0);
         yield new Promise((res) => setTimeout(res, 50));
-        assert_1.default(peer1.units.length === 0);
+        assert(peer1.units.length === 0);
     }));
     it('Disconnected units should left corresponding destinations', () => {
-        assert_1.default(peer1.destination(someRole2).units.length === 0);
-        assert_1.default(peer2.destination(someRole1).units.length === 0);
+        assert(peer1.destination(someRole2).units.length === 0);
+        assert(peer2.destination(someRole1).units.length === 0);
     });
-    it('Connected peer should be aqcuaited with another one connected earlier to that peer', () => __awaiter(this, void 0, void 0, function* () {
+    it('Connected peer should be aqcuaited with another one connected earlier to that peer', () => __awaiter(void 0, void 0, void 0, function* () {
         yield peer1.connect('ws://localhost:' + peer2._port);
         yield peer5.connect('ws://localhost:' + peer1._port);
         yield new Promise(res => peer5.once('unit', res));
-        assert_1.default(peer5.units.map(unit => unit.id).includes(peer2.id));
+        assert(peer5.units.map(unit => unit.id).includes(peer2.id));
     }));
     after(() => {
         peer1.close();

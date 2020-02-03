@@ -1,5 +1,5 @@
 import { Peer } from "..";
-import assert from 'assert'
+import * as assert from 'assert'
 import { Context } from './../interfaces';
 import { createHmac } from "crypto";
 

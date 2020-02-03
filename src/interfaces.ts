@@ -1,13 +1,12 @@
 import { EventEmitter } from 'events';
 import { Peer } from './Peer';
 import { SecureContextOptions } from 'tls';
-import https from 'https';
-import http from 'http';
+import { Server } from 'https';
+import { Server as httpServer } from 'http';
 import { Unit } from './Unit';
 import { Readable, Writable } from 'stream';
 
-/**Options for Peer constructor
- */
+/**Options for Peer constructor */
 export interface PeerConstructorOptions {
     friendly?: boolean;
     /**Name of peer which could be read by remote peers (units) */
@@ -27,7 +26,7 @@ export interface MessageHeaders {
     timeout?: number
 }
 
-export interface MessageOptions {
+export interface EmitOptions {
     event: string,
     timeout?: number //for requests only,
     unit?: Unit //send to specific unit
@@ -84,7 +83,7 @@ export interface AcquaintMessage {
 /**Options to listen for incoming connections*/
 export interface ListenOptions {
     /**http.Server instance. If provided, peer will not listen immediately*/
-    server?: https.Server | http.Server;
+    server?: Server | httpServer;
     /**Number of port to listen on */
     port?: number;
     /**Provide options to listen accept only WSS connections*/
@@ -93,12 +92,10 @@ export interface ListenOptions {
     path?: string
 }
 
-/**@internal */
-export interface AdditionalConnectOptions {
+export interface ConnectOptions {
     permanent?: boolean
 }
 
-/**@internal */
 export interface InitialContext {
     data: any,
     type: string,
@@ -138,7 +135,6 @@ export interface Context extends InitialContext {
     next?(): Promise<void>
 }
 
-/**@internal */
 export interface StreamContext extends InitialStreamContext, Context {
     /**@internal */
     _correlation: number
@@ -151,7 +147,6 @@ export interface rolesMsg {
     roles: string[]
 }
 
-/**@internal */
 export interface InitialStreamContext extends InitialContext {
     /**@internal */
     _ctr: number;

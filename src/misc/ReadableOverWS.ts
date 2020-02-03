@@ -1,5 +1,5 @@
 import { Readable } from 'stream';
-import WebSocket from 'ws';
+import * as WebSocket from 'ws';
 import { numberToBuffer } from './numBufConversions';
 import {
     STREAM_ERROR_FLAG, STREAM_FINISH_FLAG, STREAM_CHUNK_FLAG, STREAM_BP_QUOTA_FLAG, TYPE_STREAM_MSG

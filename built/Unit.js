@@ -1,9 +1,6 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const events_1 = __importDefault(require("events"));
+const events_1 = require("events");
 const ReadableOverWS_1 = require("./misc/ReadableOverWS");
 const WritableOverWS_1 = require("./misc/WritableOverWS");
 const getFreeCallbackIDForEE_1 = require("./misc/getFreeCallbackIDForEE");
@@ -11,16 +8,16 @@ const constants_1 = require("./constants");
 const Peer_1 = require("./Peer");
 const protocolConversions_1 = require("./misc/protocolConversions");
 const receiveResponse_1 = require("./misc/receiveResponse");
-class Unit extends events_1.default {
+class Unit extends events_1.EventEmitter {
     constructor({ peer, id, friendly, name, roles, meta }) {
         super();
         this._name = undefined;
         this._sockets = [];
         this._roles = [];
-        this._reqHandler = new events_1.default();
-        this._readableHandler = new events_1.default();
-        this._writableHandler = new events_1.default();
-        this._streamReceiverEE = new events_1.default();
+        this._reqHandler = new events_1.EventEmitter();
+        this._readableHandler = new events_1.EventEmitter();
+        this._writableHandler = new events_1.EventEmitter();
+        this._streamReceiverEE = new events_1.EventEmitter();
         this._cb = new Map();
         this._cbid = 0;
         this._timeouts = new Map();
@@ -399,7 +396,7 @@ function handleRequestForWritableStream(ctx) {
 function openReadableStream(headers, data = {}, options = {}) {
     let sid = getFreeCallbackIDForEE_1.getFreeCallbackIDForEE(this._streamReceiverEE);
     let receiver = this._streamReceiverEE;
-    let readable = new ReadableOverWS_1.ReadableOverWS(Object.assign({}, options, { receiver }));
+    let readable = new ReadableOverWS_1.ReadableOverWS(Object.assign(Object.assign({}, options), { receiver }));
     readable._setSID(sid);
     sendRequestForStream.call(this, headers, data, constants_1.TYPE_REQ4READABLE, sid, (err, ctx, ws) => {
         if (err) {
@@ -416,7 +413,7 @@ function openReadableStream(headers, data = {}, options = {}) {
 function openWritableStream(headers, data = {}, options = {}) {
     let receiver = this._streamReceiverEE;
     let bpid = getFreeCallbackIDForEE_1.getFreeCallbackIDForEE(receiver);
-    let writable = new WritableOverWS_1.WritableOverWS(Object.assign({}, options, { receiver }));
+    let writable = new WritableOverWS_1.WritableOverWS(Object.assign(Object.assign({}, options), { receiver }));
     writable._setBPID(bpid);
     sendRequestForStream.call(this, headers, data, constants_1.TYPE_REQ4WRITABLE, bpid, (err, ctx, ws) => {
         if (err) {

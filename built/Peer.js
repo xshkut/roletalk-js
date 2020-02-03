@@ -1,13 +1,10 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const http_1 = __importDefault(require("http"));
-const https_1 = __importDefault(require("https"));
-const crypto_1 = __importDefault(require("crypto"));
-const ws_1 = __importDefault(require("ws"));
-const events_1 = __importDefault(require("events"));
+const http = require("http");
+const https = require("https");
+const crypto = require("crypto");
+const WebSocket = require("ws");
+const events_1 = require("events");
 const Unit_1 = require("./Unit");
 const Destination_1 = require("./Destination");
 const Role_1 = require("./Role");
@@ -15,7 +12,7 @@ const Auth_1 = require("./Auth");
 const constants_js_1 = require("./constants.js");
 const receiveResponse_1 = require("./misc/receiveResponse");
 const reconnectIntervals = [0, 1, 2, 3, 4, 5, 10, 30, 60];
-class Peer extends events_1.default {
+class Peer extends events_1.EventEmitter {
     constructor(options = {}) {
         super();
         this._units = new Map();
@@ -23,7 +20,7 @@ class Peer extends events_1.default {
         this._roles = new Map();
         this._addressMap = new Map();
         this._lastRolesUpdate = 0;
-        this.id = crypto_1.default.randomBytes(16).toString('hex');
+        this.id = crypto.randomBytes(16).toString('hex');
         this.name = '';
         this._requestTimeout = constants_js_1.DEFAULT_REQUEST_TIMEOUT;
         this.auth = new Auth_1.Auth(this);
@@ -54,7 +51,7 @@ class Peer extends events_1.default {
         if (this._listener)
             throw new Error('.listen has been called already');
         if (typeof options === 'number') {
-            this._server = http_1.default.createServer();
+            this._server = http.createServer();
             this._port = options;
         }
         else if (typeof options === 'object') {
@@ -64,7 +61,7 @@ class Peer extends events_1.default {
             this._path = options.path;
             this._port = options.port;
             if (options.server) {
-                if (options.server instanceof http_1.default.Server) {
+                if (options.server instanceof http.Server) {
                     this._server = options.server;
                 }
                 else {
@@ -79,10 +76,10 @@ class Peer extends events_1.default {
                 else {
                     throw new Error('Provide correct options.ssl');
                 }
-                this._server = https_1.default.createServer(Object.assign({}, ssl));
+                this._server = https.createServer(Object.assign({}, ssl));
             }
             else {
-                this._server = http_1.default.createServer();
+                this._server = http.createServer();
             }
         }
         else {
@@ -190,7 +187,7 @@ function _connect(address, options, cb) {
 function _listen(cb) {
     let server = this._server;
     let peer = this;
-    this._wss = new ws_1.default.Server({
+    this._wss = new WebSocket.Server({
         server,
         path: this._path
     });
@@ -215,7 +212,7 @@ function _listen(cb) {
 }
 function makeWS(address, protocol, options, cb) {
     let peer = this;
-    let ws = new ws_1.default(address, protocol, options);
+    let ws = new WebSocket(address, protocol, options);
     const onClose = () => {
         ws.removeEventListener('error', onError);
         cb('Socket closed');

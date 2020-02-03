@@ -1,5 +1,5 @@
 import { Peer } from "..";
-import assert from 'assert'
+import * as assert from 'assert'
 import { Server } from 'http';
 
 const peer1 = new Peer({ name: 'PEER 1' });

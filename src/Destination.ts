@@ -1,7 +1,7 @@
 import { SetWithRoundRobin } from './misc/SetWithRoundRobin';
 import { Unit } from './Unit';
 import { EventEmitter } from 'events';
-import { MessageHeaders, MessageOptions, Context, sendableData } from './interfaces';
+import { MessageHeaders, EmitOptions, Context, sendableData } from './interfaces';
 import { Readable, Writable, ReadableOptions, WritableOptions } from 'stream';
 import { Peer } from './Peer';
 
@@ -32,7 +32,7 @@ export class Destination extends EventEmitter {
     get name() { return this._name }
 
     /**Send one-way message. Use cb argument to ensure the message has benn written to underlying socket. Returns [[Unit]] chosen to send data to */
-    send(event: string | MessageOptions, data: sendableData, cb?: (err: Error) => {}) {
+    send(event: string | EmitOptions, data: sendableData, cb?: (err: Error) => {}) {
         let headers: MessageHeaders;
         let unit: Unit | undefined;
         if (typeof event === 'object' && event) {
@@ -56,7 +56,7 @@ export class Destination extends EventEmitter {
     }
 
     /**Send one-way message to all units serving the role*/
-    broadcast(event: string | MessageHeaders, data: sendableData) {
+    broadcast(event: string | EmitOptions, data: sendableData) {
         let headers = createMessageHeaders.call(this, event);
         this._set.forEach((unit) => {
             unit.send(headers, data);
@@ -66,7 +66,7 @@ export class Destination extends EventEmitter {
     /**Send request. If cb argument is not provided, returns Promise<[[Context]]>
      * If there are not connected [[Unit]]s serving corresponding [[Role]], method will throw synchronous error. To ensure at least one unit is connected, use [[Destination.ready]]
     */
-    request(event: string | MessageOptions, data: sendableData, cb?: (err: Error | null, ctx: Context) => void): Promise<Context> {
+    request(event: string | EmitOptions, data: sendableData, cb?: (err: Error | null, ctx: Context) => void): Promise<Context> {
         let headers: MessageHeaders;
         let unit: Unit | undefined;
         if (typeof event === 'object' && event) {
@@ -88,7 +88,7 @@ export class Destination extends EventEmitter {
     /**Send requests to each unit of the role. Callback cb will be applied to each request 
      * If there are not connected [[Unit]]s serving corresponding [[Role]], method will throw synchronous error. To ensure at least one unit is connected, use [[Destination.ready]]
     */
-    survey(event: string | MessageHeaders, data: sendableData, cb: (err: Error | null, ctx: Context) => void) {
+    survey(event: string | EmitOptions, data: sendableData, cb: (err: Error | null, ctx: Context) => void) {
         let headers = createMessageHeaders.call(this, event);
         if (this._set.size < 1) new Error(`No connected units with role [${this.name}]`);
         this._set.forEach(unit => unit.request(headers, data, cb));
@@ -99,7 +99,7 @@ export class Destination extends EventEmitter {
      * If chosen [[Unit]] will reject the request, [[Writable]] will emit "error" event
      * If there are not connected [[Unit]]s serving corresponding [[Role]], method will throw synchronous error. To ensure at least one unit is connected, use [[Destination.ready]]
     */
-    Readable(event: string | MessageOptions, data: sendableData, options?: ReadableOptions): Readable {
+    Readable(event: string | EmitOptions, data: sendableData, options?: ReadableOptions): Readable {
         let headers: MessageHeaders;
         let unit: Unit | undefined;
         if (typeof event === 'object' && event) {
@@ -122,7 +122,7 @@ export class Destination extends EventEmitter {
      * If chosen [[Unit]] will reject the request, [[Writable]] will emit "error" event
      * If there are not connected [[Unit]]s serving corresponding [[Role]], method will throw synchronous error. To ensure at least one unit is connected, use [[Destination.ready]]
     */
-    Writable(event: string | MessageOptions, data: sendableData, options?: WritableOptions): Writable {
+    Writable(event: string | EmitOptions, data: sendableData, options?: WritableOptions): Writable {
         let headers: MessageHeaders;
         let unit: Unit | undefined;
         if (typeof event === 'object' && event) {
@@ -184,7 +184,7 @@ export interface Destination {
 }
 
 
-function createMessageHeaders(this: Destination, event: string | MessageOptions): MessageHeaders {
+function createMessageHeaders(this: Destination, event: string | EmitOptions): MessageHeaders {
     let headers = typeof event === 'object' && event ? { ...event } : { event } as MessageHeaders;
     headers.role = this.name;
     return headers;

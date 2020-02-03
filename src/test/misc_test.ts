@@ -1,5 +1,5 @@
-import assert from 'assert'
-import {SetWithRoundRobin} from '../misc/SetWithRoundRobin'
+import * as assert from 'assert'
+import { SetWithRoundRobin } from '../misc/SetWithRoundRobin'
 import { numberToBuffer, bufferToNumber } from '../misc/numBufConversions';
 
 describe('Testing SetWithRoundRobin', () => {

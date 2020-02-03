@@ -3,12 +3,10 @@ import { Unit } from './Unit';
 import { EventEmitter } from 'events';
 import { EmitOptions, Context, sendableData } from './interfaces';
 import { Readable, Writable, ReadableOptions, WritableOptions } from 'stream';
-import { Peer } from './Peer';
 export declare class Destination extends EventEmitter {
     private _name;
     private _ready;
     private _peer;
-    constructor(name: string, peer: Peer);
     get units(): Unit[];
     get name(): string;
     send(event: string | EmitOptions, data: sendableData, cb?: (err: Error) => {}): Unit | undefined;

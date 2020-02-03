@@ -4,7 +4,7 @@ import { Server } from 'https';
 import { Server as httpServer } from 'http';
 import { Unit } from './Unit';
 import { Readable, Writable } from 'stream';
-export interface PeerConstructorOptions {
+export interface PeerOptions {
     friendly?: boolean;
     name?: string;
 }
@@ -29,15 +29,7 @@ export interface ListenOptions {
 export interface ConnectOptions {
     permanent?: boolean;
 }
-export interface InitialContext {
-    data: any;
-    type: string;
-    origin: {
-        raw: Buffer;
-        type: string;
-    };
-}
-export interface Context extends InitialContext {
+export interface Context {
     data: any;
     type: string;
     origin: {
@@ -52,22 +44,18 @@ export interface Context extends InitialContext {
     rtt?: number;
     next?(): Promise<void>;
 }
-export interface StreamContext extends InitialStreamContext, Context {
-}
-export interface InitialStreamContext extends InitialContext {
-}
-export interface ContextForReadable extends StreamContext {
+export interface ContextForReadable extends Context {
     readable: Readable;
 }
-export interface ContextForWritable extends StreamContext {
+export interface ContextForWritable extends Context {
     writable: Writable;
 }
-export declare type RequestCallbackFunction = (err: Error | null, data: sendableData) => void;
+export declare type RequestCallback = (err: Error | null, data: sendableData) => void;
 declare type sendableDatum = string | number | Object | Buffer | null | undefined;
 export declare type sendableData = sendableDatum | sendableDatum[];
 export declare type MessageHandler = (ctx: Context) => void;
-export declare type RequestHandler = (ctx: Context, cb: RequestCallbackFunction) => void;
-export declare type WritableHandler = (ctx: ContextForWritable, cb: RequestCallbackFunction) => void;
-export declare type ReadableHandler = (ctx: ContextForReadable, cb: RequestCallbackFunction) => void;
+export declare type RequestHandler = (ctx: Context, cb: RequestCallback) => void;
+export declare type WritableHandler = (ctx: ContextForWritable, cb: RequestCallback) => void;
+export declare type ReadableHandler = (ctx: ContextForReadable, cb: RequestCallback) => void;
 export {};
 //# sourceMappingURL=interfaces.d.ts.map

@@ -6,12 +6,12 @@ import { EventEmitter } from 'events';
 import { Unit } from './Unit';
 import { Destination } from './Destination';
 import { Role } from './Role';
-import { PeerConstructorOptions, ListenOptions, ConnectOptions, WritableHandler, ReadableHandler, RequestHandler, MessageHandler } from './interfaces';
+import { PeerOptions, ListenOptions, ConnectOptions, WritableHandler, ReadableHandler, RequestHandler, MessageHandler } from './interfaces';
 export declare class Peer extends EventEmitter {
     name: string;
     readonly id: string;
     friendly: boolean;
-    constructor(options?: PeerConstructorOptions);
+    constructor(options?: PeerOptions);
     addPresharedKey(id: string, key: string): void;
     listen(this: Peer, options: ListenOptions | number, cb?: Function): Promise<Peer>;
     close(cb?: (err?: Error) => void): http.Server | https.Server | undefined;
@@ -38,6 +38,4 @@ export interface Peer {
     on(event: 'unit', handler: (unit: Unit) => void): this;
     on(event: 'role', handler: (role: Role) => void): this;
 }
-export declare const PEER_RECONNECT_SUCCESS_EVENT = "reconnect_success";
-export declare const PEER_RECONNECT_FAIL_EVENT = "reconnect_fail";
 //# sourceMappingURL=Peer.d.ts.map

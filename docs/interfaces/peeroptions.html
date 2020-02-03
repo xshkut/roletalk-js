@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>InitialStreamContext | roletalk</title>
+	<title>PeerOptions | roletalk</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,31 +54,28 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="initialstreamcontext.html">InitialStreamContext</a>
+					<a href="peeroptions.html">PeerOptions</a>
 				</li>
 			</ul>
-			<h1>Interface InitialStreamContext</h1>
+			<h1>Interface PeerOptions</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Options for Peer constructor</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="initialcontext.html" class="tsd-signature-type">InitialContext</a>
-						<ul class="tsd-hierarchy">
-							<li>
-								<span class="target">InitialStreamContext</span>
-								<ul class="tsd-hierarchy">
-									<li>
-										<a href="streamcontext.html" class="tsd-signature-type">StreamContext</a>
-									</li>
-								</ul>
-							</li>
-						</ul>
+						<span class="target">PeerOptions</span>
 					</li>
 				</ul>
 			</section>
@@ -86,62 +83,47 @@
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section tsd-is-inherited">
+						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="initialstreamcontext.html#data" class="tsd-kind-icon">data</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="initialstreamcontext.html#origin" class="tsd-kind-icon">origin</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="initialstreamcontext.html#type-1" class="tsd-kind-icon">type</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="peeroptions.html#friendly" class="tsd-kind-icon">friendly</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="peeroptions.html#name" class="tsd-kind-icon">name</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-					<a name="data" class="tsd-anchor"></a>
-					<h3>data</h3>
-					<div class="tsd-signature tsd-kind-icon">data<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="friendly" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> friendly</h3>
+					<div class="tsd-signature tsd-kind-icon">friendly<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="initialcontext.html">InitialContext</a>.<a href="initialcontext.html#data">data</a></p>
 						<ul>
-							<li>Defined in src/interfaces.ts:100</li>
+							<li>Defined in src/interfaces.ts:12</li>
 						</ul>
 					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-					<a name="origin" class="tsd-anchor"></a>
-					<h3>origin</h3>
-					<div class="tsd-signature tsd-kind-icon">origin<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>raw<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Buffer</span><span class="tsd-signature-symbol">; </span>type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></div>
-					<aside class="tsd-sources">
-						<p>Inherited from <a href="initialcontext.html">InitialContext</a>.<a href="initialcontext.html#origin">origin</a></p>
-						<ul>
-							<li>Defined in src/interfaces.ts:102</li>
-						</ul>
-					</aside>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
-						<ul class="tsd-parameters">
-							<li class="tsd-parameter">
-								<h5>raw<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Buffer</span></h5>
-							</li>
-							<li class="tsd-parameter">
-								<h5>type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
-							</li>
-						</ul>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Should this peer be acquainted with others when it gets connected to another unit</p>
+						</div>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-					<a name="type-1" class="tsd-anchor"></a>
-					<h3>type</h3>
-					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="name" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> name</h3>
+					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="initialcontext.html">InitialContext</a>.<a href="initialcontext.html#type-1">type</a></p>
 						<ul>
-							<li>Defined in src/interfaces.ts:101</li>
+							<li>Defined in src/interfaces.ts:14</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Name of peer which could be read by remote peers (units)</p>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -183,38 +165,26 @@
 						<a href="emitoptions.html" class="tsd-kind-icon">Emit<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="initialcontext.html" class="tsd-kind-icon">Initial<wbr>Context</a>
+						<a href="listenoptions.html" class="tsd-kind-icon">Listen<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="peermetadata.html" class="tsd-kind-icon">Peer<wbr>Meta<wbr>Data</a>
 					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface">
-						<a href="initialstreamcontext.html" class="tsd-kind-icon">Initial<wbr>Stream<wbr>Context</a>
+						<a href="peeroptions.html" class="tsd-kind-icon">Peer<wbr>Options</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="initialstreamcontext.html#data" class="tsd-kind-icon">data</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="peeroptions.html#friendly" class="tsd-kind-icon">friendly</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="initialstreamcontext.html#origin" class="tsd-kind-icon">origin</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="initialstreamcontext.html#type-1" class="tsd-kind-icon">type</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="peeroptions.html#name" class="tsd-kind-icon">name</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface">
-						<a href="listenoptions.html" class="tsd-kind-icon">Listen<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="peerconstructoroptions.html" class="tsd-kind-icon">Peer<wbr>Constructor<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="peermetadata.html" class="tsd-kind-icon">Peer<wbr>Meta<wbr>Data</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="streamcontext.html" class="tsd-kind-icon">Stream<wbr>Context</a>
-					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="../globals.html#messagehandler" class="tsd-kind-icon">Message<wbr>Handler</a>
 					</li>
@@ -222,7 +192,7 @@
 						<a href="../globals.html#readablehandler" class="tsd-kind-icon">Readable<wbr>Handler</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
-						<a href="../globals.html#requestcallbackfunction" class="tsd-kind-icon">Request<wbr>Callback<wbr>Function</a>
+						<a href="../globals.html#requestcallback" class="tsd-kind-icon">Request<wbr>Callback</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="../globals.html#requesthandler" class="tsd-kind-icon">Request<wbr>Handler</a>
@@ -232,12 +202,6 @@
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="../globals.html#sendabledata" class="tsd-kind-icon">sendable<wbr>Data</a>
-					</li>
-					<li class=" tsd-kind-variable">
-						<a href="../globals.html#peer_reconnect_fail_event" class="tsd-kind-icon">PEER_<wbr>RECONNECT_<wbr>FAIL_<wbr>EVENT</a>
-					</li>
-					<li class=" tsd-kind-variable">
-						<a href="../globals.html#peer_reconnect_success_event" class="tsd-kind-icon">PEER_<wbr>RECONNECT_<wbr>SUCCESS_<wbr>EVENT</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="../globals.html#singleton" class="tsd-kind-icon">Singleton</a>

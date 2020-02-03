@@ -1,10 +1,10 @@
 import { Peer } from './Peer';
-import { PeerConstructorOptions } from './interfaces';
+import { PeerOptions } from './interfaces';
 
 let singleton: Peer;
 
 /**Singleton instance of Peer*/
-let Singleton = function(options?: PeerConstructorOptions): Peer {
+let Singleton = function(options?: PeerOptions): Peer {
     singleton = singleton || new Peer(options);
     return singleton;
 };

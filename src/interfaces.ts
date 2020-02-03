@@ -7,7 +7,8 @@ import { Unit } from './Unit';
 import { Readable, Writable } from 'stream';
 
 /**Options for Peer constructor */
-export interface PeerConstructorOptions {
+export interface PeerOptions {
+    /**Should this peer be acquainted with others when it gets connected to another unit */
     friendly?: boolean;
     /**Name of peer which could be read by remote peers (units) */
     name?: string;
@@ -26,9 +27,13 @@ export interface MessageHeaders {
     timeout?: number
 }
 
+/**Options that determine how [[Destination]] will act */
 export interface EmitOptions {
+    /**Name of event which should be handled by unit's [[Role]]*/
     event: string,
+    /**Request timeout*/
     timeout?: number //for requests only,
+    /**[[Unit]] which should receive message. If [[Destination]] has not such unit method will throw an error */
     unit?: Unit //send to specific unit
 }
 
@@ -92,10 +97,13 @@ export interface ListenOptions {
     path?: string
 }
 
+/**Additional options for outgoing connection */
 export interface ConnectOptions {
+    /**Permanent connection will try to reconnect after abort */
     permanent?: boolean
 }
 
+/**@internal */
 export interface InitialContext {
     data: any,
     type: string,
@@ -107,7 +115,7 @@ export interface InitialContext {
     _correlation?: number, //for requests and responses only
 }
 
-export interface Context extends InitialContext {
+export interface Context {
     /**Payload of incoming message. Can be reassigned in middleware */
     data: any,
     /**Type of data. Can be reassigned in middleware */
@@ -133,12 +141,14 @@ export interface Context extends InitialContext {
     rtt?: number
     /**wait untin next response handler will process the context. Use in middleware */
     next?(): Promise<void>
+    /**@internal 
+     * for requests and responses only, internal property
+    */
+    _correlation?: number,
 }
 
-export interface StreamContext extends InitialStreamContext, Context {
-    /**@internal */
-    _correlation: number
-}
+/**@internal */
+export interface StreamContext extends InitialStreamContext, Context { }
 
 
 /**@internal */
@@ -147,23 +157,26 @@ export interface rolesMsg {
     roles: string[]
 }
 
+/**@internal */
 export interface InitialStreamContext extends InitialContext {
     /**@internal */
     _ctr: number;
-    /**@internal */
-    _correlation: number
 }
 
-export interface ContextForReadable extends StreamContext {
+export interface ContextForReadable extends Context {
     readable: Readable
+    /**@internal */
+    _ctr: number;
 }
 
-export interface ContextForWritable extends StreamContext {
+export interface ContextForWritable extends Context {
     writable: Writable
+    /**@internal */
+    _ctr: number;
 }
 
-//Function used to handle incoming requests
-export type RequestCallbackFunction = (err: Error | null, data: sendableData) => void
+/**Function used to handle incoming requests */
+export type RequestCallback = (err: Error | null, data: sendableData) => void
 
 /**Any data which can be sent except functions */
 type sendableDatum = string | number | Object | Buffer | null | undefined
@@ -173,8 +186,8 @@ export type sendableData = sendableDatum | sendableDatum[]
 /**Handler function for incoming messages and response (including one for streams) */
 export type MessageHandler = (ctx: Context) => void;
 /**Handler function for incoming requests */
-export type RequestHandler = (ctx: Context, cb: RequestCallbackFunction) => void;
+export type RequestHandler = (ctx: Context, cb: RequestCallback) => void;
 /**Handler function for incoming requests to establish binary stream session. This end if the stream will be writable */
-export type WritableHandler = (ctx: ContextForWritable, cb: RequestCallbackFunction) => void
+export type WritableHandler = (ctx: ContextForWritable, cb: RequestCallback) => void
 /**Handler function for incoming requests to establish binary stream session. This end if the stream will be readable */
-export type ReadableHandler = (ctx: ContextForReadable, cb: RequestCallbackFunction) => void
+export type ReadableHandler = (ctx: ContextForReadable, cb: RequestCallback) => void

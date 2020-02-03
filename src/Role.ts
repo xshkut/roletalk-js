@@ -1,7 +1,7 @@
 import { EventEmitter } from 'events';
 import { Peer } from './Peer';
 import { ROLES_MESSAGE } from './constants';
-import { Context, ContextForReadable, ContextForWritable, RequestCallbackFunction, MessageHandler, RequestHandler, ReadableHandler, WritableHandler } from './interfaces';
+import { Context, ContextForReadable, ContextForWritable, RequestCallback, MessageHandler, RequestHandler, ReadableHandler, WritableHandler } from './interfaces';
 
 /**Role represents a service on the local Peer. It should handle incoming messages, requests and stream requests for certain functionality
  * 
@@ -99,20 +99,20 @@ export class Role extends EventEmitter {
         runMiddleware(this, this._msgHandler, 'message', ctx);
     }
     /**@internal */
-    _emitReq(ctx: Context, cb: RequestCallbackFunction) {
+    _emitReq(ctx: Context, cb: RequestCallback) {
         runMiddleware(this, this._reqHandler, 'request', ctx, cb);
     }
     /**@internal */
-    _emitReadable(ctx: ContextForReadable, cb: RequestCallbackFunction) {
+    _emitReadable(ctx: ContextForReadable, cb: RequestCallback) {
         runMiddleware(this, this._readableHandler, 'readable', ctx, cb);
     }
     /**@internal */
-    _emitWritable(ctx: ContextForWritable, cb: RequestCallbackFunction) {
+    _emitWritable(ctx: ContextForWritable, cb: RequestCallback) {
         runMiddleware(this, this._writableHandler, 'writable', ctx, cb);
     }
 }
 
-function runMiddleware(role: Role, handler: EventEmitter, communicationType: string, ctx: Context | ContextForReadable | ContextForWritable, callback?: RequestCallbackFunction) {
+function runMiddleware(role: Role, handler: EventEmitter, communicationType: string, ctx: Context | ContextForReadable | ContextForWritable, callback?: RequestCallback) {
     let cb;
     let done = false;
     let resolvers: (() => void)[] = []

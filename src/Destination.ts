@@ -5,7 +5,7 @@ import { MessageHeaders, EmitOptions, Context, sendableData } from './interfaces
 import { Readable, Writable, ReadableOptions, WritableOptions } from 'stream';
 import { Peer } from './Peer';
 
-/**Destination represents a role (a service name) of remote peers (units). Destination is used as a gateway for outgoing communication. It implements round-robin load balancing between units 
+/**Destination represents a role (a service) of remote peers ([[Unit]]s). Destination is used as a gateway for outgoing communication. It implements round-robin load balancing between units 
  * 
  * This class should not be instantiated directly. It is exposed for type declaration and documentation
 */
@@ -15,7 +15,7 @@ export class Destination extends EventEmitter {
     private _peer: Peer;
     /**@internal */
     _set: SetWithRoundRobin<Unit>;
-
+    /**@internal */
     constructor(name: string, peer: Peer) {
         super();
         this._name = name;

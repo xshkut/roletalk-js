@@ -9,7 +9,7 @@ import { Role } from './Role';
 import { Auth } from './Auth';
 import { DEFAULT_REQUEST_TIMEOUT, ROLES_MESSAGE as ROLES_CHANGE, WS_AUTH_ERROR_CLOSE } from './constants.js';
 import { SecureContextOptions } from 'tls';
-import { PeerConstructorOptions, ListenOptions, ConnectOptions, WritableHandler, ReadableHandler, RequestHandler, MessageHandler, PeerConfirmData } from './interfaces';
+import { PeerOptions, ListenOptions, ConnectOptions, WritableHandler, ReadableHandler, RequestHandler, MessageHandler, PeerConfirmData } from './interfaces';
 import { receiveResponse } from './misc/receiveResponse';
 
 const reconnectIntervals = [0, 1, 2, 3, 4, 5, 10, 30, 60];
@@ -47,7 +47,7 @@ export class Peer extends EventEmitter {
     _constructed: number
     /**@internal */
     _lastRolesUpdate: number = 0
-    constructor(options: PeerConstructorOptions = {}) {
+    constructor(options: PeerOptions = {}) {
         super();
         this.id = crypto.randomBytes(16).toString('hex');
         this.name = '';
@@ -427,5 +427,7 @@ function startReconnectCycle(peer: Peer, address: string, options?: WebSocket.Cl
 }
 
 //public events
+/**@internal */
 export const PEER_RECONNECT_SUCCESS_EVENT = 'reconnect_success';
+/**@internal */
 export const PEER_RECONNECT_FAIL_EVENT = 'reconnect_fail';

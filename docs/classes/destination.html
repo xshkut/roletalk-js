@@ -67,7 +67,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Destination represents a role (a service name) of remote peers (units). Destination is used as a gateway for outgoing communication. It implements round-robin load balancing between units</p>
+						<p>Destination represents a role (a service) of remote peers (<a href="unit.html">Unit</a>s). Destination is used as a gateway for outgoing communication. It implements round-robin load balancing between units</p>
 					</div>
 					<p>This class should not be instantiated directly. It is exposed for type declaration and documentation</p>
 				</div>
@@ -89,12 +89,6 @@
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section ">
-							<h3>Constructors</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="destination.html#constructor" class="tsd-kind-icon">constructor</a></li>
-							</ul>
-						</section>
 						<section class="tsd-index-section tsd-is-inherited">
 							<h3>Events</h3>
 							<ul class="tsd-index-list">
@@ -142,35 +136,6 @@
 							</ul>
 						</section>
 					</div>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Constructors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
-					<a name="constructor" class="tsd-anchor"></a>
-					<h3>constructor</h3>
-					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Destination<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, peer<span class="tsd-signature-symbol">: </span><a href="peer.html" class="tsd-signature-type">Peer</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="destination.html" class="tsd-signature-type">Destination</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in src/Destination.ts:17</li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>name: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5>peer: <a href="peer.html" class="tsd-signature-type">Peer</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="destination.html" class="tsd-signature-type">Destination</a></h4>
-						</li>
-					</ul>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
@@ -1131,9 +1096,6 @@
 					<li class="current tsd-kind-class">
 						<a href="destination.html" class="tsd-kind-icon">Destination</a>
 						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="destination.html#constructor" class="tsd-kind-icon">constructor</a>
-							</li>
 							<li class=" tsd-kind-event tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
 								<a href="destination.html#on" class="tsd-kind-icon">on</a>
 							</li>
@@ -1241,22 +1203,13 @@
 						<a href="../interfaces/emitoptions.html" class="tsd-kind-icon">Emit<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/initialcontext.html" class="tsd-kind-icon">Initial<wbr>Context</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/initialstreamcontext.html" class="tsd-kind-icon">Initial<wbr>Stream<wbr>Context</a>
-					</li>
-					<li class=" tsd-kind-interface">
 						<a href="../interfaces/listenoptions.html" class="tsd-kind-icon">Listen<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/peerconstructoroptions.html" class="tsd-kind-icon">Peer<wbr>Constructor<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="../interfaces/peermetadata.html" class="tsd-kind-icon">Peer<wbr>Meta<wbr>Data</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/streamcontext.html" class="tsd-kind-icon">Stream<wbr>Context</a>
+						<a href="../interfaces/peeroptions.html" class="tsd-kind-icon">Peer<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="../globals.html#messagehandler" class="tsd-kind-icon">Message<wbr>Handler</a>
@@ -1265,7 +1218,7 @@
 						<a href="../globals.html#readablehandler" class="tsd-kind-icon">Readable<wbr>Handler</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
-						<a href="../globals.html#requestcallbackfunction" class="tsd-kind-icon">Request<wbr>Callback<wbr>Function</a>
+						<a href="../globals.html#requestcallback" class="tsd-kind-icon">Request<wbr>Callback</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="../globals.html#requesthandler" class="tsd-kind-icon">Request<wbr>Handler</a>
@@ -1275,12 +1228,6 @@
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="../globals.html#sendabledata" class="tsd-kind-icon">sendable<wbr>Data</a>
-					</li>
-					<li class=" tsd-kind-variable">
-						<a href="../globals.html#peer_reconnect_fail_event" class="tsd-kind-icon">PEER_<wbr>RECONNECT_<wbr>FAIL_<wbr>EVENT</a>
-					</li>
-					<li class=" tsd-kind-variable">
-						<a href="../globals.html#peer_reconnect_success_event" class="tsd-kind-icon">PEER_<wbr>RECONNECT_<wbr>SUCCESS_<wbr>EVENT</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="../globals.html#singleton" class="tsd-kind-icon">Singleton</a>

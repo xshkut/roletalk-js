@@ -1,6 +1,6 @@
 import { Peer } from './Peer';
-import { PeerConstructorOptions } from './interfaces';
-declare let Singleton: (options?: PeerConstructorOptions | undefined) => Peer;
+import { PeerOptions } from './interfaces';
+declare let Singleton: (options?: PeerOptions | undefined) => Peer;
 export { Singleton };
 export default Peer;
 export * from './Peer';

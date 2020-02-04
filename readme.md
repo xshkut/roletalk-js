@@ -1,4 +1,4 @@
-# ROLETALK: Microservice framework for Node.js
+# Roletalk: Microservice framework for Node.js
 
 Roletalk is peer-to-peer communication framework for microservices; asynchronous and event-driven.
 Developed in honor of scalability, simplicity and efficiency.

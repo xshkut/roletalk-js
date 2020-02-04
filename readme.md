@@ -6,33 +6,35 @@ Developed in honor of scalability, simplicity and efficiency.
 Essentially, it is peer-to-service framework, which allows you to create multiple services (roles) on single peer and communicate to them with ease.
 
 Roletalk internally uses Websocket for data transferring as TCP framing tool with minimal network overhead.
-Currently there is corresponding wire-compatible GO [framework](https://github.com/xshkut/roletalk-go).
+Currently, there is a corresponding wire-compatible GO [framework](https://github.com/xshkut/roletalk-go).
 
 ## <a name='TableofContents'></a>Table of Contents
 
 <!-- vscode-markdown-toc -->
+
 * [Installation](#Installation)
 * [ API](#API)
 * [ Use case](#Usecase)
 * [ Features](#Features)
 * [ Concept](#Concept)
-	* [ Structure](#Structure)
-	* [ Communication](#Communication)
-	* [ Data types](#Datatypes)
-	* [ Acquaintance](#Acquaintance)
-	* [ Security](#Security)
+  + [ Structure](#Structure)
+  + [ Communication](#Communication)
+  + [ Data types](#Datatypes)
+  + [ Acquaintance](#Acquaintance)
+  + [ Security](#Security)
 * [ Contribution](#Contribution)
 
 <!-- vscode-markdown-toc-config
+
 	numbering=false
 	autoSave=true
 	/vscode-markdown-toc-config -->
-<!-- /vscode-markdown-toc -->
 
+<!-- /vscode-markdown-toc -->
 
 ## <a name='Installation'></a>Installation
 
-`$ npm install roletalk`
+`$ npm install roletalk` 
 
 ## <a name='API'></a> API 
 
@@ -40,39 +42,39 @@ API referrence is available [HERE](https://xshkut.github.io/roletalk-js), genera
 
 ## <a name='Usecase'></a> Use case
 
-Choose roletalk if you need to build brokerless architecture. Such approach brings some advantages: minimal RTT (round-trip time), less network transferring, no SPOF (single point of failure). In some scenarios broker can be a bottleneck also.
+Choose roletalk if you need to build brokerless architecture. Such an approach brings some advantages: minimal RTT (round-trip time), less network transferring, no SPOF (single point of failure). In some scenarios, broker can be a bottleneck also.
 
 Roletalk lets you implement flexible communication patterns:
 
-- Publish-Subscribe,
-- Remote Procedure Call (RPC),
-- Event (single message with optional payload),
-- Pipeline (sequental distributed data processing),
-- Bus (many-to-many communication),
-- Survey (request-reply to multiple peers).
+* Publish-Subscribe, 
+* Remote Procedure Call (RPC), 
+* Event (single message with optional payload), 
+* Pipeline (sequential distributed data processing), 
+* Bus (many-to-many communication), 
+* Survey (request-reply to multiple peers).
 
 ## <a name='Features'></a> Features
 
 • Client as service.
-No matter who establishes connection. Both listener and dialer of a socket are services.
-It allows you to deploy services not exposing them to the Internet or behind private network etc.
-Of course such instances should connect to listeners they have network access to.
+No matter who establishes a connection. Both listener and dialer of a socket are services.
+It allows you to deploy services not exposing them to the Internet or behind private networks etc.
+Of course, such instances should connect to listeners they have network access to.
 
-• Automatic service-recognition. Just connect peers together and each of them will know each about other's roles (services), IDs, names and meta info.
-If peer's role gets disabled or enabled each connected peer immediately gets informed and rebuilds its internal state.
+• Automatic service-recognition. Just connect peers and each of them will know each about other's roles (services), IDs, names and meta info.
+If a peer's role gets disabled or enabled each connected peer immediately gets informed and rebuilds its internal state.
 
-• Redunant connections support. There could be multiple connections between two peers. All communication is load-balanced between them.
-With auto-reconnection this can be useful to keep connected two peers which are in case of one peer's IP address is changed.
+• Redundant connections support. There could be multiple connections between two peers. All communication is load-balanced between them.
+With auto-reconnection, this can be useful to keep connected two peers which are in case when one peer's IP address is changed.
 
 • Binary streams. Transfer large or unknown amounts of data via streams.
 
-• Round-robin client-side load balancing between units implementing a role (service);
+• Round-robin client-side load balancing between units implementing a role (service); 
 
 • No internal heavy message conversions (json/xml serialization/parsing). Just binary to utf-8/int and vice-versa.
 
 • Optional TLS on transport layer.
 
-• Scalable and simple in-built authentication: each peer can have zero or multiple ID:KEY combinations.
+• Scalable and simple in-built authentication: each peer can have zero or multiple ID: KEY combinations.
 
 ## <a name='Concept'></a> Concept
 
@@ -80,22 +82,23 @@ With auto-reconnection this can be useful to keep connected two peers which are 
 
 Roletalk concept consists of:
 
-- <b>Peer</b> - local node in your peer-to-peer architecture. Peer can have Units, Roles and Destinations.
-- <b>Unit</b> - remote node connected to the Peer
-- <b>Connection</b> - communication link between Peer and Unit. Each Unit can have one or more connections. If there are redunant connection, communications is load-balanced between them: checking which of them is not busy or choosing random one if no vacant one found. In case of last connection gets aborted Unit gets closed and removed from the Peer
-- <b>Role</b> - service registered on Peer. Role can have handlers for each communication type. Role can be <b>active</b> or <b>inactive</b>. When role changes its state all connected units get informed to rebuild their state
-- <b>Destination</b> - role registered on Units. Destination includes all connected units which serve corresponding role. If last Unit gets disconnected or disables the role, Destinations gets closed.
-All communications is performed via Destinations's methods and is load-balanced among its Units unless Unit is explicitly specified. Unit is chosen for each message / request / stream. 
+* <b>Peer</b> - local node in your peer-to-peer architecture. Peer can have Units, Roles and Destinations.
+* <b>Unit</b> - remote node connected to the Peer
+* <b>Connection</b> - communication link between Peer and Unit. Each Unit can have one or more connections. If there are redundant connections, communication is load-balanced between them: checking which of them is not busy or choosing random one if no vacant one found. In case of last connection gets aborted Unit gets closed and removed from the Peer
+* <b>Role</b> - service registered on Peer. Role can have handlers for each communication type. Role can be <b>active</b> or <b>inactive</b>. When role changes its state all connected units get informed to rebuild their state
+* <b>Destination</b> - role registered on Units. Destination includes all connected units which serve corresponding role. If last Unit gets disconnected or disables the role, Destinations gets closed.
+
+All communications is performed via Destinations's methods and is load-balanced among its Units unless Unit is explicitly specified. Unit is chosen for each message / request / stream.
 
 ### <a name='Communication'></a> Communication
 
 Roletalk defines three types of communication:
 
-- <b>Message</b> - one-way act of communication. Should be used when no delivery acknowledgement is needed. Successfully sent message means that it has been written to underlying socket
-- <b>Request</b> - request in common meaning. Request can only be rejected or replied. Returns error when Unit rejects it, timeout exceeds or Unit disconnects after request was sent.
-- <b>Stream</b> - one-way stream of binary data. Streams can be <b>Readable</b> and <b>Writable</b>. If Peer calls Readable (`Destination.Readable()`) then Units handle Writable (`Role.OnWritable()`) and vice-versa. Stream sessions begin with Request. After Unit replied for request, data is transferred over connection used for the reply. If  connection aborts stream destroys.
+* <b>Message</b> - one-way act of communication. Should be used when no delivery acknowledgement is needed. Successfully sent message means that it has been written to underlying socket
+* <b>Request</b> - request in common meaning. Request can only be rejected or replied. Returns error when Unit rejects it, timeout exceeds or Unit disconnects after request was sent.
+* <b>Stream</b> - one-way stream of binary data. Streams can be <b>Readable</b> and <b>Writable</b>. If Peer calls Readable ( `Destination.Readable()` ) then Units handle Writable ( `Role.OnWritable()` ) and vice-versa. Stream sessions begin with Request. After Unit replied for request, data is transferred over connection used for the reply. If  connection aborts stream destroys.
 
-Incoming messages are wrapped in <b>Context</b> - object with payload and meta info for all types of incoming messages (message, request, request for stream). 
+Incoming messages are wrapped in <b>Context</b> - object with payload and meta info for all types of incoming messages (message, request, request for stream).
 
 All communication is performed with two basic properties: <b>Role</b> and <b>Event</b> (name of action. Some synonyms in other frameworks: method, path, action) to identify which handler to call.
 When Unit gets message it forwards it to corresponding role or rejects it if such role isn't specified on the Peer. If role has no handlers for event it rejects it, otherwise call handlers.
@@ -104,12 +107,12 @@ When Unit gets message it forwards it to corresponding role or rejects it if suc
 
 Roletalk uses six data types:
 
-- <b>Binary</b> - `Buffer`
-- <b>Null</b> - `null`
-- <b>Bool</b> - `boolean`
-- <b>String</b> - `string`
-- <b>Number</b> - `number`
-- <b>Object</b> - `Object`
+* <b>Binary</b> - `Buffer` 
+* <b>Null</b> - `null` 
+* <b>Bool</b> - `boolean` 
+* <b>String</b> - `string` 
+* <b>Number</b> - `number` 
+* <b>Object</b> - `Object` 
 
 All communication (except stream sessions) can use data of any type. Type of data should be chosen on stage of designing microservice specification or retrieved by calling Context methods.
 
@@ -125,7 +128,7 @@ Acquantance is enabled by default, but you can set Friendly option to FALSE to d
 
 To achieve strong MITM-protection use HTTPS.
 
-Framework is provided with simple in-built authentication mechanism: preshared ID:KEY pairs. Peers which are supposed to be connected should have at least one common ID:KEY pair.
+Framework is provided with simple in-built authentication mechanism: preshared ID: KEY pairs. Peers which are supposed to be connected should have at least one common ID: KEY pair.
 
 The authentication process between two peers can be described in a simple few steps:
 
@@ -141,8 +144,9 @@ The authentication process between two peers can be described in a simple few st
 
 ## <a name='Contribution'></a> Contribution
 
-Project is MIT-licensed. 
+Project is MIT-licensed.
 
-Feel free to open issues and fork. 
+Feel free to open issues and fork.
 
 If you have any ideas or remarks you are welcome to contact the author.
+

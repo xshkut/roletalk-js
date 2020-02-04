@@ -60,11 +60,11 @@ No matter who establishes a connection. Both listener and dialer of a socket are
 It allows you to deploy services not exposing them to the Internet or behind private networks etc.
 Of course, such instances should connect to listeners they have network access to.
 
-• Automatic service-recognition. Just connect peers and each of them will know each about other's roles (services), IDs, names and meta info.
+• Automatic service-recognition. Just connect peers and each of them will know about each other's roles (services), IDs, names and meta info.
 If a peer's role gets disabled or enabled each connected peer immediately gets informed and rebuilds its internal state.
 
 • Redundant connections support. There could be multiple connections between two peers. All communication is load-balanced between them.
-With auto-reconnection, this can be useful to keep connected two peers which are in case when one peer's IP address is changed.
+With auto-reconnection, this can be useful to keep connected two peers in case when one peer's IP address is changed.
 
 • Binary streams. Transfer large or unknown amounts of data via streams.
 

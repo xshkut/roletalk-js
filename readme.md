@@ -1,7 +1,17 @@
-# ROLETALK
+# ROLETALK: Microservice framework for Node.js
+
+Roletalk is peer-to-peer communication framework for microservices; asynchronous and event-driven.
+Developed in honor of scalability, simplicity and efficiency.
+
+Essentially, it is peer-to-service framework, which allows you to create multiple services (roles) on single peer and communicate to them with ease.
+
+Roletalk internally uses Websocket for data transferring as TCP framing tool with minimal network overhead.
+Currently there is corresponding wire-compatible GO [framework](https://github.com/xshkut/roletalk-go).
+
+## <a name='TableofContents'></a>Table of Contents
 
 <!-- vscode-markdown-toc -->
-* [ Overview](#Overview)
+* [Installation](#Installation)
 * [ API](#API)
 * [ Use case](#Usecase)
 * [ Features](#Features)
@@ -19,19 +29,14 @@
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-## <a name='Overview'></a> Overview
 
-Roletalk is peer-to-peer communication framework for microservices; asynchronous and event-driven.
-Developed in honor of scalability, simplicity and efficiency.
+## <a name='Installation'></a>Installation
 
-Essentially, it is peer-to-service framework, which allows you to create multiple services (roles) on single peer and communicate to them with ease.
-
-Roletalk internally uses Websocket for data transferring as TCP framing tool with minimal network overhead.
-Currently there is corresponding wire-compatible GO [framework](https://github.com/xshkut/roletalk-go).
+`$ npm install roletalk`
 
 ## <a name='API'></a> API 
 
-API referrence is available [HERE](https://xshkut.github.io/roletalk-js)
+API referrence is available [HERE](https://xshkut.github.io/roletalk-js), generated with [Typedoc](https://typedoc.org/)
 
 ## <a name='Usecase'></a> Use case
 

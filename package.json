@@ -1,6 +1,6 @@
 {
   "name": "roletalk",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "WebSocket-based NodeJS framework for peer-to-peer communication between microservices",
   "main": "built/index.js",
   "types": "built/index.d.ts",

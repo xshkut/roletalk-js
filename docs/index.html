@@ -64,7 +64,181 @@
 			<div class="tsd-panel tsd-typography">
 				<p>This API is generated directly from <a href="https://github.com/xshkut/roletalk-js">project</a>&#39;s source with <a href="https://typedoc.org">TypeDoc</a></p>
 				<p>Due to development process of TypeDoc, overriden events are not visible unless you fill &quot;Inherited&quot; checkbox, then see <code>on</code> methods on classes to check available typed events.</p>
-				<p>Some basic examples will be added soon.</p>
+				<p>Some basic examples will be added soon... </p>
+				<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
+					<h2>Examples</h2>
+				</a>
+				<a href="#connection-and-authentication" id="connection-and-authentication" style="color: inherit; text-decoration: none;">
+					<h3>Connection and authentication</h3>
+				</a>
+				<pre><code>//import <span class="hljs-keyword">is</span> common <span class="hljs-keyword">for</span> <span class="hljs-keyword">all</span> <span class="hljs-keyword">files</span>
+
+import { Peer } from <span class="hljs-string">'roletalk'</span>
+
+//<span class="hljs-keyword">file</span> Bob.<span class="hljs-keyword">ts</span>
+
+<span class="hljs-keyword">let</span> bob = <span class="hljs-keyword">new</span> Peer({ name: <span class="hljs-string">'Bob'</span> })
+//We can <span class="hljs-built_in">add</span> multiple preshared <span class="hljs-built_in">keys</span>.
+bob.addPresharedKey(<span class="hljs-string">'supersecret'</span>, <span class="hljs-string">'qwerty456'</span>)
+bob.addPresharedKey(<span class="hljs-string">'some_other'</span>, <span class="hljs-string">'qwerty123'</span>)
+
+bob.<span class="hljs-keyword">on</span>(<span class="hljs-string">'unit'</span>, (unit) =&gt; {
+    console.<span class="hljs-built_in">log</span>( `Unit connected <span class="hljs-keyword">to</span> Bo<span class="hljs-variable">b:</span> ${unit.name}` )
+})
+
+setTimeout(() =&gt; {
+    console.<span class="hljs-built_in">log</span>( `Bob connected <span class="hljs-keyword">to</span> <span class="hljs-keyword">next</span> unit<span class="hljs-variable">s:</span> ${bob.units.<span class="hljs-keyword">map</span>(unit =&gt; unit.name)}` )
+}, <span class="hljs-number">1000</span>)
+
+bob.listen(<span class="hljs-number">9000</span>)
+
+//<span class="hljs-keyword">file</span> Alice.<span class="hljs-keyword">ts</span>
+
+<span class="hljs-keyword">let</span> alice = <span class="hljs-keyword">new</span> Peer({ name: <span class="hljs-string">'Alice'</span> })
+alice.addPresharedKey(<span class="hljs-string">'supersecret'</span>, <span class="hljs-string">'qwerty456'</span>)
+alice.addPresharedKey(<span class="hljs-string">'one_another'</span>, <span class="hljs-string">'qwerty789'</span>)
+
+alice.<span class="hljs-keyword">on</span>(<span class="hljs-string">'unit'</span>, (unit) =&gt; {
+    console.<span class="hljs-built_in">log</span>( `Unit connected <span class="hljs-keyword">to</span> Alice: ${unit.name}` )
+})
+
+alice.connect(<span class="hljs-string">'ws://localhost:9000'</span>)
+
+//<span class="hljs-keyword">file</span> Chuck.<span class="hljs-keyword">ts</span>
+
+<span class="hljs-keyword">let</span> chuck = <span class="hljs-keyword">new</span> Peer({ name: <span class="hljs-string">'Chuck'</span> })
+chuck.addPresharedKey(<span class="hljs-string">'supersecret'</span>, <span class="hljs-string">'maybe_12345?'</span>)
+
+chuck.connect(<span class="hljs-string">'ws://localhost:9000'</span>).<span class="hljs-keyword">catch</span>(err =&gt; console.<span class="hljs-built_in">log</span>( `Chuck cannot connect <span class="hljs-keyword">to</span> Bo<span class="hljs-variable">b:</span> ${err}` ))
+
+//<span class="hljs-keyword">file</span> Carlos.<span class="hljs-keyword">ts</span>
+
+<span class="hljs-keyword">let</span> carlos = <span class="hljs-keyword">new</span> Peer({ name: <span class="hljs-string">'Carlos'</span> })
+//Lets <span class="hljs-keyword">try</span> <span class="hljs-keyword">to</span> connect <span class="hljs-keyword">to</span> Bob without <span class="hljs-built_in">keys</span> at <span class="hljs-keyword">all</span>
+carlos.connect(<span class="hljs-string">'ws://localhost:9000'</span>).<span class="hljs-keyword">catch</span>(err =&gt; console.<span class="hljs-built_in">log</span>( `Carlos cannot connect <span class="hljs-keyword">to</span> Bo<span class="hljs-variable">b:</span> ${err}` ))</code></pre><p>Output:</p>
+				<pre><code>Carlos cannot connect <span class="hljs-keyword">to</span> Bob: Verification error: The<span class="hljs-built_in"> peer </span>has <span class="hljs-keyword">not</span> such proofs: supersecret,some_other
+Unit connected <span class="hljs-keyword">to</span> Alice: Bob
+Chuck cannot connect <span class="hljs-keyword">to</span> Bob: Auth error: Preshared key mismatch. Chosen id: supersecret
+Unit connected <span class="hljs-keyword">to</span> Bob: Alice
+Bob connected <span class="hljs-keyword">to</span> next units: Alice</code></pre>
+				<a href="#rpc-with-middleware" id="rpc-with-middleware" style="color: inherit; text-decoration: none;">
+					<h2>RPC with middleware</h2>
+				</a>
+				<pre><code><span class="hljs-keyword">import</span> { Peer } <span class="hljs-keyword">from</span> <span class="hljs-string">'roletalk'</span>
+<span class="hljs-keyword">import</span> { randomBytes } <span class="hljs-keyword">from</span> <span class="hljs-string">'crypto'</span>
+
+<span class="hljs-keyword">let</span> wrapper1 = <span class="hljs-keyword">new</span> Peer({ name: <span class="hljs-string">'Wrapper 1'</span> })
+<span class="hljs-keyword">let</span> wrapper2 = <span class="hljs-keyword">new</span> Peer({ name: <span class="hljs-string">'Wrapper 2'</span> })
+<span class="hljs-keyword">let</span> wrapper3 = <span class="hljs-keyword">new</span> Peer({ name: <span class="hljs-string">'Wrapper 3'</span> })
+<span class="hljs-keyword">let</span> wrapper4 = <span class="hljs-keyword">new</span> Peer({ name: <span class="hljs-string">'Wrapper 4'</span> })
+<span class="hljs-keyword">let</span> sender = <span class="hljs-keyword">new</span> Peer()
+
+sender.listen(<span class="hljs-number">9000</span>)
+<span class="hljs-keyword">let</span> wrappers = [wrapper1, wrapper2, wrapper3, wrapper4]
+
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> wrapper of wrappers) {
+    wrapper.connect(<span class="hljs-string">'ws://localhost:9000'</span>)
+
+    <span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>;
+
+    <span class="hljs-comment">//Handling all incoming requests for all roles and events to increment counter</span>
+    wrapper.onRequest(<span class="hljs-keyword">async</span> (ctx) =&gt; {
+        i++;
+    })
+
+    <span class="hljs-comment">//Stringigying responses for all events</span>
+    wrapper.role(<span class="hljs-string">'json-wrapper'</span>).onRequest(<span class="hljs-keyword">async</span> (ctx) =&gt; {
+        <span class="hljs-comment">// Waiting for response to stringify it...</span>
+        <span class="hljs-keyword">await</span> ctx.next!()
+        ctx.response = <span class="hljs-built_in">JSON</span>.stringify(ctx.response)
+    })
+
+    <span class="hljs-comment">//Wrapping data</span>
+    wrapper.role(<span class="hljs-string">'json-wrapper'</span>).onRequest(<span class="hljs-string">'wrap'</span>, <span class="hljs-function">(<span class="hljs-params">ctx, cb</span>) =&gt;</span> {
+        cb(<span class="hljs-literal">null</span>, { total_order: i, data: ctx.data, by: wrapper.name })
+    })
+}
+
+setInterval(<span class="hljs-keyword">async</span> () =&gt; {
+    <span class="hljs-keyword">try</span> {
+        <span class="hljs-keyword">let</span> data = randomBytes(<span class="hljs-number">10</span>).toString(<span class="hljs-string">'hex'</span>)
+        <span class="hljs-keyword">let</span> ctx = <span class="hljs-keyword">await</span> sender.destination(<span class="hljs-string">'json-wrapper'</span>).request(<span class="hljs-string">'wrap'</span>, data)
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${data}</span> wrapped to <span class="hljs-subst">${ctx.data}</span>`</span>)
+    }
+    <span class="hljs-keyword">catch</span> (err) {
+        <span class="hljs-comment">//...</span>
+    }
+
+}, <span class="hljs-number">1000</span>)</code></pre><p>Output</p>
+				<pre><code><span class="hljs-number">7</span>ea<span class="hljs-number">03</span>d<span class="hljs-number">3339</span>a<span class="hljs-number">59</span>d<span class="hljs-number">7</span>b<span class="hljs-number">6</span>fd<span class="hljs-number">1</span> wrapped <span class="hljs-keyword">to</span> {<span class="hljs-string">"total_order"</span>:<span class="hljs-number">1</span>,<span class="hljs-string">"data"</span>:<span class="hljs-string">"7ea03d3339a59d7b6fd1"</span>,<span class="hljs-string">"by"</span>:<span class="hljs-string">"Wrapper 1"</span>}
+<span class="hljs-number">0</span>fbf<span class="hljs-number">880</span><span class="hljs-keyword">c</span><span class="hljs-number">5010372</span>ad<span class="hljs-number">6e2</span> wrapped <span class="hljs-keyword">to</span> {<span class="hljs-string">"total_order"</span>:<span class="hljs-number">1</span>,<span class="hljs-string">"data"</span>:<span class="hljs-string">"0fbf880c5010372ad6e2"</span>,<span class="hljs-string">"by"</span>:<span class="hljs-string">"Wrapper 2"</span>}
+edcfebf<span class="hljs-number">32574</span>bbf<span class="hljs-number">9</span>dfe<span class="hljs-number">9</span> wrapped <span class="hljs-keyword">to</span> {<span class="hljs-string">"total_order"</span>:<span class="hljs-number">1</span>,<span class="hljs-string">"data"</span>:<span class="hljs-string">"edcfebf32574bbf9dfe9"</span>,<span class="hljs-string">"by"</span>:<span class="hljs-string">"Wrapper 3"</span>}
+<span class="hljs-number">65284</span>dfd<span class="hljs-number">7</span>fbfe<span class="hljs-number">88</span>f<span class="hljs-number">3</span>fa<span class="hljs-number">2</span> wrapped <span class="hljs-keyword">to</span> {<span class="hljs-string">"total_order"</span>:<span class="hljs-number">1</span>,<span class="hljs-string">"data"</span>:<span class="hljs-string">"65284dfd7fbfe88f3fa2"</span>,<span class="hljs-string">"by"</span>:<span class="hljs-string">"Wrapper 4"</span>}
+<span class="hljs-number">2838</span>ac<span class="hljs-number">705</span>a<span class="hljs-number">7</span>b<span class="hljs-number">00</span>a<span class="hljs-number">4</span>baa<span class="hljs-number">3</span> wrapped <span class="hljs-keyword">to</span> {<span class="hljs-string">"total_order"</span>:<span class="hljs-number">2</span>,<span class="hljs-string">"data"</span>:<span class="hljs-string">"2838ac705a7b00a4baa3"</span>,<span class="hljs-string">"by"</span>:<span class="hljs-string">"Wrapper 1"</span>}
+<span class="hljs-number">32274132938</span>f<span class="hljs-number">6e8227</span>bd wrapped <span class="hljs-keyword">to</span> {<span class="hljs-string">"total_order"</span>:<span class="hljs-number">2</span>,<span class="hljs-string">"data"</span>:<span class="hljs-string">"32274132938f6e8227bd"</span>,<span class="hljs-string">"by"</span>:<span class="hljs-string">"Wrapper 2"</span>}
+a<span class="hljs-number">4</span><span class="hljs-keyword">cc</span><span class="hljs-number">0784</span>da<span class="hljs-number">453</span>df<span class="hljs-number">58</span>ccb wrapped <span class="hljs-keyword">to</span> {<span class="hljs-string">"total_order"</span>:<span class="hljs-number">2</span>,<span class="hljs-string">"data"</span>:<span class="hljs-string">"a4cc0784da453df58ccb"</span>,<span class="hljs-string">"by"</span>:<span class="hljs-string">"Wrapper 3"</span>}
+<span class="hljs-number">22</span>f<span class="hljs-number">9</span>f<span class="hljs-number">79</span>cdad<span class="hljs-number">13</span>d<span class="hljs-number">32079</span>f wrapped <span class="hljs-keyword">to</span> {<span class="hljs-string">"total_order"</span>:<span class="hljs-number">2</span>,<span class="hljs-string">"data"</span>:<span class="hljs-string">"22f9f79cdad13d32079f"</span>,<span class="hljs-string">"by"</span>:<span class="hljs-string">"Wrapper 4"</span>}
+<span class="hljs-number">06</span><span class="hljs-keyword">c</span><span class="hljs-number">41164</span>f<span class="hljs-number">30</span>ec<span class="hljs-number">96</span>f<span class="hljs-number">399</span><span class="hljs-keyword">c</span> wrapped <span class="hljs-keyword">to</span> {<span class="hljs-string">"total_order"</span>:<span class="hljs-number">3</span>,<span class="hljs-string">"data"</span>:<span class="hljs-string">"06c41164f30ec96f399c"</span>,<span class="hljs-string">"by"</span>:<span class="hljs-string">"Wrapper 1"</span>}
+<span class="hljs-number">06556695174</span>afdfd<span class="hljs-number">12</span>a<span class="hljs-number">2</span> wrapped <span class="hljs-keyword">to</span> {<span class="hljs-string">"total_order"</span>:<span class="hljs-number">3</span>,<span class="hljs-string">"data"</span>:<span class="hljs-string">"06556695174afdfd12a2"</span>,<span class="hljs-string">"by"</span>:<span class="hljs-string">"Wrapper 2"</span>}</code></pre>
+				<a href="#publish-subscribe" id="publish-subscribe" style="color: inherit; text-decoration: none;">
+					<h2>Publish-Subscribe</h2>
+				</a>
+				<pre><code><span class="hljs-keyword">import</span> { Peer } <span class="hljs-keyword">from</span> <span class="hljs-string">'roletalk'</span>
+
+<span class="hljs-comment">//Declare publisher and subscribers</span>
+<span class="hljs-keyword">let</span> pub = <span class="hljs-keyword">new</span> Peer({ name: <span class="hljs-string">'Bob'</span> }),
+    sub1 = <span class="hljs-keyword">new</span> Peer({ name: <span class="hljs-string">"Alice"</span> }),
+    sub2 = <span class="hljs-keyword">new</span> Peer({ name: <span class="hljs-string">"Anna"</span> }),
+    sub3 = <span class="hljs-keyword">new</span> Peer({ name: <span class="hljs-string">"Kate"</span> })
+
+<span class="hljs-keyword">let</span> subs = [sub1, sub2, sub3];
+
+<span class="hljs-keyword">let</span> port = <span class="hljs-number">9000</span>
+
+<span class="hljs-comment">//Now let's connect them together. It doesn't matter who listens and who connects.</span>
+<span class="hljs-comment">//For example, publisher will be the listener</span>
+pub.listen(port)
+subs.forEach(<span class="hljs-keyword">async</span> (sub: Peer) =&gt; {
+    <span class="hljs-keyword">try</span> {
+        <span class="hljs-comment">//Connect subscribers to publisher</span>
+        <span class="hljs-keyword">let</span> connected = <span class="hljs-keyword">await</span> sub.connect(<span class="hljs-string">'ws://localhost:'</span> + port)
+        <span class="hljs-built_in">console</span>.log( <span class="hljs-string">`<span class="hljs-subst">${sub.name}</span> connected to <span class="hljs-subst">${connected.unit.name}</span>`</span> )
+    } <span class="hljs-keyword">catch</span> (err) {
+        <span class="hljs-built_in">console</span>.log( <span class="hljs-string">`Cannot connect to Bob due to error: <span class="hljs-subst">${err}</span>`</span> )
+    }
+});
+
+<span class="hljs-comment">//Declare Role and handler for event</span>
+subs.forEach(<span class="hljs-keyword">async</span> (sub: Peer) =&gt; {
+    sub.role(<span class="hljs-string">'time_receiver'</span>).onMessage(<span class="hljs-string">'now'</span>, <span class="hljs-function">(<span class="hljs-params">ctx</span>) =&gt;</span> {
+        <span class="hljs-keyword">let</span> now = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(ctx.data).toTimeString()
+        <span class="hljs-built_in">console</span>.log( <span class="hljs-string">`This is <span class="hljs-subst">${sub.name}</span>. <span class="hljs-subst">${ctx.unit.name}</span> told me current time: <span class="hljs-subst">${now}</span>`</span> )
+        <span class="hljs-comment">//maybe rate his work?</span>
+        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Math</span>.random() &gt; <span class="hljs-number">0.9</span>) {
+            <span class="hljs-keyword">let</span> rate = <span class="hljs-built_in">Math</span>.ceil(<span class="hljs-built_in">Math</span>.random() * <span class="hljs-number">5</span> + <span class="hljs-number">5</span>)
+            sub.destination(<span class="hljs-string">'time_emitter'</span>).send({ unit: ctx.unit, event: <span class="hljs-string">'rate'</span> }, rate)
+        }
+    })
+});
+
+pub.role(<span class="hljs-string">'time_emitter'</span>).onMessage(<span class="hljs-string">'rate'</span>, <span class="hljs-function">(<span class="hljs-params">ctx</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log( <span class="hljs-string">`<span class="hljs-subst">${ctx.unit.name}</span> has rated my work: <span class="hljs-subst">${ctx.data}</span>`</span> )
+})
+Peer.name
+setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    pub.destination(<span class="hljs-string">'time_receiver'</span>).broadcast(<span class="hljs-string">'now'</span>, <span class="hljs-built_in">Date</span>.now())
+}, <span class="hljs-number">1000</span>)</code></pre><p>Output: </p>
+				<pre><code>This <span class="hljs-keyword">is</span> Alice. Bob told me current time: <span class="hljs-number">18</span>:<span class="hljs-number">55</span>:<span class="hljs-number">33</span> GMT+<span class="hljs-number">0200</span> (GMT+<span class="hljs-number">02</span>:<span class="hljs-number">00</span>)
+This <span class="hljs-keyword">is</span> Anna. Bob told me current time: <span class="hljs-number">18</span>:<span class="hljs-number">55</span>:<span class="hljs-number">33</span> GMT+<span class="hljs-number">0200</span> (GMT+<span class="hljs-number">02</span>:<span class="hljs-number">00</span>)
+This <span class="hljs-keyword">is</span> Kate. Bob told me current time: <span class="hljs-number">18</span>:<span class="hljs-number">55</span>:<span class="hljs-number">33</span> GMT+<span class="hljs-number">0200</span> (GMT+<span class="hljs-number">02</span>:<span class="hljs-number">00</span>)
+This <span class="hljs-keyword">is</span> Alice. Bob told me current time: <span class="hljs-number">18</span>:<span class="hljs-number">55</span>:<span class="hljs-number">34</span> GMT+<span class="hljs-number">0200</span> (GMT+<span class="hljs-number">02</span>:<span class="hljs-number">00</span>)
+This <span class="hljs-keyword">is</span> Anna. Bob told me current time: <span class="hljs-number">18</span>:<span class="hljs-number">55</span>:<span class="hljs-number">34</span> GMT+<span class="hljs-number">0200</span> (GMT+<span class="hljs-number">02</span>:<span class="hljs-number">00</span>)
+This <span class="hljs-keyword">is</span> Kate. Bob told me current time: <span class="hljs-number">18</span>:<span class="hljs-number">55</span>:<span class="hljs-number">34</span> GMT+<span class="hljs-number">0200</span> (GMT+<span class="hljs-number">02</span>:<span class="hljs-number">00</span>)
+Anna has rated my work: <span class="hljs-number">9</span>
+This <span class="hljs-keyword">is</span> Alice. Bob told me current time: <span class="hljs-number">18</span>:<span class="hljs-number">55</span>:<span class="hljs-number">35</span> GMT+<span class="hljs-number">0200</span> (GMT+<span class="hljs-number">02</span>:<span class="hljs-number">00</span>)
+This <span class="hljs-keyword">is</span> Anna. Bob told me current time: <span class="hljs-number">18</span>:<span class="hljs-number">55</span>:<span class="hljs-number">35</span> GMT+<span class="hljs-number">0200</span> (GMT+<span class="hljs-number">02</span>:<span class="hljs-number">00</span>)
+This <span class="hljs-keyword">is</span> Kate. Bob told me current time: <span class="hljs-number">18</span>:<span class="hljs-number">55</span>:<span class="hljs-number">35</span> GMT+<span class="hljs-number">0200</span> (GMT+<span class="hljs-number">02</span>:<span class="hljs-number">00</span>)
+Kate has rated my work: <span class="hljs-number">8</span></code></pre>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">

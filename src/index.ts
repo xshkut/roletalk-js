@@ -11,7 +11,7 @@ let Singleton = function(options?: PeerOptions): Peer {
 
 export { Singleton };
 
-export default Peer;
+// export default Peer;
 export * from './Peer'
 export * from './interfaces'
 export * from './Unit';

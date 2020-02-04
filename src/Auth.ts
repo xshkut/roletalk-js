@@ -124,7 +124,7 @@ export class Auth {
 					if (crypto.createHmac('sha256', key).update(challenge).digest().toString('hex') === data.proof) {
 						return sendConfirmation();
 					};
-					sendRejection(`Preshared key mismatch: HMAC's are not identical. Got ${data.proof}. Make sure it is hex-encoded`);
+					sendRejection(`Preshared key mismatch. Chosen id: ${data.id}`);
 					break;
 				default:
 					sendRejection('Incorrect event during handshake process: ' + event);

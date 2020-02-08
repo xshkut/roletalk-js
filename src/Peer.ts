@@ -21,8 +21,9 @@ export class Peer extends EventEmitter {
     /**@internal */
     auth: Auth;
     name: string;
-    readonly id: string;
     friendly: boolean;
+    /**@internal */
+    readonly _id: string;
     /**@internal */
     _units: Map<string, Unit> = new Map();
     /**@internal */
@@ -49,7 +50,7 @@ export class Peer extends EventEmitter {
     _lastRolesUpdate: number = 0
     constructor(options: PeerOptions = {}) {
         super();
-        this.id = crypto.randomBytes(16).toString('hex');
+        this._id = crypto.randomBytes(16).toString('hex');
         this.name = '';
         this._requestTimeout = DEFAULT_REQUEST_TIMEOUT;
         this.auth = new Auth(this);
@@ -73,9 +74,16 @@ export class Peer extends EventEmitter {
         this.on('role', sendNewRoles);
         this.on(ROLES_CHANGE, sendNewRoles.bind(this));
     }
-    addPresharedKey(id: string, key: string) {
-        this.auth.addPresharedKey(id, key)
+    /**Get peer's unique identifier. It is generated when Peer is being instantiated */
+    get id() {
+        return this._id
     }
+    /**Add secret key bound to id. After a key is added, this peer will not be authenticated with any other peer unless some common id:key pair is equal */
+    addPresharedKey(id: string, key: string): this {
+        this.auth.addPresharedKey(id, key)
+        return this
+    }
+    /**Listen to incoming connections. Starts HTTP(S) server listening immediately unless options.server is not provided. */
     listen(this: Peer, options: ListenOptions | number, cb?: Function): Promise<Peer> {
         if (this._listener) throw new Error('.listen has been called already')
         if (typeof options === 'number') {
@@ -116,7 +124,7 @@ export class Peer extends EventEmitter {
         }
         return _listen.call(this, cb) as unknown as Promise<Peer>;
     }
-
+    /**Close all incoming connections and stop listening http server. Provide optional cb argument to run callback when internal server stops listening */
     close(cb?: (err?: Error) => void) {
         if (cb && typeof cb !== 'function') {
             throw new Error('Argument should be a function (if provided)');
@@ -124,7 +132,9 @@ export class Peer extends EventEmitter {
         this._units.forEach((unit) => unit.close());
         return this._server && this._server.close(cb);
     }
-
+    /**Connect to another peer using WebSocket. Options can be used to override [[WebSocket.ClientOptions]]. 
+     * Set options.permanent = false if connection is not supposed to reconnect after abort 
+    */
     connect(
         address: string,
         options?: WebSocket.ClientOptions & ConnectOptions,
@@ -181,7 +191,7 @@ export class Peer extends EventEmitter {
         }
         return <Destination>this._destinations.get(name);
     }
-
+    /**Declare [[Role]] - service with its own name to handle incoming messages/requests/streams */
     role(name: string, active?: boolean): Role {
         if (!this._roles.has(name)) {
             this._roles.set(name, new Role(name, this, active));
@@ -189,20 +199,24 @@ export class Peer extends EventEmitter {
         }
         return this._roles.get(name)!;
     }
+    /**Returns list of connected [[Unit]]s */
     get units() {
         return Array.from(this._units.values());
     }
+    /**Returns list of declared [[Role]]s */
     get roles() {
         return Array.from(this._roles.values());
     }
+    /**Returns list of declared [[Destination]]s. If some units have declared roles out of this [[Peer]]'s destinations, they are not listed here */
     get destinations() {
         return Array.from(this._destinations.values());
     }
+    /**Set handler to all incoming messages for all roles. Can be used in middleware */
     onMessage(handler: MessageHandler) {
         this.on('message', handler);
     }
 	/**
-	 * Set middleware for incoming request for all roles.
+	 * Set handler for all incoming request for all roles. Can be used in middlewares
 	 */
     onRequest(handler: RequestHandler) {
         this.on('request', handler)

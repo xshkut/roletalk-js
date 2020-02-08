@@ -121,7 +121,8 @@ setInterval(async () => {
 }, 1000)
 ```
 
-Output
+Output:
+
 ``` 
 7ea03d3339a59d7b6fd1 wrapped to {"total_order":1,"data":"7ea03d3339a59d7b6fd1","by":"Wrapper 1"}
 0fbf880c5010372ad6e2 wrapped to {"total_order":1,"data":"0fbf880c5010372ad6e2","by":"Wrapper 2"}

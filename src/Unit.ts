@@ -18,6 +18,7 @@ import { receiveResponse } from './misc/receiveResponse';
  * This class should not be instantiated directly. It is exposed for type declaration and documentation
 */
 export class Unit extends EventEmitter {
+    /**Unique identifier for unit. This value is generated when remote [[Peer]] gets instantiated */
     readonly id: string;
     /**@internal */
     _name: string | undefined = undefined;
@@ -62,6 +63,7 @@ export class Unit extends EventEmitter {
             this.close();
         })
     }
+    /**Returns all roles registered on remote peer which are not disabled */
     getRoles() {
         return this._roles;
     }
@@ -69,6 +71,7 @@ export class Unit extends EventEmitter {
     get name() {
         return this._name
     }
+    /**Meta data of remote Peer */
     get meta() {
         return this._metaData
     }
@@ -127,6 +130,9 @@ export class Unit extends EventEmitter {
         this.emit('ws', ws);
     }
 
+    /**
+     * Close all underlying connections. After last connect gets closed, event 'close' is emitted
+     */
     close() {
         this._peer._addressMap.forEach((unit, key) => {
             unit === this && this._peer._addressMap.delete(key);

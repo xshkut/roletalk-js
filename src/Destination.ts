@@ -28,7 +28,7 @@ export class Destination extends EventEmitter {
         return Array.from(this._set.values());
     }
 
-    /**Name of destination */
+    /**Name of the destination */
     get name() { return this._name }
 
     /**Send one-way message. Use cb argument to ensure the message has benn written to underlying socket. Returns [[Unit]] chosen to send data to */

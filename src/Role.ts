@@ -71,25 +71,26 @@ export class Role extends EventEmitter {
         }
         this.on('writable', msg)
     }
+    /**Set handler for any incoming message / request / stream request*/
     onData(handler: MessageHandler | RequestHandler | WritableHandler | ReadableHandler) {
         this.on('data', handler)
     }
 	/**
-	 * Deactivate role. All units will be notified immediately
+	 * Deactivate role. All units will be notified immediately with rebuilding their state
 	 */
     disable() {
         this._active = false;
         this._peer.emit(ROLES_MESSAGE, this);
     }
 	/**
-	 * Activate role. All units will be notified immediately
+	 * Activate role. All units will be notified immediately with rebuilding their state
 	 */
     enable() {
         this._active = true;
         this._peer.emit(ROLES_MESSAGE, this);
     }
 	/**
-	 * get role status
+	 * get role status. Active means that role is enabled. If role is not active, all incoming data to the role will be rejected
 	 */
     get active() {
         return this._active;

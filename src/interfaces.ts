@@ -8,7 +8,7 @@ import { Readable, Writable } from 'stream';
 
 /**Options for Peer constructor */
 export interface PeerOptions {
-    /**Should this peer be acquainted with others when it gets connected to another unit */
+    /**Whether should this peer be acquainted with others when it gets connected to another unit */
     friendly?: boolean;
     /**Name of peer which could be read by remote peers (units) */
     name?: string;
@@ -87,10 +87,10 @@ export interface AcquaintMessage {
 
 /**Options to listen for incoming connections*/
 export interface ListenOptions {
-    /**http.Server instance. If provided, peer will not listen immediately*/
-    server?: Server | httpServer;
     /**Number of port to listen on */
     port?: number;
+    /**http.Server instance. If provided, peer will not listen immediately*/
+    server?: Server | httpServer;
     /**Provide options to listen accept only WSS connections*/
     ssl?: SecureContextOptions;
     /**Path to handle incoming connections*/

@@ -47,7 +47,7 @@ export class Destination extends EventEmitter {
   send(
     event: string | EmitOptions,
     data: sendableData,
-    cb?: (err: Error) => {}
+    cb?: (err: Error) => void
   ) {
     let headers: MessageHeaders;
     let unit: Unit | undefined;

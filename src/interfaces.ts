@@ -89,6 +89,8 @@ export interface AcquaintMessage {
 export interface ListenOptions {
     /**Number of port to listen on */
     port?: number;
+    /**Host to bind listener */
+    host?:string;
     /**http.Server instance. If provided, peer will not listen immediately*/
     server?: Server | httpServer;
     /**Provide options to listen accept only WSS connections*/

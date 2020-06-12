@@ -39,6 +39,8 @@ export class Peer extends EventEmitter {
     /**@internal */
     _port?: number;
     /**@internal */
+    _host?: string;
+    /**@internal */
     _wss?: any;
     /**@internal */
     _path?: string
@@ -95,6 +97,7 @@ export class Peer extends EventEmitter {
             }
             this._path = options.path
             this._port = options.port;
+            this._host = options.host;
             if (options.server) {
                 if (options.server instanceof http.Server) {
                     this._server = options.server;
@@ -271,7 +274,7 @@ function _listen(this: Peer, cb: Function) {
         });
     });
     this._wss.on('error', function() { });
-    let listener = server.listen(this._port, (err: any) => {
+    let listener = server.listen({port: this._port, host:this._host}, (err: any) => {
         if (err) {
             this._listener = undefined;
             return cb(err);

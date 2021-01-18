@@ -4,6 +4,10 @@
   "description": "WebSocket-based NodeJS framework for peer-to-peer communication between microservices",
   "main": "built/index.js",
   "types": "built/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:xshkut/roletalk-js.git"
+  },
   "scripts": {
     "test": "mocha built/test/test",
     "testb": "tsc && mocha built/test/test",

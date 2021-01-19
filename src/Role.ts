@@ -9,7 +9,7 @@ import {
   MessageHandler,
   RequestHandler,
   ReadableHandler,
-  WritableHandler
+  WritableHandler,
 } from "./interfaces";
 
 /**Role represents a service on the local Peer. It should handle incoming messages, requests and stream requests for certain functionality
@@ -143,7 +143,7 @@ function runMiddleware(
   if (callback) {
     ctx.next = () => {
       let bndResolve: () => void;
-      let prom = new Promise<void>(resolve => {
+      let prom = new Promise<void>((resolve) => {
         bndResolve = resolve;
         resolvers.push(() => resolve);
       });

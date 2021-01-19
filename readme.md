@@ -12,17 +12,17 @@ Currently, there is a corresponding wire-compatible GO [framework](https://githu
 
 <!-- vscode-markdown-toc -->
 
-* [Installation](#Installation)
-* [ API](#API)
-* [ Use case](#Usecase)
-* [ Features](#Features)
-* [ Concept](#Concept)
-  + [ Structure](#Structure)
-  + [ Communication](#Communication)
-  + [ Data types](#Datatypes)
-  + [ Acquaintance](#Acquaintance)
-  + [ Security](#Security)
-* [ Contribution](#Contribution)
+- [Installation](#Installation)
+- [ API](#API)
+- [ Use case](#Usecase)
+- [ Features](#Features)
+- [ Concept](#Concept)
+  - [ Structure](#Structure)
+  - [ Communication](#Communication)
+  - [ Data types](#Datatypes)
+  - [ Acquaintance](#Acquaintance)
+  - [ Security](#Security)
+- [ Contribution](#Contribution)
 
 <!-- vscode-markdown-toc-config
 
@@ -34,9 +34,9 @@ Currently, there is a corresponding wire-compatible GO [framework](https://githu
 
 ## <a name='Installation'></a>Installation
 
-`$ npm install roletalk` 
+`$ npm install roletalk`
 
-## <a name='API'></a> API 
+## <a name='API'></a> API
 
 API referrence is available [HERE](https://xshkut.github.io/roletalk-js), generated with [Typedoc](https://typedoc.org/)
 
@@ -46,12 +46,12 @@ Choose roletalk if you need to build brokerless architecture. Such an approach b
 
 Roletalk lets you implement flexible communication patterns:
 
-* Publish-Subscribe, 
-* Remote Procedure Call (RPC), 
-* Event (single message with optional payload), 
-* Pipeline (sequential distributed data processing), 
-* Bus (many-to-many communication), 
-* Survey (request-reply to multiple peers).
+- Publish-Subscribe,
+- Remote Procedure Call (RPC),
+- Event (single message with optional payload),
+- Pipeline (sequential distributed data processing),
+- Bus (many-to-many communication),
+- Survey (request-reply to multiple peers).
 
 ## <a name='Features'></a> Features
 
@@ -68,7 +68,7 @@ With auto-reconnection, this can be useful to keep connected two peers in case w
 
 • Binary streams. Transfer large or unknown amounts of data via streams.
 
-• Round-robin client-side load balancing between units implementing a role (service); 
+• Round-robin client-side load balancing between units implementing a role (service);
 
 • No internal heavy message conversions (json/xml serialization/parsing). Just binary to utf-8/int and vice-versa.
 
@@ -82,11 +82,11 @@ With auto-reconnection, this can be useful to keep connected two peers in case w
 
 Roletalk concept consists of:
 
-* <b>Peer</b> - local node in your peer-to-peer architecture. Peer can have Units, Roles and Destinations.
-* <b>Unit</b> - remote node connected to the Peer
-* <b>Connection</b> - communication link between Peer and Unit. Each Unit can have one or more connections. If there are redundant connections, communication is load-balanced between them: checking which of them is not busy or choosing random one if no vacant one found. In case of last connection gets aborted Unit gets closed and removed from the Peer
-* <b>Role</b> - service registered on Peer. Role can have handlers for each communication type. Role can be <b>active</b> or <b>inactive</b>. When role changes its state all connected units get informed to rebuild their state
-* <b>Destination</b> - role registered on Units. Destination includes all connected units which serve corresponding role. If last Unit gets disconnected or disables the role, Destinations gets closed.
+- <b>Peer</b> - local node in your peer-to-peer architecture. Peer can have Units, Roles and Destinations.
+- <b>Unit</b> - remote node connected to the Peer
+- <b>Connection</b> - communication link between Peer and Unit. Each Unit can have one or more connections. If there are redundant connections, communication is load-balanced between them: checking which of them is not busy or choosing random one if no vacant one found. In case of last connection gets aborted Unit gets closed and removed from the Peer
+- <b>Role</b> - service registered on Peer. Role can have handlers for each communication type. Role can be <b>active</b> or <b>inactive</b>. When role changes its state all connected units get informed to rebuild their state
+- <b>Destination</b> - role registered on Units. Destination includes all connected units which serve corresponding role. If last Unit gets disconnected or disables the role, Destinations gets closed.
 
 All communications is performed via Destinations's methods and is load-balanced among its Units unless Unit is explicitly specified. Unit is chosen for each message / request / stream.
 
@@ -94,9 +94,9 @@ All communications is performed via Destinations's methods and is load-balanced 
 
 Roletalk defines three types of communication:
 
-* <b>Message</b> - one-way act of communication. Should be used when no delivery acknowledgement is needed. Successfully sent message means that it has been written to underlying socket
-* <b>Request</b> - request in common meaning. Request can only be rejected or replied. Returns error when Unit rejects it, timeout exceeds or Unit disconnects after request was sent.
-* <b>Stream</b> - one-way stream of binary data. Streams can be <b>Readable</b> and <b>Writable</b>. If Peer calls Readable ( `Destination.Readable()` ) then Units handle Writable ( `Role.OnWritable()` ) and vice-versa. Stream sessions begin with Request. After Unit replied for request, data is transferred over connection used for the reply. If  connection aborts stream destroys.
+- <b>Message</b> - one-way act of communication. Should be used when no delivery acknowledgement is needed. Successfully sent message means that it has been written to underlying socket
+- <b>Request</b> - request in common meaning. Request can only be rejected or replied. Returns error when Unit rejects it, timeout exceeds or Unit disconnects after request was sent.
+- <b>Stream</b> - one-way stream of binary data. Streams can be <b>Readable</b> and <b>Writable</b>. If Peer calls Readable ( `Destination.Readable()` ) then Units handle Writable ( `Role.OnWritable()` ) and vice-versa. Stream sessions begin with Request. After Unit replied for request, data is transferred over connection used for the reply. If connection aborts stream destroys.
 
 Incoming messages are wrapped in <b>Context</b> - object with payload and meta info for all types of incoming messages (message, request, request for stream).
 
@@ -107,12 +107,12 @@ When Unit gets message it forwards it to corresponding role or rejects it if suc
 
 Roletalk uses six data types:
 
-* <b>Binary</b> - `Buffer` 
-* <b>Null</b> - `null` 
-* <b>Bool</b> - `boolean` 
-* <b>String</b> - `string` 
-* <b>Number</b> - `number` 
-* <b>Object</b> - `Object` 
+- <b>Binary</b> - `Buffer`
+- <b>Null</b> - `null`
+- <b>Bool</b> - `boolean`
+- <b>String</b> - `string`
+- <b>Number</b> - `number`
+- <b>Object</b> - `Object`
 
 All communication (except stream sessions) can use data of any type. Type of data should be chosen on stage of designing microservice specification or retrieved by calling Context methods.
 
@@ -149,4 +149,3 @@ Project is MIT-licensed.
 Feel free to open issues and fork.
 
 If you have any ideas or remarks you are welcome to contact the author.
-

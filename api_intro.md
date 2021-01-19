@@ -6,13 +6,13 @@ This API is generated directly from [project](https://github.com/xshkut/roletalk
 
 Due to development process of TypeDoc, overriden events are not visible unless you fill "Inherited" checkbox, then see `on` methods on classes to check available typed events.
 
-Some basic examples will be added soon... 
+Some basic examples will be added soon...
 
 ## Examples
 
 ### Connection and authentication
 
-``` 
+```
 //import is common for all files
 
 import { Peer } from 'roletalk'
@@ -62,7 +62,7 @@ carlos.connect('ws://localhost:9000').catch(err => console.log( `Carlos cannot c
 
 Output:
 
-``` 
+```
 Carlos cannot connect to Bob: Verification error: The peer has not such proofs: supersecret,some_other
 Unit connected to Alice: Bob
 Chuck cannot connect to Bob: Auth error: Preshared key mismatch. Chosen id: supersecret
@@ -123,7 +123,7 @@ setInterval(async () => {
 
 Output:
 
-``` 
+```
 7ea03d3339a59d7b6fd1 wrapped to {"total_order":1,"data":"7ea03d3339a59d7b6fd1","by":"Wrapper 1"}
 0fbf880c5010372ad6e2 wrapped to {"total_order":1,"data":"0fbf880c5010372ad6e2","by":"Wrapper 2"}
 edcfebf32574bbf9dfe9 wrapped to {"total_order":1,"data":"edcfebf32574bbf9dfe9","by":"Wrapper 3"}
@@ -138,7 +138,7 @@ a4cc0784da453df58ccb wrapped to {"total_order":2,"data":"a4cc0784da453df58ccb","
 
 ## Publish-Subscribe
 
-``` 
+```
 import { Peer } from 'roletalk'
 
 //Declare publisher and subscribers
@@ -186,9 +186,9 @@ setInterval(() => {
 }, 1000)
 ```
 
-Output: 
+Output:
 
-``` 
+```
 This is Alice. Bob told me current time: 18:55:33 GMT+0200 (GMT+02:00)
 This is Anna. Bob told me current time: 18:55:33 GMT+0200 (GMT+02:00)
 This is Kate. Bob told me current time: 18:55:33 GMT+0200 (GMT+02:00)
@@ -201,4 +201,3 @@ This is Anna. Bob told me current time: 18:55:35 GMT+0200 (GMT+02:00)
 This is Kate. Bob told me current time: 18:55:35 GMT+0200 (GMT+02:00)
 Kate has rated my work: 8
 ```
-

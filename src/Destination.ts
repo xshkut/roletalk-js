@@ -5,7 +5,7 @@ import {
   MessageHeaders,
   EmitOptions,
   Context,
-  sendableData
+  sendableData,
 } from "./interfaces";
 import { Readable, Writable, ReadableOptions, WritableOptions } from "stream";
 import { Peer } from "./Peer";
@@ -76,7 +76,7 @@ export class Destination extends EventEmitter {
   /**Send one-way message to all units serving the role*/
   broadcast(event: string | EmitOptions, data: sendableData) {
     let headers = createMessageHeaders.call(this, event);
-    this._set.forEach(unit => {
+    this._set.forEach((unit) => {
       unit.send(headers, data);
     });
   }
@@ -120,7 +120,7 @@ export class Destination extends EventEmitter {
     let headers = createMessageHeaders.call(this, event);
     if (this._set.size < 1)
       new Error(`No connected units with role [${this.name}]`);
-    this._set.forEach(unit => unit.request(headers, data, cb));
+    this._set.forEach((unit) => unit.request(headers, data, cb));
     return this._set.size;
   }
 

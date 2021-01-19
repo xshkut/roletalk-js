@@ -99,11 +99,7 @@ export class Peer extends EventEmitter {
             this._port = options.port;
             this._host = options.host;
             if (options.server) {
-                if (options.server instanceof http.Server) {
-                    this._server = options.server;
-                } else {
-                    throw new Error('options.server should be http.Server instance');
-                }
+                this._server = options.server;
             } else if (options.ssl) {
                 let ssl: SecureContextOptions = {};
                 if (options.ssl.cert && options.ssl.key) {

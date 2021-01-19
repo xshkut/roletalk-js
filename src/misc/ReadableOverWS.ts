@@ -27,7 +27,7 @@ export class ReadableOverWS extends Readable {
     }
     _destroy(error: Error) {
         this._ws && this._ws.readyState === 1 &&
-            this._ws.send(Buffer.concat([this._fullQuotaBuffer!, Buffer.from([STREAM_ERROR_FLAG]), Buffer.from(error.message)]));
+            this._ws.send(Buffer.concat([this._fullQuotaBuffer!, Buffer.from([STREAM_ERROR_FLAG]), Buffer.from(error?.message || '')]));
     }
     _sendQuota(quota: number): void {
         this._ws && this._ws.readyState === 1 &&

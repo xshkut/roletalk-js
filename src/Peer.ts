@@ -425,7 +425,7 @@ export function refreshPeerDestinations(this: Peer, unit: Unit) {
 function startReconnectCycle(peer: Peer, address: string, options?: WebSocket.ClientOptions, i = 0, cb?: Function) {
     let addressMap = peer._addressMap
     if (!addressMap.has(address)) return
-    _connect.call(peer, address, { permanent: true })!.then(({ unit, ws }) => {
+    _connect.call(peer, address, { ...options, permanent: true })!.then(({ unit, ws }) => {
         addressMap.set(address, unit);
         ws.once('close', () => {
             addressMap.has(address) && addressMap.set(address, null);

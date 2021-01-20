@@ -85,18 +85,18 @@ describe("connection behaviour, authentication, roles detection, reconnection an
     let ws = unit._sockets[0];
     ws.close(1012);
     await new Promise((res) => ws.once("close", res));
-    assert(peer1.units.length === 0);
+    assert.strictEqual(peer1.units.length, 0);
     await new Promise((res) => peer1.once("unit", res));
-    assert(peer1.units.length === 1);
+    assert.strictEqual(peer1.units.length, 1);
   });
   it("Intentionally closed unit from the socket server's side should cause reconnection", async () => {
     let unit = peer2.units[0]!;
     let ws = unit._sockets[0];
     unit.close();
     await new Promise((res) => ws.once("close", res));
-    assert(peer2.units.length === 0);
+    assert.strictEqual(peer2.units.length, 0);
     await new Promise((res) => peer2.once("unit", res));
-    assert(peer2.units.length === 1);
+    assert.strictEqual(peer2.units.length, 1);
   });
   it("Intentionally closed unit from the socket client's side should prevent reconnection", async () => {
     let unit = peer1.units[0]!;

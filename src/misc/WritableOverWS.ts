@@ -108,12 +108,12 @@ export class WritableOverWS extends Writable {
       );
       return;
     }
-    chunk = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk, enc);
+    chunk = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk);
     this._quotaRemain -= chunk.length;
     let datum = Buffer.concat([this._fullCBBuffer!, bufferForChunk, chunk]);
     this._ws.send(datum, wsSendOptions, callback);
   }
-  _writev(chunks: [{ chunk: Buffer; encoding: string }], callback?: any) {
+  _writev(chunks: [{ chunk: Buffer; encoding: BufferEncoding }], callback?: any) {
     this._write(
       Buffer.concat(
         chunks.map((val) => {

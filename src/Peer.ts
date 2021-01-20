@@ -299,18 +299,28 @@ function _listen(this: Peer, cb: Function) {
       UnitFromWS.call(peer, ws, data);
     });
   });
-  this._wss.on("error", function () {});
+  this._wss.on("error", function () { });
+
+  let responded = false
+
   let listener = server.listen(
-    { port: this._port, host: this._host },
-    (err: any) => {
-      if (err) {
-        this._listener = undefined;
-        return cb(err);
-      }
+    { port: this._port, host: this._host }, () => {
+      if (responded) return
+      responded = true
+
       this._port = (listener.address() as { port: number }).port;
       cb(null);
     }
   );
+
+  server.once("error", (err) => {
+    if (responded) return
+    responded = true
+
+    this._listener = undefined;
+    cb(err);
+  })
+
   this._listener = listener;
 }
 
@@ -349,7 +359,7 @@ function makeWS(
         cb(
           new Error(
             "Error when creating a unit after successfull authentication: " +
-            err.toString
+              err.toString
               ? err.toString()
               : err
           )

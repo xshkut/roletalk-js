@@ -1,6 +1,6 @@
 import { Peer } from "..";
 import * as assert from "assert";
-import { Server } from "http";
+import { createServer, Server } from "http";
 
 const peer1 = new Peer({ name: "PEER 1" });
 peer1.auth.addPresharedKey("foo", "111222333"); //id mismatch
@@ -27,10 +27,8 @@ peer2.destination(someRole1);
 peer5.destination(someRole2);
 describe("connection behaviour, authentication, roles detection, reconnection and service discovery", () => {
   before(async () => {
-    peer1.listen({ port: 0 });
-    peer2.listen({ port: 0 });
-    await peer1;
-    await peer2;
+    await peer1.listen({ port: 0 });
+    await peer2.listen({ port: 0 });
   });
   it("Peers with preshared id & keys match should establish connection successfully", () => {
     return peer1.connect("ws://localhost:" + peer2._port);
@@ -123,3 +121,25 @@ describe("connection behaviour, authentication, roles detection, reconnection an
     peer5.close();
   });
 });
+
+describe("manual websocket handling", () => {
+  const peer1 = new Peer()
+  const peer2 = new Peer()
+  const server = createServer(() => { })
+  before((cb) => {
+    peer1.prepareWSServer()
+    server.listen({ host: "localhost", port: 0 }, cb)
+    server.on("upgrade", (request, socket, head) => {
+      peer1.handleUpgrade(request, socket, head)
+    })
+  })
+  it("a connection should be established to the roletalk instance attached to a server", async () => {
+    await assert.doesNotReject(peer2.connect("ws://localhost:" + (server.address() as { port: number }).port));
+    await assert.deepStrictEqual(peer2.units.map(u => u.id), [peer1.id])
+  })
+  after(() => {
+    peer1.close()
+    peer2.close()
+    server.close()
+  })
+})

@@ -24,6 +24,7 @@ import {
   PeerConfirmData,
 } from "./interfaces";
 import { receiveResponse } from "./misc/receiveResponse";
+import type { Socket } from "net";
 
 const reconnectIntervals = [0, 1, 2, 3, 4, 5, 10, 30, 60];
 
@@ -54,7 +55,7 @@ export class Peer extends EventEmitter {
   /**@internal */
   _host?: string;
   /**@internal */
-  _wss?: any;
+  _wss?: WebSocket.Server;
   /**@internal */
   _path?: string;
   /**@internal */
@@ -98,7 +99,43 @@ export class Peer extends EventEmitter {
     this.auth.addPresharedKey(id, key);
     return this;
   }
-  /**Listen to incoming connections. Starts HTTP(S) server listening immediately unless options.server is not provided. */
+
+  /**Instantiate websocket server. Use with .handleUpgrade */
+  prepareWSServer() {
+    this._wss = new WebSocket.Server({
+      noServer: true
+    });
+    this._wss.on("connection", (ws: WebSocket) => {
+      this.auth._verifyWS(ws, (err, data) => {
+        if (err) {
+          return ws.close(WS_AUTH_ERROR_CLOSE);
+        }
+        UnitFromWS.call(this, ws, data);
+      });
+    });
+    this._wss.on("error", function () { });
+  }
+
+  /**Attach to existing http.Server instance
+   * 
+   * Example:
+   * peer.prepareWSServer()
+   * server.on("upgrade", (request, socket, head) => {
+   *  peer.handleUpgrade(request, socket, head)
+   * })
+   * 
+  */
+  handleUpgrade(request: http.IncomingMessage, socket: Socket, upgradeHead: Buffer): void {
+    if (!this._wss) {
+      throw new Error(`Cannot handle upgrade: instantiate websocket server (use .prepareWSServer or .listen)`)
+    }
+
+    this._wss.handleUpgrade(request, socket, upgradeHead, (ws, request) => {
+      this._wss!.emit('connection', ws, request);
+    })
+  }
+
+  /**Listen to incoming connections. Starts HTTP(S) server listening immediately.*/
   listen(
     this: Peer,
     options: ListenOptions | number,

@@ -13,7 +13,7 @@
     "testb": "tsc && mocha built/test/test",
     "build": "tsc",
     "echo": "node echo/index.js 5000",
-    "doc": "rm -rf ./docs && typedoc --readme api_intro.md --out ./docs --mode library --plugin none --exclude **/test/**.ts --excludePrivate --excludeNotExported --stripInternal ./src/index.ts"
+    "doc": "rm -rf ./docs && typedoc --readme api_intro.md --out ./docs --plugin none --exclude **/test/**.ts --excludePrivate ./src/index.ts"
   },
   "keywords": [
     "nodejs",

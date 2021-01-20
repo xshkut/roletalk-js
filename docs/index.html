@@ -4,16 +4,17 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>roletalk</title>
-	<meta name="description" content="">
+	<meta name="description" content="Documentation for roletalk">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
+	<script async src="assets/js/search.js" id="search-script"></script>
 </head>
 <body>
 <header>
 	<div class="tsd-page-toolbar">
 		<div class="container">
 			<div class="table-wrap">
-				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
 					<div class="field">
 						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
 						<input id="tsd-search-field" type="text" />
@@ -49,11 +50,6 @@
 	</div>
 	<div class="tsd-page-title">
 		<div class="container">
-			<ul class="tsd-breadcrumb">
-				<li>
-					<a href="globals.html">Globals</a>
-				</li>
-			</ul>
 			<h1>roletalk</h1>
 		</div>
 	</div>
@@ -70,250 +66,205 @@
 				</a>
 				<p>This API is generated directly from <a href="https://github.com/xshkut/roletalk-js">project</a>&#39;s source with <a href="https://typedoc.org">TypeDoc</a></p>
 				<p>Due to development process of TypeDoc, overriden events are not visible unless you fill &quot;Inherited&quot; checkbox, then see <code>on</code> methods on classes to check available typed events.</p>
-				<p>Some basic examples will be added soon... </p>
+				<p>Some basic examples will be added soon...</p>
 				<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
 					<h2>Examples</h2>
 				</a>
 				<a href="#connection-and-authentication" id="connection-and-authentication" style="color: inherit; text-decoration: none;">
 					<h3>Connection and authentication</h3>
 				</a>
-				<pre><code>//import <span class="hljs-keyword">is</span> common <span class="hljs-keyword">for</span> <span class="hljs-keyword">all</span> <span class="hljs-keyword">files</span>
+				<pre><code><span style="color: #008000">//import is common for all files</span>
 
-import { Peer } from <span class="hljs-string">'roletalk'</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">Peer</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;roletalk&#039;</span>
 
-//<span class="hljs-keyword">file</span> Bob.<span class="hljs-keyword">ts</span>
+<span style="color: #008000">//file Bob.ts</span>
 
-<span class="hljs-keyword">let</span> bob = <span class="hljs-keyword">new</span> Peer({ name: <span class="hljs-string">'Bob'</span> })
-//We can <span class="hljs-built_in">add</span> multiple preshared <span class="hljs-built_in">keys</span>.
-bob.addPresharedKey(<span class="hljs-string">'supersecret'</span>, <span class="hljs-string">'qwerty456'</span>)
-bob.addPresharedKey(<span class="hljs-string">'some_other'</span>, <span class="hljs-string">'qwerty123'</span>)
+<span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">bob</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Peer</span><span style="color: #000000">({ </span><span style="color: #001080">name:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Bob&#039;</span><span style="color: #000000"> })</span>
+<span style="color: #008000">//We can add multiple preshared keys.</span>
+<span style="color: #001080">bob</span><span style="color: #000000">.</span><span style="color: #795E26">addPresharedKey</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;supersecret&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;qwerty456&#039;</span><span style="color: #000000">)</span>
+<span style="color: #001080">bob</span><span style="color: #000000">.</span><span style="color: #795E26">addPresharedKey</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;some_other&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;qwerty123&#039;</span><span style="color: #000000">)</span>
 
-bob.<span class="hljs-keyword">on</span>(<span class="hljs-string">'unit'</span>, (unit) =&gt; {
-    console.<span class="hljs-built_in">log</span>( `Unit connected <span class="hljs-keyword">to</span> Bo<span class="hljs-variable">b:</span> ${unit.name}` )
-})
+<span style="color: #001080">bob</span><span style="color: #000000">.</span><span style="color: #795E26">on</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;unit&#039;</span><span style="color: #000000">, (</span><span style="color: #001080">unit</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">( </span><span style="color: #A31515">`Unit connected to Bob: </span><span style="color: #0000FF">${</span><span style="color: #001080">unit</span><span style="color: #000000FF">.</span><span style="color: #001080">name</span><span style="color: #0000FF">}</span><span style="color: #A31515">`</span><span style="color: #000000"> )</span>
+<span style="color: #000000">})</span>
 
-setTimeout(() =&gt; {
-    console.<span class="hljs-built_in">log</span>( `Bob connected <span class="hljs-keyword">to</span> <span class="hljs-keyword">next</span> unit<span class="hljs-variable">s:</span> ${bob.units.<span class="hljs-keyword">map</span>(unit =&gt; unit.name)}` )
-}, <span class="hljs-number">1000</span>)
+<span style="color: #795E26">setTimeout</span><span style="color: #000000">(() </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">( </span><span style="color: #A31515">`Bob connected to next units: </span><span style="color: #0000FF">${</span><span style="color: #001080">bob</span><span style="color: #000000FF">.</span><span style="color: #001080">units</span><span style="color: #000000FF">.</span><span style="color: #795E26">map</span><span style="color: #000000FF">(</span><span style="color: #001080">unit</span><span style="color: #000000FF"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000FF"> </span><span style="color: #001080">unit</span><span style="color: #000000FF">.</span><span style="color: #001080">name</span><span style="color: #000000FF">)</span><span style="color: #0000FF">}</span><span style="color: #A31515">`</span><span style="color: #000000"> )</span>
+<span style="color: #000000">}, </span><span style="color: #098658">1000</span><span style="color: #000000">)</span>
 
-bob.listen(<span class="hljs-number">9000</span>)
+<span style="color: #001080">bob</span><span style="color: #000000">.</span><span style="color: #795E26">listen</span><span style="color: #000000">(</span><span style="color: #098658">9000</span><span style="color: #000000">)</span>
 
-//<span class="hljs-keyword">file</span> Alice.<span class="hljs-keyword">ts</span>
+<span style="color: #008000">//file Alice.ts</span>
 
-<span class="hljs-keyword">let</span> alice = <span class="hljs-keyword">new</span> Peer({ name: <span class="hljs-string">'Alice'</span> })
-alice.addPresharedKey(<span class="hljs-string">'supersecret'</span>, <span class="hljs-string">'qwerty456'</span>)
-alice.addPresharedKey(<span class="hljs-string">'one_another'</span>, <span class="hljs-string">'qwerty789'</span>)
+<span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">alice</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Peer</span><span style="color: #000000">({ </span><span style="color: #001080">name:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Alice&#039;</span><span style="color: #000000"> })</span>
+<span style="color: #001080">alice</span><span style="color: #000000">.</span><span style="color: #795E26">addPresharedKey</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;supersecret&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;qwerty456&#039;</span><span style="color: #000000">)</span>
+<span style="color: #001080">alice</span><span style="color: #000000">.</span><span style="color: #795E26">addPresharedKey</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;one_another&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;qwerty789&#039;</span><span style="color: #000000">)</span>
 
-alice.<span class="hljs-keyword">on</span>(<span class="hljs-string">'unit'</span>, (unit) =&gt; {
-    console.<span class="hljs-built_in">log</span>( `Unit connected <span class="hljs-keyword">to</span> Alice: ${unit.name}` )
-})
+<span style="color: #001080">alice</span><span style="color: #000000">.</span><span style="color: #795E26">on</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;unit&#039;</span><span style="color: #000000">, (</span><span style="color: #001080">unit</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">( </span><span style="color: #A31515">`Unit connected to Alice: </span><span style="color: #0000FF">${</span><span style="color: #001080">unit</span><span style="color: #000000FF">.</span><span style="color: #001080">name</span><span style="color: #0000FF">}</span><span style="color: #A31515">`</span><span style="color: #000000"> )</span>
+<span style="color: #000000">})</span>
 
-alice.connect(<span class="hljs-string">'ws://localhost:9000'</span>)
+<span style="color: #001080">alice</span><span style="color: #000000">.</span><span style="color: #795E26">connect</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;ws://localhost:9000&#039;</span><span style="color: #000000">)</span>
 
-//<span class="hljs-keyword">file</span> Chuck.<span class="hljs-keyword">ts</span>
+<span style="color: #008000">//file Chuck.ts</span>
 
-<span class="hljs-keyword">let</span> chuck = <span class="hljs-keyword">new</span> Peer({ name: <span class="hljs-string">'Chuck'</span> })
-chuck.addPresharedKey(<span class="hljs-string">'supersecret'</span>, <span class="hljs-string">'maybe_12345?'</span>)
+<span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">chuck</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Peer</span><span style="color: #000000">({ </span><span style="color: #001080">name:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Chuck&#039;</span><span style="color: #000000"> })</span>
+<span style="color: #001080">chuck</span><span style="color: #000000">.</span><span style="color: #795E26">addPresharedKey</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;supersecret&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;maybe_12345?&#039;</span><span style="color: #000000">)</span>
 
-chuck.connect(<span class="hljs-string">'ws://localhost:9000'</span>).<span class="hljs-keyword">catch</span>(err =&gt; console.<span class="hljs-built_in">log</span>( `Chuck cannot connect <span class="hljs-keyword">to</span> Bo<span class="hljs-variable">b:</span> ${err}` ))
+<span style="color: #001080">chuck</span><span style="color: #000000">.</span><span style="color: #795E26">connect</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;ws://localhost:9000&#039;</span><span style="color: #000000">).</span><span style="color: #795E26">catch</span><span style="color: #000000">(</span><span style="color: #001080">err</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">( </span><span style="color: #A31515">`Chuck cannot connect to Bob: </span><span style="color: #0000FF">${</span><span style="color: #001080">err</span><span style="color: #0000FF">}</span><span style="color: #A31515">`</span><span style="color: #000000"> ))</span>
 
-//<span class="hljs-keyword">file</span> Carlos.<span class="hljs-keyword">ts</span>
+<span style="color: #008000">//file Carlos.ts</span>
 
-<span class="hljs-keyword">let</span> carlos = <span class="hljs-keyword">new</span> Peer({ name: <span class="hljs-string">'Carlos'</span> })
-//Lets <span class="hljs-keyword">try</span> <span class="hljs-keyword">to</span> connect <span class="hljs-keyword">to</span> Bob without <span class="hljs-built_in">keys</span> at <span class="hljs-keyword">all</span>
-carlos.connect(<span class="hljs-string">'ws://localhost:9000'</span>).<span class="hljs-keyword">catch</span>(err =&gt; console.<span class="hljs-built_in">log</span>( `Carlos cannot connect <span class="hljs-keyword">to</span> Bo<span class="hljs-variable">b:</span> ${err}` ))</code></pre><p>Output:</p>
-				<pre><code>Carlos cannot connect <span class="hljs-keyword">to</span> Bob: Verification error: The<span class="hljs-built_in"> peer </span>has <span class="hljs-keyword">not</span> such proofs: supersecret,some_other
-Unit connected <span class="hljs-keyword">to</span> Alice: Bob
-Chuck cannot connect <span class="hljs-keyword">to</span> Bob: Auth error: Preshared key mismatch. Chosen id: supersecret
-Unit connected <span class="hljs-keyword">to</span> Bob: Alice
-Bob connected <span class="hljs-keyword">to</span> next units: Alice</code></pre>
+<span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">carlos</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Peer</span><span style="color: #000000">({ </span><span style="color: #001080">name:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Carlos&#039;</span><span style="color: #000000"> })</span>
+<span style="color: #008000">//Lets try to connect to Bob without keys at all</span>
+<span style="color: #001080">carlos</span><span style="color: #000000">.</span><span style="color: #795E26">connect</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;ws://localhost:9000&#039;</span><span style="color: #000000">).</span><span style="color: #795E26">catch</span><span style="color: #000000">(</span><span style="color: #001080">err</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">( </span><span style="color: #A31515">`Carlos cannot connect to Bob: </span><span style="color: #0000FF">${</span><span style="color: #001080">err</span><span style="color: #0000FF">}</span><span style="color: #A31515">`</span><span style="color: #000000"> ))</span>
+</code></pre>
+				<p>Output:</p>
+				<pre><code><span style="color: #001080">Carlos</span><span style="color: #000000"> </span><span style="color: #001080">cannot</span><span style="color: #000000"> </span><span style="color: #001080">connect</span><span style="color: #000000"> </span><span style="color: #001080">to</span><span style="color: #000000"> Bob: </span><span style="color: #001080">Verification</span><span style="color: #000000"> error: </span><span style="color: #001080">The</span><span style="color: #000000"> </span><span style="color: #001080">peer</span><span style="color: #000000"> </span><span style="color: #001080">has</span><span style="color: #000000"> </span><span style="color: #001080">not</span><span style="color: #000000"> </span><span style="color: #001080">such</span><span style="color: #000000"> proofs: </span><span style="color: #001080">supersecret</span><span style="color: #000000">,</span><span style="color: #001080">some_other</span>
+<span style="color: #001080">Unit</span><span style="color: #000000"> </span><span style="color: #001080">connected</span><span style="color: #000000"> </span><span style="color: #001080">to</span><span style="color: #000000"> Alice: </span><span style="color: #001080">Bob</span>
+<span style="color: #001080">Chuck</span><span style="color: #000000"> </span><span style="color: #001080">cannot</span><span style="color: #000000"> </span><span style="color: #001080">connect</span><span style="color: #000000"> </span><span style="color: #001080">to</span><span style="color: #000000"> Bob: </span><span style="color: #001080">Auth</span><span style="color: #000000"> error: </span><span style="color: #001080">Preshared</span><span style="color: #000000"> </span><span style="color: #001080">key</span><span style="color: #000000"> </span><span style="color: #001080">mismatch</span><span style="color: #000000">. </span><span style="color: #001080">Chosen</span><span style="color: #000000"> id: </span><span style="color: #001080">supersecret</span>
+<span style="color: #001080">Unit</span><span style="color: #000000"> </span><span style="color: #001080">connected</span><span style="color: #000000"> </span><span style="color: #001080">to</span><span style="color: #000000"> Bob: </span><span style="color: #001080">Alice</span>
+<span style="color: #001080">Bob</span><span style="color: #000000"> </span><span style="color: #001080">connected</span><span style="color: #000000"> </span><span style="color: #001080">to</span><span style="color: #000000"> </span><span style="color: #001080">next</span><span style="color: #000000"> units: </span><span style="color: #001080">Alice</span>
+</code></pre>
 				<a href="#rpc-with-middleware" id="rpc-with-middleware" style="color: inherit; text-decoration: none;">
 					<h2>RPC with middleware</h2>
 				</a>
-				<pre><code><span class="hljs-keyword">import</span> { Peer } <span class="hljs-keyword">from</span> <span class="hljs-string">'roletalk'</span>
-<span class="hljs-keyword">import</span> { randomBytes } <span class="hljs-keyword">from</span> <span class="hljs-string">'crypto'</span>
+				<pre><code><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">Peer</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;roletalk&#039;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">randomBytes</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;crypto&#039;</span>
 
-<span class="hljs-keyword">let</span> wrapper1 = <span class="hljs-keyword">new</span> Peer({ name: <span class="hljs-string">'Wrapper 1'</span> })
-<span class="hljs-keyword">let</span> wrapper2 = <span class="hljs-keyword">new</span> Peer({ name: <span class="hljs-string">'Wrapper 2'</span> })
-<span class="hljs-keyword">let</span> wrapper3 = <span class="hljs-keyword">new</span> Peer({ name: <span class="hljs-string">'Wrapper 3'</span> })
-<span class="hljs-keyword">let</span> wrapper4 = <span class="hljs-keyword">new</span> Peer({ name: <span class="hljs-string">'Wrapper 4'</span> })
-<span class="hljs-keyword">let</span> sender = <span class="hljs-keyword">new</span> Peer()
+<span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">wrapper1</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Peer</span><span style="color: #000000">({ </span><span style="color: #001080">name:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Wrapper 1&#039;</span><span style="color: #000000"> })</span>
+<span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">wrapper2</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Peer</span><span style="color: #000000">({ </span><span style="color: #001080">name:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Wrapper 2&#039;</span><span style="color: #000000"> })</span>
+<span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">wrapper3</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Peer</span><span style="color: #000000">({ </span><span style="color: #001080">name:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Wrapper 3&#039;</span><span style="color: #000000"> })</span>
+<span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">wrapper4</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Peer</span><span style="color: #000000">({ </span><span style="color: #001080">name:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Wrapper 4&#039;</span><span style="color: #000000"> })</span>
+<span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">sender</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Peer</span><span style="color: #000000">()</span>
 
-sender.listen(<span class="hljs-number">9000</span>)
-<span class="hljs-keyword">let</span> wrappers = [wrapper1, wrapper2, wrapper3, wrapper4]
+<span style="color: #001080">sender</span><span style="color: #000000">.</span><span style="color: #795E26">listen</span><span style="color: #000000">(</span><span style="color: #098658">9000</span><span style="color: #000000">)</span>
+<span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">wrappers</span><span style="color: #000000"> = [</span><span style="color: #001080">wrapper1</span><span style="color: #000000">, </span><span style="color: #001080">wrapper2</span><span style="color: #000000">, </span><span style="color: #001080">wrapper3</span><span style="color: #000000">, </span><span style="color: #001080">wrapper4</span><span style="color: #000000">]</span>
 
-<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> wrapper of wrappers) {
-    wrapper.connect(<span class="hljs-string">'ws://localhost:9000'</span>)
+<span style="color: #AF00DB">for</span><span style="color: #000000"> (</span><span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">wrapper</span><span style="color: #000000"> </span><span style="color: #0000FF">of</span><span style="color: #000000"> </span><span style="color: #001080">wrappers</span><span style="color: #000000">) {</span>
+<span style="color: #000000">    </span><span style="color: #001080">wrapper</span><span style="color: #000000">.</span><span style="color: #795E26">connect</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;ws://localhost:9000&#039;</span><span style="color: #000000">)</span>
 
-    <span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>;
+<span style="color: #000000">    </span><span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">i</span><span style="color: #000000"> = </span><span style="color: #098658">0</span><span style="color: #000000">;</span>
 
-    <span class="hljs-comment">//Handling all incoming requests for all roles and events to increment counter</span>
-    wrapper.onRequest(<span class="hljs-keyword">async</span> (ctx) =&gt; {
-        i++;
-    })
+<span style="color: #000000">    </span><span style="color: #008000">//Handling all incoming requests for all roles and events to increment counter</span>
+<span style="color: #000000">    </span><span style="color: #001080">wrapper</span><span style="color: #000000">.</span><span style="color: #795E26">onRequest</span><span style="color: #000000">(</span><span style="color: #0000FF">async</span><span style="color: #000000"> (</span><span style="color: #001080">ctx</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">        </span><span style="color: #001080">i</span><span style="color: #000000">++;</span>
+<span style="color: #000000">    })</span>
 
-    <span class="hljs-comment">//Stringigying responses for all events</span>
-    wrapper.role(<span class="hljs-string">'json-wrapper'</span>).onRequest(<span class="hljs-keyword">async</span> (ctx) =&gt; {
-        <span class="hljs-comment">// Waiting for response to stringify it...</span>
-        <span class="hljs-keyword">await</span> ctx.next!()
-        ctx.response = <span class="hljs-built_in">JSON</span>.stringify(ctx.response)
-    })
+<span style="color: #000000">    </span><span style="color: #008000">//Stringigying responses for all events</span>
+<span style="color: #000000">    </span><span style="color: #001080">wrapper</span><span style="color: #000000">.</span><span style="color: #795E26">role</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;json-wrapper&#039;</span><span style="color: #000000">).</span><span style="color: #795E26">onRequest</span><span style="color: #000000">(</span><span style="color: #0000FF">async</span><span style="color: #000000"> (</span><span style="color: #001080">ctx</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">        </span><span style="color: #008000">// Waiting for response to stringify it...</span>
+<span style="color: #000000">        </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">ctx</span><span style="color: #000000">.</span><span style="color: #795E26">next</span><span style="color: #000000">!()</span>
+<span style="color: #000000">        </span><span style="color: #001080">ctx</span><span style="color: #000000">.</span><span style="color: #001080">response</span><span style="color: #000000"> = </span><span style="color: #267F99">JSON</span><span style="color: #000000">.</span><span style="color: #795E26">stringify</span><span style="color: #000000">(</span><span style="color: #001080">ctx</span><span style="color: #000000">.</span><span style="color: #001080">response</span><span style="color: #000000">)</span>
+<span style="color: #000000">    })</span>
 
-    <span class="hljs-comment">//Wrapping data</span>
-    wrapper.role(<span class="hljs-string">'json-wrapper'</span>).onRequest(<span class="hljs-string">'wrap'</span>, <span class="hljs-function">(<span class="hljs-params">ctx, cb</span>) =&gt;</span> {
-        cb(<span class="hljs-literal">null</span>, { total_order: i, data: ctx.data, by: wrapper.name })
-    })
-}
+<span style="color: #000000">    </span><span style="color: #008000">//Wrapping data</span>
+<span style="color: #000000">    </span><span style="color: #001080">wrapper</span><span style="color: #000000">.</span><span style="color: #795E26">role</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;json-wrapper&#039;</span><span style="color: #000000">).</span><span style="color: #795E26">onRequest</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;wrap&#039;</span><span style="color: #000000">, (</span><span style="color: #001080">ctx</span><span style="color: #000000">, </span><span style="color: #001080">cb</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">        </span><span style="color: #795E26">cb</span><span style="color: #000000">(</span><span style="color: #0000FF">null</span><span style="color: #000000">, { </span><span style="color: #001080">total_order:</span><span style="color: #000000"> </span><span style="color: #001080">i</span><span style="color: #000000">, </span><span style="color: #001080">data:</span><span style="color: #000000"> </span><span style="color: #001080">ctx</span><span style="color: #000000">.</span><span style="color: #001080">data</span><span style="color: #000000">, </span><span style="color: #001080">by:</span><span style="color: #000000"> </span><span style="color: #001080">wrapper</span><span style="color: #000000">.</span><span style="color: #001080">name</span><span style="color: #000000"> })</span>
+<span style="color: #000000">    })</span>
+<span style="color: #000000">}</span>
 
-setInterval(<span class="hljs-keyword">async</span> () =&gt; {
-    <span class="hljs-keyword">try</span> {
-        <span class="hljs-keyword">let</span> data = randomBytes(<span class="hljs-number">10</span>).toString(<span class="hljs-string">'hex'</span>)
-        <span class="hljs-keyword">let</span> ctx = <span class="hljs-keyword">await</span> sender.destination(<span class="hljs-string">'json-wrapper'</span>).request(<span class="hljs-string">'wrap'</span>, data)
-        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${data}</span> wrapped to <span class="hljs-subst">${ctx.data}</span>`</span>)
-    }
-    <span class="hljs-keyword">catch</span> (err) {
-        <span class="hljs-comment">//...</span>
-    }
+<span style="color: #795E26">setInterval</span><span style="color: #000000">(</span><span style="color: #0000FF">async</span><span style="color: #000000"> () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">try</span><span style="color: #000000"> {</span>
+<span style="color: #000000">        </span><span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">data</span><span style="color: #000000"> = </span><span style="color: #795E26">randomBytes</span><span style="color: #000000">(</span><span style="color: #098658">10</span><span style="color: #000000">).</span><span style="color: #795E26">toString</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;hex&#039;</span><span style="color: #000000">)</span>
+<span style="color: #000000">        </span><span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">ctx</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">sender</span><span style="color: #000000">.</span><span style="color: #795E26">destination</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;json-wrapper&#039;</span><span style="color: #000000">).</span><span style="color: #795E26">request</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;wrap&#039;</span><span style="color: #000000">, </span><span style="color: #001080">data</span><span style="color: #000000">)</span>
+<span style="color: #000000">        </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">`</span><span style="color: #0000FF">${</span><span style="color: #001080">data</span><span style="color: #0000FF">}</span><span style="color: #A31515"> wrapped to </span><span style="color: #0000FF">${</span><span style="color: #001080">ctx</span><span style="color: #000000FF">.</span><span style="color: #001080">data</span><span style="color: #0000FF">}</span><span style="color: #A31515">`</span><span style="color: #000000">)</span>
+<span style="color: #000000">    }</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">catch</span><span style="color: #000000"> (</span><span style="color: #001080">err</span><span style="color: #000000">) {</span>
+<span style="color: #000000">        </span><span style="color: #008000">//...</span>
+<span style="color: #000000">    }</span>
 
-}, <span class="hljs-number">1000</span>)</code></pre><p>Output:</p>
-				<pre><code><span class="hljs-number">7</span>ea<span class="hljs-number">03</span>d<span class="hljs-number">3339</span>a<span class="hljs-number">59</span>d<span class="hljs-number">7</span>b<span class="hljs-number">6</span>fd<span class="hljs-number">1</span> wrapped <span class="hljs-keyword">to</span> {<span class="hljs-string">"total_order"</span>:<span class="hljs-number">1</span>,<span class="hljs-string">"data"</span>:<span class="hljs-string">"7ea03d3339a59d7b6fd1"</span>,<span class="hljs-string">"by"</span>:<span class="hljs-string">"Wrapper 1"</span>}
-<span class="hljs-number">0</span>fbf<span class="hljs-number">880</span><span class="hljs-keyword">c</span><span class="hljs-number">5010372</span>ad<span class="hljs-number">6e2</span> wrapped <span class="hljs-keyword">to</span> {<span class="hljs-string">"total_order"</span>:<span class="hljs-number">1</span>,<span class="hljs-string">"data"</span>:<span class="hljs-string">"0fbf880c5010372ad6e2"</span>,<span class="hljs-string">"by"</span>:<span class="hljs-string">"Wrapper 2"</span>}
-edcfebf<span class="hljs-number">32574</span>bbf<span class="hljs-number">9</span>dfe<span class="hljs-number">9</span> wrapped <span class="hljs-keyword">to</span> {<span class="hljs-string">"total_order"</span>:<span class="hljs-number">1</span>,<span class="hljs-string">"data"</span>:<span class="hljs-string">"edcfebf32574bbf9dfe9"</span>,<span class="hljs-string">"by"</span>:<span class="hljs-string">"Wrapper 3"</span>}
-<span class="hljs-number">65284</span>dfd<span class="hljs-number">7</span>fbfe<span class="hljs-number">88</span>f<span class="hljs-number">3</span>fa<span class="hljs-number">2</span> wrapped <span class="hljs-keyword">to</span> {<span class="hljs-string">"total_order"</span>:<span class="hljs-number">1</span>,<span class="hljs-string">"data"</span>:<span class="hljs-string">"65284dfd7fbfe88f3fa2"</span>,<span class="hljs-string">"by"</span>:<span class="hljs-string">"Wrapper 4"</span>}
-<span class="hljs-number">2838</span>ac<span class="hljs-number">705</span>a<span class="hljs-number">7</span>b<span class="hljs-number">00</span>a<span class="hljs-number">4</span>baa<span class="hljs-number">3</span> wrapped <span class="hljs-keyword">to</span> {<span class="hljs-string">"total_order"</span>:<span class="hljs-number">2</span>,<span class="hljs-string">"data"</span>:<span class="hljs-string">"2838ac705a7b00a4baa3"</span>,<span class="hljs-string">"by"</span>:<span class="hljs-string">"Wrapper 1"</span>}
-<span class="hljs-number">32274132938</span>f<span class="hljs-number">6e8227</span>bd wrapped <span class="hljs-keyword">to</span> {<span class="hljs-string">"total_order"</span>:<span class="hljs-number">2</span>,<span class="hljs-string">"data"</span>:<span class="hljs-string">"32274132938f6e8227bd"</span>,<span class="hljs-string">"by"</span>:<span class="hljs-string">"Wrapper 2"</span>}
-a<span class="hljs-number">4</span><span class="hljs-keyword">cc</span><span class="hljs-number">0784</span>da<span class="hljs-number">453</span>df<span class="hljs-number">58</span>ccb wrapped <span class="hljs-keyword">to</span> {<span class="hljs-string">"total_order"</span>:<span class="hljs-number">2</span>,<span class="hljs-string">"data"</span>:<span class="hljs-string">"a4cc0784da453df58ccb"</span>,<span class="hljs-string">"by"</span>:<span class="hljs-string">"Wrapper 3"</span>}
-<span class="hljs-number">22</span>f<span class="hljs-number">9</span>f<span class="hljs-number">79</span>cdad<span class="hljs-number">13</span>d<span class="hljs-number">32079</span>f wrapped <span class="hljs-keyword">to</span> {<span class="hljs-string">"total_order"</span>:<span class="hljs-number">2</span>,<span class="hljs-string">"data"</span>:<span class="hljs-string">"22f9f79cdad13d32079f"</span>,<span class="hljs-string">"by"</span>:<span class="hljs-string">"Wrapper 4"</span>}
-<span class="hljs-number">06</span><span class="hljs-keyword">c</span><span class="hljs-number">41164</span>f<span class="hljs-number">30</span>ec<span class="hljs-number">96</span>f<span class="hljs-number">399</span><span class="hljs-keyword">c</span> wrapped <span class="hljs-keyword">to</span> {<span class="hljs-string">"total_order"</span>:<span class="hljs-number">3</span>,<span class="hljs-string">"data"</span>:<span class="hljs-string">"06c41164f30ec96f399c"</span>,<span class="hljs-string">"by"</span>:<span class="hljs-string">"Wrapper 1"</span>}
-<span class="hljs-number">06556695174</span>afdfd<span class="hljs-number">12</span>a<span class="hljs-number">2</span> wrapped <span class="hljs-keyword">to</span> {<span class="hljs-string">"total_order"</span>:<span class="hljs-number">3</span>,<span class="hljs-string">"data"</span>:<span class="hljs-string">"06556695174afdfd12a2"</span>,<span class="hljs-string">"by"</span>:<span class="hljs-string">"Wrapper 2"</span>}</code></pre>
+<span style="color: #000000">}, </span><span style="color: #098658">1000</span><span style="color: #000000">)</span>
+</code></pre>
+				<p>Output:</p>
+				<pre><code><span style="color: #000000">7</span><span style="color: #001080">ea03d3339a59d7b6fd1</span><span style="color: #000000"> </span><span style="color: #001080">wrapped</span><span style="color: #000000"> </span><span style="color: #001080">to</span><span style="color: #000000"> {</span><span style="color: #A31515">&quot;total_order&quot;</span><span style="color: #000000">:</span><span style="color: #098658">1</span><span style="color: #000000">,</span><span style="color: #A31515">&quot;data&quot;</span><span style="color: #000000">:</span><span style="color: #A31515">&quot;7ea03d3339a59d7b6fd1&quot;</span><span style="color: #000000">,</span><span style="color: #A31515">&quot;by&quot;</span><span style="color: #000000">:</span><span style="color: #A31515">&quot;Wrapper 1&quot;</span><span style="color: #000000">}</span>
+<span style="color: #000000">0</span><span style="color: #001080">fbf880c5010372ad6e2</span><span style="color: #000000"> </span><span style="color: #001080">wrapped</span><span style="color: #000000"> </span><span style="color: #001080">to</span><span style="color: #000000"> {</span><span style="color: #A31515">&quot;total_order&quot;</span><span style="color: #000000">:</span><span style="color: #098658">1</span><span style="color: #000000">,</span><span style="color: #A31515">&quot;data&quot;</span><span style="color: #000000">:</span><span style="color: #A31515">&quot;0fbf880c5010372ad6e2&quot;</span><span style="color: #000000">,</span><span style="color: #A31515">&quot;by&quot;</span><span style="color: #000000">:</span><span style="color: #A31515">&quot;Wrapper 2&quot;</span><span style="color: #000000">}</span>
+<span style="color: #001080">edcfebf32574bbf9dfe9</span><span style="color: #000000"> </span><span style="color: #001080">wrapped</span><span style="color: #000000"> </span><span style="color: #001080">to</span><span style="color: #000000"> {</span><span style="color: #A31515">&quot;total_order&quot;</span><span style="color: #000000">:</span><span style="color: #098658">1</span><span style="color: #000000">,</span><span style="color: #A31515">&quot;data&quot;</span><span style="color: #000000">:</span><span style="color: #A31515">&quot;edcfebf32574bbf9dfe9&quot;</span><span style="color: #000000">,</span><span style="color: #A31515">&quot;by&quot;</span><span style="color: #000000">:</span><span style="color: #A31515">&quot;Wrapper 3&quot;</span><span style="color: #000000">}</span>
+<span style="color: #000000">65284</span><span style="color: #001080">dfd7fbfe88f3fa2</span><span style="color: #000000"> </span><span style="color: #001080">wrapped</span><span style="color: #000000"> </span><span style="color: #001080">to</span><span style="color: #000000"> {</span><span style="color: #A31515">&quot;total_order&quot;</span><span style="color: #000000">:</span><span style="color: #098658">1</span><span style="color: #000000">,</span><span style="color: #A31515">&quot;data&quot;</span><span style="color: #000000">:</span><span style="color: #A31515">&quot;65284dfd7fbfe88f3fa2&quot;</span><span style="color: #000000">,</span><span style="color: #A31515">&quot;by&quot;</span><span style="color: #000000">:</span><span style="color: #A31515">&quot;Wrapper 4&quot;</span><span style="color: #000000">}</span>
+<span style="color: #000000">2838</span><span style="color: #001080">ac705a7b00a4baa3</span><span style="color: #000000"> </span><span style="color: #001080">wrapped</span><span style="color: #000000"> </span><span style="color: #001080">to</span><span style="color: #000000"> {</span><span style="color: #A31515">&quot;total_order&quot;</span><span style="color: #000000">:</span><span style="color: #098658">2</span><span style="color: #000000">,</span><span style="color: #A31515">&quot;data&quot;</span><span style="color: #000000">:</span><span style="color: #A31515">&quot;2838ac705a7b00a4baa3&quot;</span><span style="color: #000000">,</span><span style="color: #A31515">&quot;by&quot;</span><span style="color: #000000">:</span><span style="color: #A31515">&quot;Wrapper 1&quot;</span><span style="color: #000000">}</span>
+<span style="color: #000000">32274132938</span><span style="color: #001080">f6e8227bd</span><span style="color: #000000"> </span><span style="color: #001080">wrapped</span><span style="color: #000000"> </span><span style="color: #001080">to</span><span style="color: #000000"> {</span><span style="color: #A31515">&quot;total_order&quot;</span><span style="color: #000000">:</span><span style="color: #098658">2</span><span style="color: #000000">,</span><span style="color: #A31515">&quot;data&quot;</span><span style="color: #000000">:</span><span style="color: #A31515">&quot;32274132938f6e8227bd&quot;</span><span style="color: #000000">,</span><span style="color: #A31515">&quot;by&quot;</span><span style="color: #000000">:</span><span style="color: #A31515">&quot;Wrapper 2&quot;</span><span style="color: #000000">}</span>
+<span style="color: #001080">a4cc0784da453df58ccb</span><span style="color: #000000"> </span><span style="color: #001080">wrapped</span><span style="color: #000000"> </span><span style="color: #001080">to</span><span style="color: #000000"> {</span><span style="color: #A31515">&quot;total_order&quot;</span><span style="color: #000000">:</span><span style="color: #098658">2</span><span style="color: #000000">,</span><span style="color: #A31515">&quot;data&quot;</span><span style="color: #000000">:</span><span style="color: #A31515">&quot;a4cc0784da453df58ccb&quot;</span><span style="color: #000000">,</span><span style="color: #A31515">&quot;by&quot;</span><span style="color: #000000">:</span><span style="color: #A31515">&quot;Wrapper 3&quot;</span><span style="color: #000000">}</span>
+<span style="color: #000000">22</span><span style="color: #001080">f9f79cdad13d32079f</span><span style="color: #000000"> </span><span style="color: #001080">wrapped</span><span style="color: #000000"> </span><span style="color: #001080">to</span><span style="color: #000000"> {</span><span style="color: #A31515">&quot;total_order&quot;</span><span style="color: #000000">:</span><span style="color: #098658">2</span><span style="color: #000000">,</span><span style="color: #A31515">&quot;data&quot;</span><span style="color: #000000">:</span><span style="color: #A31515">&quot;22f9f79cdad13d32079f&quot;</span><span style="color: #000000">,</span><span style="color: #A31515">&quot;by&quot;</span><span style="color: #000000">:</span><span style="color: #A31515">&quot;Wrapper 4&quot;</span><span style="color: #000000">}</span>
+<span style="color: #000000">06</span><span style="color: #001080">c41164f30ec96f399c</span><span style="color: #000000"> </span><span style="color: #001080">wrapped</span><span style="color: #000000"> </span><span style="color: #001080">to</span><span style="color: #000000"> {</span><span style="color: #A31515">&quot;total_order&quot;</span><span style="color: #000000">:</span><span style="color: #098658">3</span><span style="color: #000000">,</span><span style="color: #A31515">&quot;data&quot;</span><span style="color: #000000">:</span><span style="color: #A31515">&quot;06c41164f30ec96f399c&quot;</span><span style="color: #000000">,</span><span style="color: #A31515">&quot;by&quot;</span><span style="color: #000000">:</span><span style="color: #A31515">&quot;Wrapper 1&quot;</span><span style="color: #000000">}</span>
+<span style="color: #000000">06556695174</span><span style="color: #001080">afdfd12a2</span><span style="color: #000000"> </span><span style="color: #001080">wrapped</span><span style="color: #000000"> </span><span style="color: #001080">to</span><span style="color: #000000"> {</span><span style="color: #A31515">&quot;total_order&quot;</span><span style="color: #000000">:</span><span style="color: #098658">3</span><span style="color: #000000">,</span><span style="color: #A31515">&quot;data&quot;</span><span style="color: #000000">:</span><span style="color: #A31515">&quot;06556695174afdfd12a2&quot;</span><span style="color: #000000">,</span><span style="color: #A31515">&quot;by&quot;</span><span style="color: #000000">:</span><span style="color: #A31515">&quot;Wrapper 2&quot;</span><span style="color: #000000">}</span>
+</code></pre>
 				<a href="#publish-subscribe" id="publish-subscribe" style="color: inherit; text-decoration: none;">
 					<h2>Publish-Subscribe</h2>
 				</a>
-				<pre><code><span class="hljs-keyword">import</span> { Peer } <span class="hljs-keyword">from</span> <span class="hljs-string">'roletalk'</span>
+				<pre><code><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">Peer</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;roletalk&#039;</span>
 
-<span class="hljs-comment">//Declare publisher and subscribers</span>
-<span class="hljs-keyword">let</span> pub = <span class="hljs-keyword">new</span> Peer({ name: <span class="hljs-string">'Bob'</span> }),
-    sub1 = <span class="hljs-keyword">new</span> Peer({ name: <span class="hljs-string">"Alice"</span> }),
-    sub2 = <span class="hljs-keyword">new</span> Peer({ name: <span class="hljs-string">"Anna"</span> }),
-    sub3 = <span class="hljs-keyword">new</span> Peer({ name: <span class="hljs-string">"Kate"</span> })
+<span style="color: #008000">//Declare publisher and subscribers</span>
+<span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">pub</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Peer</span><span style="color: #000000">({ </span><span style="color: #001080">name:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Bob&#039;</span><span style="color: #000000"> }),</span>
+<span style="color: #000000">    </span><span style="color: #001080">sub1</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Peer</span><span style="color: #000000">({ </span><span style="color: #001080">name:</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;Alice&quot;</span><span style="color: #000000"> }),</span>
+<span style="color: #000000">    </span><span style="color: #001080">sub2</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Peer</span><span style="color: #000000">({ </span><span style="color: #001080">name:</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;Anna&quot;</span><span style="color: #000000"> }),</span>
+<span style="color: #000000">    </span><span style="color: #001080">sub3</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Peer</span><span style="color: #000000">({ </span><span style="color: #001080">name:</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;Kate&quot;</span><span style="color: #000000"> })</span>
 
-<span class="hljs-keyword">let</span> subs = [sub1, sub2, sub3];
+<span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">subs</span><span style="color: #000000"> = [</span><span style="color: #001080">sub1</span><span style="color: #000000">, </span><span style="color: #001080">sub2</span><span style="color: #000000">, </span><span style="color: #001080">sub3</span><span style="color: #000000">];</span>
 
-<span class="hljs-keyword">let</span> port = <span class="hljs-number">9000</span>
+<span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">port</span><span style="color: #000000"> = </span><span style="color: #098658">9000</span>
 
-<span class="hljs-comment">//Now let's connect them together. It doesn't matter who listens and who connects.</span>
-<span class="hljs-comment">//For example, publisher will be the listener</span>
-pub.listen(port)
-subs.forEach(<span class="hljs-keyword">async</span> (sub: Peer) =&gt; {
-    <span class="hljs-keyword">try</span> {
-        <span class="hljs-comment">//Connect subscribers to publisher</span>
-        <span class="hljs-keyword">let</span> connected = <span class="hljs-keyword">await</span> sub.connect(<span class="hljs-string">'ws://localhost:'</span> + port)
-        <span class="hljs-built_in">console</span>.log( <span class="hljs-string">`<span class="hljs-subst">${sub.name}</span> connected to <span class="hljs-subst">${connected.unit.name}</span>`</span> )
-    } <span class="hljs-keyword">catch</span> (err) {
-        <span class="hljs-built_in">console</span>.log( <span class="hljs-string">`Cannot connect to Bob due to error: <span class="hljs-subst">${err}</span>`</span> )
-    }
-});
+<span style="color: #008000">//Now let&#039;s connect them together. It doesn&#039;t matter who listens and who connects.</span>
+<span style="color: #008000">//For example, publisher will be the listener</span>
+<span style="color: #001080">pub</span><span style="color: #000000">.</span><span style="color: #795E26">listen</span><span style="color: #000000">(</span><span style="color: #001080">port</span><span style="color: #000000">)</span>
+<span style="color: #001080">subs</span><span style="color: #000000">.</span><span style="color: #795E26">forEach</span><span style="color: #000000">(</span><span style="color: #0000FF">async</span><span style="color: #000000"> (</span><span style="color: #001080">sub</span><span style="color: #000000">: </span><span style="color: #267F99">Peer</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">try</span><span style="color: #000000"> {</span>
+<span style="color: #000000">        </span><span style="color: #008000">//Connect subscribers to publisher</span>
+<span style="color: #000000">        </span><span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">connected</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">sub</span><span style="color: #000000">.</span><span style="color: #795E26">connect</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;ws://localhost:&#039;</span><span style="color: #000000"> + </span><span style="color: #001080">port</span><span style="color: #000000">)</span>
+<span style="color: #000000">        </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">( </span><span style="color: #A31515">`</span><span style="color: #0000FF">${</span><span style="color: #001080">sub</span><span style="color: #000000FF">.</span><span style="color: #001080">name</span><span style="color: #0000FF">}</span><span style="color: #A31515"> connected to </span><span style="color: #0000FF">${</span><span style="color: #001080">connected</span><span style="color: #000000FF">.</span><span style="color: #001080">unit</span><span style="color: #000000FF">.</span><span style="color: #001080">name</span><span style="color: #0000FF">}</span><span style="color: #A31515">`</span><span style="color: #000000"> )</span>
+<span style="color: #000000">    } </span><span style="color: #AF00DB">catch</span><span style="color: #000000"> (</span><span style="color: #001080">err</span><span style="color: #000000">) {</span>
+<span style="color: #000000">        </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">( </span><span style="color: #A31515">`Cannot connect to Bob due to error: </span><span style="color: #0000FF">${</span><span style="color: #001080">err</span><span style="color: #0000FF">}</span><span style="color: #A31515">`</span><span style="color: #000000"> )</span>
+<span style="color: #000000">    }</span>
+<span style="color: #000000">});</span>
 
-<span class="hljs-comment">//Declare Role and handler for event</span>
-subs.forEach(<span class="hljs-keyword">async</span> (sub: Peer) =&gt; {
-    sub.role(<span class="hljs-string">'time_receiver'</span>).onMessage(<span class="hljs-string">'now'</span>, <span class="hljs-function">(<span class="hljs-params">ctx</span>) =&gt;</span> {
-        <span class="hljs-keyword">let</span> now = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(ctx.data).toTimeString()
-        <span class="hljs-built_in">console</span>.log( <span class="hljs-string">`This is <span class="hljs-subst">${sub.name}</span>. <span class="hljs-subst">${ctx.unit.name}</span> told me current time: <span class="hljs-subst">${now}</span>`</span> )
-        <span class="hljs-comment">//maybe rate his work?</span>
-        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Math</span>.random() &gt; <span class="hljs-number">0.9</span>) {
-            <span class="hljs-keyword">let</span> rate = <span class="hljs-built_in">Math</span>.ceil(<span class="hljs-built_in">Math</span>.random() * <span class="hljs-number">5</span> + <span class="hljs-number">5</span>)
-            sub.destination(<span class="hljs-string">'time_emitter'</span>).send({ unit: ctx.unit, event: <span class="hljs-string">'rate'</span> }, rate)
-        }
-    })
-});
+<span style="color: #008000">//Declare Role and handler for event</span>
+<span style="color: #001080">subs</span><span style="color: #000000">.</span><span style="color: #795E26">forEach</span><span style="color: #000000">(</span><span style="color: #0000FF">async</span><span style="color: #000000"> (</span><span style="color: #001080">sub</span><span style="color: #000000">: </span><span style="color: #267F99">Peer</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">sub</span><span style="color: #000000">.</span><span style="color: #795E26">role</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;time_receiver&#039;</span><span style="color: #000000">).</span><span style="color: #795E26">onMessage</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;now&#039;</span><span style="color: #000000">, (</span><span style="color: #001080">ctx</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">        </span><span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">now</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Date</span><span style="color: #000000">(</span><span style="color: #001080">ctx</span><span style="color: #000000">.</span><span style="color: #001080">data</span><span style="color: #000000">).</span><span style="color: #795E26">toTimeString</span><span style="color: #000000">()</span>
+<span style="color: #000000">        </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">( </span><span style="color: #A31515">`This is </span><span style="color: #0000FF">${</span><span style="color: #001080">sub</span><span style="color: #000000FF">.</span><span style="color: #001080">name</span><span style="color: #0000FF">}</span><span style="color: #A31515">. </span><span style="color: #0000FF">${</span><span style="color: #001080">ctx</span><span style="color: #000000FF">.</span><span style="color: #001080">unit</span><span style="color: #000000FF">.</span><span style="color: #001080">name</span><span style="color: #0000FF">}</span><span style="color: #A31515"> told me current time: </span><span style="color: #0000FF">${</span><span style="color: #001080">now</span><span style="color: #0000FF">}</span><span style="color: #A31515">`</span><span style="color: #000000"> )</span>
+<span style="color: #000000">        </span><span style="color: #008000">//maybe rate his work?</span>
+<span style="color: #000000">        </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #267F99">Math</span><span style="color: #000000">.</span><span style="color: #795E26">random</span><span style="color: #000000">() &gt; </span><span style="color: #098658">0.9</span><span style="color: #000000">) {</span>
+<span style="color: #000000">            </span><span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">rate</span><span style="color: #000000"> = </span><span style="color: #267F99">Math</span><span style="color: #000000">.</span><span style="color: #795E26">ceil</span><span style="color: #000000">(</span><span style="color: #267F99">Math</span><span style="color: #000000">.</span><span style="color: #795E26">random</span><span style="color: #000000">() * </span><span style="color: #098658">5</span><span style="color: #000000"> + </span><span style="color: #098658">5</span><span style="color: #000000">)</span>
+<span style="color: #000000">            </span><span style="color: #001080">sub</span><span style="color: #000000">.</span><span style="color: #795E26">destination</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;time_emitter&#039;</span><span style="color: #000000">).</span><span style="color: #795E26">send</span><span style="color: #000000">({ </span><span style="color: #001080">unit:</span><span style="color: #000000"> </span><span style="color: #001080">ctx</span><span style="color: #000000">.</span><span style="color: #001080">unit</span><span style="color: #000000">, </span><span style="color: #001080">event:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;rate&#039;</span><span style="color: #000000"> }, </span><span style="color: #001080">rate</span><span style="color: #000000">)</span>
+<span style="color: #000000">        }</span>
+<span style="color: #000000">    })</span>
+<span style="color: #000000">});</span>
 
-pub.role(<span class="hljs-string">'time_emitter'</span>).onMessage(<span class="hljs-string">'rate'</span>, <span class="hljs-function">(<span class="hljs-params">ctx</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.log( <span class="hljs-string">`<span class="hljs-subst">${ctx.unit.name}</span> has rated my work: <span class="hljs-subst">${ctx.data}</span>`</span> )
-})
-Peer.name
-setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-    pub.destination(<span class="hljs-string">'time_receiver'</span>).broadcast(<span class="hljs-string">'now'</span>, <span class="hljs-built_in">Date</span>.now())
-}, <span class="hljs-number">1000</span>)</code></pre><p>Output: </p>
-				<pre><code>This <span class="hljs-keyword">is</span> Alice. Bob told me current time: <span class="hljs-number">18</span>:<span class="hljs-number">55</span>:<span class="hljs-number">33</span> GMT+<span class="hljs-number">0200</span> (GMT+<span class="hljs-number">02</span>:<span class="hljs-number">00</span>)
-This <span class="hljs-keyword">is</span> Anna. Bob told me current time: <span class="hljs-number">18</span>:<span class="hljs-number">55</span>:<span class="hljs-number">33</span> GMT+<span class="hljs-number">0200</span> (GMT+<span class="hljs-number">02</span>:<span class="hljs-number">00</span>)
-This <span class="hljs-keyword">is</span> Kate. Bob told me current time: <span class="hljs-number">18</span>:<span class="hljs-number">55</span>:<span class="hljs-number">33</span> GMT+<span class="hljs-number">0200</span> (GMT+<span class="hljs-number">02</span>:<span class="hljs-number">00</span>)
-This <span class="hljs-keyword">is</span> Alice. Bob told me current time: <span class="hljs-number">18</span>:<span class="hljs-number">55</span>:<span class="hljs-number">34</span> GMT+<span class="hljs-number">0200</span> (GMT+<span class="hljs-number">02</span>:<span class="hljs-number">00</span>)
-This <span class="hljs-keyword">is</span> Anna. Bob told me current time: <span class="hljs-number">18</span>:<span class="hljs-number">55</span>:<span class="hljs-number">34</span> GMT+<span class="hljs-number">0200</span> (GMT+<span class="hljs-number">02</span>:<span class="hljs-number">00</span>)
-This <span class="hljs-keyword">is</span> Kate. Bob told me current time: <span class="hljs-number">18</span>:<span class="hljs-number">55</span>:<span class="hljs-number">34</span> GMT+<span class="hljs-number">0200</span> (GMT+<span class="hljs-number">02</span>:<span class="hljs-number">00</span>)
-Anna has rated my work: <span class="hljs-number">9</span>
-This <span class="hljs-keyword">is</span> Alice. Bob told me current time: <span class="hljs-number">18</span>:<span class="hljs-number">55</span>:<span class="hljs-number">35</span> GMT+<span class="hljs-number">0200</span> (GMT+<span class="hljs-number">02</span>:<span class="hljs-number">00</span>)
-This <span class="hljs-keyword">is</span> Anna. Bob told me current time: <span class="hljs-number">18</span>:<span class="hljs-number">55</span>:<span class="hljs-number">35</span> GMT+<span class="hljs-number">0200</span> (GMT+<span class="hljs-number">02</span>:<span class="hljs-number">00</span>)
-This <span class="hljs-keyword">is</span> Kate. Bob told me current time: <span class="hljs-number">18</span>:<span class="hljs-number">55</span>:<span class="hljs-number">35</span> GMT+<span class="hljs-number">0200</span> (GMT+<span class="hljs-number">02</span>:<span class="hljs-number">00</span>)
-Kate has rated my work: <span class="hljs-number">8</span></code></pre>
+<span style="color: #001080">pub</span><span style="color: #000000">.</span><span style="color: #795E26">role</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;time_emitter&#039;</span><span style="color: #000000">).</span><span style="color: #795E26">onMessage</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;rate&#039;</span><span style="color: #000000">, (</span><span style="color: #001080">ctx</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">( </span><span style="color: #A31515">`</span><span style="color: #0000FF">${</span><span style="color: #001080">ctx</span><span style="color: #000000FF">.</span><span style="color: #001080">unit</span><span style="color: #000000FF">.</span><span style="color: #001080">name</span><span style="color: #0000FF">}</span><span style="color: #A31515"> has rated my work: </span><span style="color: #0000FF">${</span><span style="color: #001080">ctx</span><span style="color: #000000FF">.</span><span style="color: #001080">data</span><span style="color: #0000FF">}</span><span style="color: #A31515">`</span><span style="color: #000000"> )</span>
+<span style="color: #000000">})</span>
+<span style="color: #001080">Peer</span><span style="color: #000000">.</span><span style="color: #001080">name</span>
+<span style="color: #795E26">setInterval</span><span style="color: #000000">(() </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">pub</span><span style="color: #000000">.</span><span style="color: #795E26">destination</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;time_receiver&#039;</span><span style="color: #000000">).</span><span style="color: #795E26">broadcast</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;now&#039;</span><span style="color: #000000">, </span><span style="color: #267F99">Date</span><span style="color: #000000">.</span><span style="color: #795E26">now</span><span style="color: #000000">())</span>
+<span style="color: #000000">}, </span><span style="color: #098658">1000</span><span style="color: #000000">)</span>
+</code></pre>
+				<p>Output:</p>
+				<pre><code><span style="color: #001080">This</span><span style="color: #000000"> </span><span style="color: #001080">is</span><span style="color: #000000"> </span><span style="color: #001080">Alice</span><span style="color: #000000">. </span><span style="color: #001080">Bob</span><span style="color: #000000"> </span><span style="color: #001080">told</span><span style="color: #000000"> </span><span style="color: #001080">me</span><span style="color: #000000"> </span><span style="color: #001080">current</span><span style="color: #000000"> time: </span><span style="color: #098658">18</span><span style="color: #000000">:</span><span style="color: #098658">55</span><span style="color: #000000">:</span><span style="color: #098658">33</span><span style="color: #000000"> </span><span style="color: #0070C1">GMT</span><span style="color: #000000">+</span><span style="color: #098658">0200</span><span style="color: #000000"> (</span><span style="color: #0070C1">GMT</span><span style="color: #000000">+</span><span style="color: #098658">02</span><span style="color: #000000">:</span><span style="color: #098658">00</span><span style="color: #000000">)</span>
+<span style="color: #001080">This</span><span style="color: #000000"> </span><span style="color: #001080">is</span><span style="color: #000000"> </span><span style="color: #001080">Anna</span><span style="color: #000000">. </span><span style="color: #001080">Bob</span><span style="color: #000000"> </span><span style="color: #001080">told</span><span style="color: #000000"> </span><span style="color: #001080">me</span><span style="color: #000000"> </span><span style="color: #001080">current</span><span style="color: #000000"> time: </span><span style="color: #098658">18</span><span style="color: #000000">:</span><span style="color: #098658">55</span><span style="color: #000000">:</span><span style="color: #098658">33</span><span style="color: #000000"> </span><span style="color: #0070C1">GMT</span><span style="color: #000000">+</span><span style="color: #098658">0200</span><span style="color: #000000"> (</span><span style="color: #0070C1">GMT</span><span style="color: #000000">+</span><span style="color: #098658">02</span><span style="color: #000000">:</span><span style="color: #098658">00</span><span style="color: #000000">)</span>
+<span style="color: #001080">This</span><span style="color: #000000"> </span><span style="color: #001080">is</span><span style="color: #000000"> </span><span style="color: #001080">Kate</span><span style="color: #000000">. </span><span style="color: #001080">Bob</span><span style="color: #000000"> </span><span style="color: #001080">told</span><span style="color: #000000"> </span><span style="color: #001080">me</span><span style="color: #000000"> </span><span style="color: #001080">current</span><span style="color: #000000"> time: </span><span style="color: #098658">18</span><span style="color: #000000">:</span><span style="color: #098658">55</span><span style="color: #000000">:</span><span style="color: #098658">33</span><span style="color: #000000"> </span><span style="color: #0070C1">GMT</span><span style="color: #000000">+</span><span style="color: #098658">0200</span><span style="color: #000000"> (</span><span style="color: #0070C1">GMT</span><span style="color: #000000">+</span><span style="color: #098658">02</span><span style="color: #000000">:</span><span style="color: #098658">00</span><span style="color: #000000">)</span>
+<span style="color: #001080">This</span><span style="color: #000000"> </span><span style="color: #001080">is</span><span style="color: #000000"> </span><span style="color: #001080">Alice</span><span style="color: #000000">. </span><span style="color: #001080">Bob</span><span style="color: #000000"> </span><span style="color: #001080">told</span><span style="color: #000000"> </span><span style="color: #001080">me</span><span style="color: #000000"> </span><span style="color: #001080">current</span><span style="color: #000000"> time: </span><span style="color: #098658">18</span><span style="color: #000000">:</span><span style="color: #098658">55</span><span style="color: #000000">:</span><span style="color: #098658">34</span><span style="color: #000000"> </span><span style="color: #0070C1">GMT</span><span style="color: #000000">+</span><span style="color: #098658">0200</span><span style="color: #000000"> (</span><span style="color: #0070C1">GMT</span><span style="color: #000000">+</span><span style="color: #098658">02</span><span style="color: #000000">:</span><span style="color: #098658">00</span><span style="color: #000000">)</span>
+<span style="color: #001080">This</span><span style="color: #000000"> </span><span style="color: #001080">is</span><span style="color: #000000"> </span><span style="color: #001080">Anna</span><span style="color: #000000">. </span><span style="color: #001080">Bob</span><span style="color: #000000"> </span><span style="color: #001080">told</span><span style="color: #000000"> </span><span style="color: #001080">me</span><span style="color: #000000"> </span><span style="color: #001080">current</span><span style="color: #000000"> time: </span><span style="color: #098658">18</span><span style="color: #000000">:</span><span style="color: #098658">55</span><span style="color: #000000">:</span><span style="color: #098658">34</span><span style="color: #000000"> </span><span style="color: #0070C1">GMT</span><span style="color: #000000">+</span><span style="color: #098658">0200</span><span style="color: #000000"> (</span><span style="color: #0070C1">GMT</span><span style="color: #000000">+</span><span style="color: #098658">02</span><span style="color: #000000">:</span><span style="color: #098658">00</span><span style="color: #000000">)</span>
+<span style="color: #001080">This</span><span style="color: #000000"> </span><span style="color: #001080">is</span><span style="color: #000000"> </span><span style="color: #001080">Kate</span><span style="color: #000000">. </span><span style="color: #001080">Bob</span><span style="color: #000000"> </span><span style="color: #001080">told</span><span style="color: #000000"> </span><span style="color: #001080">me</span><span style="color: #000000"> </span><span style="color: #001080">current</span><span style="color: #000000"> time: </span><span style="color: #098658">18</span><span style="color: #000000">:</span><span style="color: #098658">55</span><span style="color: #000000">:</span><span style="color: #098658">34</span><span style="color: #000000"> </span><span style="color: #0070C1">GMT</span><span style="color: #000000">+</span><span style="color: #098658">0200</span><span style="color: #000000"> (</span><span style="color: #0070C1">GMT</span><span style="color: #000000">+</span><span style="color: #098658">02</span><span style="color: #000000">:</span><span style="color: #098658">00</span><span style="color: #000000">)</span>
+<span style="color: #001080">Anna</span><span style="color: #000000"> </span><span style="color: #001080">has</span><span style="color: #000000"> </span><span style="color: #001080">rated</span><span style="color: #000000"> </span><span style="color: #001080">my</span><span style="color: #000000"> work: </span><span style="color: #098658">9</span>
+<span style="color: #001080">This</span><span style="color: #000000"> </span><span style="color: #001080">is</span><span style="color: #000000"> </span><span style="color: #001080">Alice</span><span style="color: #000000">. </span><span style="color: #001080">Bob</span><span style="color: #000000"> </span><span style="color: #001080">told</span><span style="color: #000000"> </span><span style="color: #001080">me</span><span style="color: #000000"> </span><span style="color: #001080">current</span><span style="color: #000000"> time: </span><span style="color: #098658">18</span><span style="color: #000000">:</span><span style="color: #098658">55</span><span style="color: #000000">:</span><span style="color: #098658">35</span><span style="color: #000000"> </span><span style="color: #0070C1">GMT</span><span style="color: #000000">+</span><span style="color: #098658">0200</span><span style="color: #000000"> (</span><span style="color: #0070C1">GMT</span><span style="color: #000000">+</span><span style="color: #098658">02</span><span style="color: #000000">:</span><span style="color: #098658">00</span><span style="color: #000000">)</span>
+<span style="color: #001080">This</span><span style="color: #000000"> </span><span style="color: #001080">is</span><span style="color: #000000"> </span><span style="color: #001080">Anna</span><span style="color: #000000">. </span><span style="color: #001080">Bob</span><span style="color: #000000"> </span><span style="color: #001080">told</span><span style="color: #000000"> </span><span style="color: #001080">me</span><span style="color: #000000"> </span><span style="color: #001080">current</span><span style="color: #000000"> time: </span><span style="color: #098658">18</span><span style="color: #000000">:</span><span style="color: #098658">55</span><span style="color: #000000">:</span><span style="color: #098658">35</span><span style="color: #000000"> </span><span style="color: #0070C1">GMT</span><span style="color: #000000">+</span><span style="color: #098658">0200</span><span style="color: #000000"> (</span><span style="color: #0070C1">GMT</span><span style="color: #000000">+</span><span style="color: #098658">02</span><span style="color: #000000">:</span><span style="color: #098658">00</span><span style="color: #000000">)</span>
+<span style="color: #001080">This</span><span style="color: #000000"> </span><span style="color: #001080">is</span><span style="color: #000000"> </span><span style="color: #001080">Kate</span><span style="color: #000000">. </span><span style="color: #001080">Bob</span><span style="color: #000000"> </span><span style="color: #001080">told</span><span style="color: #000000"> </span><span style="color: #001080">me</span><span style="color: #000000"> </span><span style="color: #001080">current</span><span style="color: #000000"> time: </span><span style="color: #098658">18</span><span style="color: #000000">:</span><span style="color: #098658">55</span><span style="color: #000000">:</span><span style="color: #098658">35</span><span style="color: #000000"> </span><span style="color: #0070C1">GMT</span><span style="color: #000000">+</span><span style="color: #098658">0200</span><span style="color: #000000"> (</span><span style="color: #0070C1">GMT</span><span style="color: #000000">+</span><span style="color: #098658">02</span><span style="color: #000000">:</span><span style="color: #098658">00</span><span style="color: #000000">)</span>
+<span style="color: #001080">Kate</span><span style="color: #000000"> </span><span style="color: #001080">has</span><span style="color: #000000"> </span><span style="color: #001080">rated</span><span style="color: #000000"> </span><span style="color: #001080">my</span><span style="color: #000000"> work: </span><span style="color: #098658">8</span>
+</code></pre>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 			<nav class="tsd-navigation primary">
 				<ul>
-					<li class="globals  ">
-						<a href="globals.html"><em>Globals</em></a>
+					<li class=" ">
+						<a href="modules.html">Modules</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/src.html">src</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class">
-						<a href="classes/destination.html" class="tsd-kind-icon">Destination</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/peer.html" class="tsd-kind-icon">Peer</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/role.html" class="tsd-kind-icon">Role</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/unit.html" class="tsd-kind-icon">Unit</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="interfaces/connectoptions.html" class="tsd-kind-icon">Connect<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="interfaces/context.html" class="tsd-kind-icon">Context</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="interfaces/contextforreadable.html" class="tsd-kind-icon">Context<wbr>For<wbr>Readable</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="interfaces/contextforwritable.html" class="tsd-kind-icon">Context<wbr>For<wbr>Writable</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="interfaces/emitoptions.html" class="tsd-kind-icon">Emit<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="interfaces/listenoptions.html" class="tsd-kind-icon">Listen<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="interfaces/peermetadata.html" class="tsd-kind-icon">Peer<wbr>Meta<wbr>Data</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="interfaces/peeroptions.html" class="tsd-kind-icon">Peer<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="globals.html#messagehandler" class="tsd-kind-icon">Message<wbr>Handler</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="globals.html#readablehandler" class="tsd-kind-icon">Readable<wbr>Handler</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="globals.html#requestcallback" class="tsd-kind-icon">Request<wbr>Callback</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="globals.html#requesthandler" class="tsd-kind-icon">Request<wbr>Handler</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="globals.html#writablehandler" class="tsd-kind-icon">Writable<wbr>Handler</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="globals.html#sendabledata" class="tsd-kind-icon">sendable<wbr>Data</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#singleton" class="tsd-kind-icon">Singleton</a>
-					</li>
 				</ul>
 			</nav>
 		</div>
@@ -324,57 +275,14 @@ Kate has rated my work: <span class="hljs-number">8</span></code></pre>
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
-				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
-				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
-				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
 				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
-				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
-				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
-				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
-				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
-				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
-				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
-				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
-				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
-				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
-				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
-				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
 			</ul>
 		</div>
 	</div>
@@ -384,6 +292,5 @@ Kate has rated my work: <span class="hljs-number">8</span></code></pre>
 </div>
 <div class="overlay"></div>
 <script src="assets/js/main.js"></script>
-<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
 </body>
 </html>

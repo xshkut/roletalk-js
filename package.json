@@ -11,7 +11,6 @@
   "scripts": {
     "test": "ts-mocha src/test/test.ts",
     "build": "tsc",
-    "echo": "node echo/index.js 5000",
     "doc": "rm -rf ./docs && typedoc --readme api_intro.md --out ./docs --plugin none --exclude **/test/**.ts --excludePrivate ./src/index.ts"
   },
   "keywords": [

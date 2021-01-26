@@ -2,7 +2,6 @@
   "compilerOptions": {
     /* Basic Options */
     "outDir": "./built",
-    // "allowJs": true,
     "target": "ES2016",
     /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017','ES2018' or 'ESNEXT'. */
     "module": "commonjs",
@@ -71,6 +70,7 @@
   // ],
   "exclude": [
     "node_modules",
-    "./src/test"
+    "./src/test",
+    "./built"
   ]
 }

@@ -9,8 +9,7 @@
     "url": "git@github.com:xshkut/roletalk-js.git"
   },
   "scripts": {
-    "test": "mocha built/test/test",
-    "testb": "tsc && mocha built/test/test",
+    "test": "ts-mocha src/test/test.ts",
     "build": "tsc",
     "echo": "node echo/index.js 5000",
     "doc": "rm -rf ./docs && typedoc --readme api_intro.md --out ./docs --plugin none --exclude **/test/**.ts --excludePrivate ./src/index.ts"
@@ -35,6 +34,7 @@
     "@types/ws": "^7.4.0",
     "find-free-port": "^2.0.0",
     "mocha": "^8.2.1",
+    "ts-mocha": "^8.0.0",
     "typedoc": "^0.20.16",
     "typescript": "^4.1.3"
   }

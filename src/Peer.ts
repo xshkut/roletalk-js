@@ -11,7 +11,7 @@ import {
   DEFAULT_REQUEST_TIMEOUT,
   ROLES_MESSAGE as ROLES_CHANGE,
   WS_AUTH_ERROR_CLOSE,
-} from "./constants.js";
+} from "./constants";
 import { SecureContextOptions } from "tls";
 import {
   PeerOptions,

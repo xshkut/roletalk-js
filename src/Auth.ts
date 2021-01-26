@@ -8,7 +8,7 @@ import {
   BYTE_ERROR,
   AUTH_TIMEOUT,
   PROTOCOL_VERSION,
-} from "./constants.js";
+} from "./constants";
 import { PeerConfirmData } from "./interfaces";
 
 /**@internal */
@@ -103,7 +103,7 @@ export class Auth {
           if (!Array.isArray(data.ids)) {
             sendRejection(
               "Wrond data received: list of verification id`s should be an array. Got: " +
-                data
+              data
             );
           } else {
             for (let id of data.ids) {

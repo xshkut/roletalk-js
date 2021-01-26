@@ -5,11 +5,10 @@ import {
   STREAM_ERROR_FLAG,
   STREAM_FINISH_FLAG,
   STREAM_CHUNK_FLAG,
-  TYPE_STREAM_MSG,
-} from "../constants.js";
+  TYPE_STREAM_MSG, STREAM_BP_QUOTA_FLAG
+} from "../constants";
 import { StreamConstructorObject } from "../interfaces";
 import * as WebSocket from "ws";
-import { STREAM_BP_QUOTA_FLAG } from "./../constants";
 
 const bufferForChunk = Buffer.from([STREAM_CHUNK_FLAG]);
 const wsSendOptions = {

@@ -71,6 +71,7 @@ export class Auth {
           uptime: Date.now() - this._peer._constructed,
           protocol: PROTOCOL_VERSION,
         },
+        tags: this._peer.getTags()
       };
       ws.readyState === 1 && send(BYTE_AUTH_CONFIRMED, conf);
       isReady();

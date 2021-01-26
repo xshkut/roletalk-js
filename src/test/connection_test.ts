@@ -3,6 +3,9 @@ import * as assert from "assert";
 import { createServer, Server } from "http";
 
 const peer1 = new Peer({ name: "PEER 1" });
+peer1.setTag("some_id", "123")
+peer1.setTag("some_id", "456")
+peer1.setTag("abc", "def")
 peer1.auth.addPresharedKey("foo", "111222333"); //id mismatch
 peer1.auth.addPresharedKey("bar", "444555666"); //id and key match
 const peer2 = new Peer({ name: "PEER 2" });
@@ -45,12 +48,13 @@ describe("connection behaviour, authentication, roles detection, reconnection an
     assert(typeof peer1.id === "string");
     assert(typeof peer1.name === "string");
   });
+  it("Peer's tags should be equal on both ends of the connection", () => {
+    assert.deepStrictEqual(peer1.getTags(), peer2.units[0].getTags())
+    assert.deepStrictEqual(peer1.getTags(), { some_id: "456", abc: "def" })
+  });
   it("listening with port number should start HTTP server", () => {
     assert(peer1._listener! instanceof Server);
   });
-  // it('listening with {ssl:true} should start HTTPS server', () => {
-  //     assert(peer2._listener! instanceof httpsServer);
-  // })
   it("error when listening should reject a promise", () => {
     assert.rejects(peer3.listen(peer1._port!));
   });

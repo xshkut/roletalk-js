@@ -90,7 +90,10 @@ export class Unit extends EventEmitter {
   /**@internal */
   _lastRolesUpdate: number = 0;
   /**@internal */
-  constructor({ peer, id, friendly, name, roles, meta }: InitialUnitData) {
+  _static_tags: Map<string, string>
+
+  /**@internal */
+  constructor({ peer, id, friendly, name, roles, meta, tags }: InitialUnitData) {
     super();
     this.id = id;
     this._name = name;
@@ -98,6 +101,11 @@ export class Unit extends EventEmitter {
     this._friendly = friendly;
     this._roles = roles;
     this._metaData = meta;
+    this._static_tags = new Map()
+    Object.entries(tags).forEach(([key, val]) => {
+      this._static_tags.set(key, val)
+    })
+
     this.once("error", (err) => {
       this.close();
     });
@@ -106,6 +114,12 @@ export class Unit extends EventEmitter {
   getRoles() {
     return this._roles;
   }
+
+  /**Retrieve Unit's static key-value tags as { [key:string]: string }*/
+  getTags(): { [key: string]: string } {
+    return Array.from(this._static_tags.entries()).reduce((obj, entry) => ({ ...obj, [entry[0]]: entry[1] }), {})
+  }
+
   /**Name assigned to remote peer */
   get name() {
     return this._name;
@@ -464,7 +478,7 @@ function handleAcquaintMessage(
   }
   for (let dest of this._peer.destinations.values()) {
     if (roles.includes(dest.name)) {
-      return this._peer.connect(address, undefined, () => {});
+      return this._peer.connect(address, undefined, () => { });
     }
   }
 }

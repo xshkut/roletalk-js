@@ -64,6 +64,9 @@ export class Peer extends EventEmitter {
   _constructed: number;
   /**@internal */
   _lastRolesUpdate: number = 0;
+  /**@internal */
+  _static_tags = new Map<string, string>();
+
   constructor(options: PeerOptions = {}) {
     super();
     this._id = crypto.randomBytes(16).toString("hex");
@@ -98,6 +101,21 @@ export class Peer extends EventEmitter {
   addPresharedKey(id: string, key: string): this {
     this.auth.addPresharedKey(id, key);
     return this;
+  }
+
+  /**Add static key-value tags to the Peer instance. The tags will be available on remote peers. New tags will not be delivered to already connected peers*/
+  setTag(key: string, value: string) {
+    if (typeof key !== 'string' || typeof value !== "string") {
+      throw new Error(`Provide string arguments`)
+    }
+
+    this._static_tags.set(key, value)
+  }
+
+  /**Retrieve Peer's static key-value tags as { [key:string]: string }*/
+  getTags(): { [key: string]: string } {
+    const tags = Array.from(this._static_tags.entries()).reduce((obj, entry) => ({ ...obj, [entry[0]]: entry[1] }), {})
+    return tags
   }
 
   /**Instantiate websocket server. Use with .handleUpgrade */
@@ -412,7 +430,7 @@ function UnitFromWS(
   data: PeerConfirmData,
   address?: string
 ): Unit {
-  let { id, roles, name, friendly } = data;
+  let { id, roles, name, friendly, tags } = data;
   let exists = this._units.has(id);
   if (!exists) {
     this._units.set(
@@ -424,6 +442,7 @@ function UnitFromWS(
         peer: this,
         meta: data.meta,
         roles,
+        tags: tags
       })
     );
   }

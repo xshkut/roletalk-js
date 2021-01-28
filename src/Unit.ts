@@ -102,7 +102,7 @@ export class Unit extends EventEmitter {
     this._roles = roles;
     this._metaData = meta;
     this._static_tags = new Map()
-    Object.entries(tags).forEach(([key, val]) => {
+    Object.entries(tags || {}).forEach(([key, val]) => {
       this._static_tags.set(key, val)
     })
 

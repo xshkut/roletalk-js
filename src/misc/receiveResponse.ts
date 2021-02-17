@@ -6,7 +6,7 @@ import { InitialContext, Context } from "../interfaces";
 export function receiveResponse(
   this: Unit,
   cbid: number,
-  err: any,
+  err: string | Error | null,
   ctx?: InitialContext,
   ws?: WebSocket
 ) {
@@ -24,5 +24,8 @@ export function receiveResponse(
   clearTimeout(timeout);
   this._timeouts.delete(cbid);
   this._onCloseHandlers.delete(cbid);
+  if (typeof err === "string") {
+    err = new Error(err);
+  }
   cb && (err ? cb(err, ctx) : cb(null, ctx, ws));
 }

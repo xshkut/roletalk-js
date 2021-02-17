@@ -648,18 +648,19 @@ function openWritableStream(
 
 function createResponder(unit: Unit, cbid: number) {
   let responded = false;
-  return (err: any, res?: any, cb?: Function) => {
+  return (err: Error | string | null, res?: any, cb?: Function) => {
     if (responded) {
       return cb && cb(new Error("already responded"));
     }
     responded = true;
     let datum: Buffer;
     if (err) {
-      datum = serializeResponse(
-        TYPE_REJECT,
-        cbid,
-        JSON.stringify({ data: err.toString ? err.toString() : err })
-      );
+      let errMsg = String(err);
+      if (err instanceof Error) {
+        errMsg = err.message;
+      }
+
+      datum = serializeResponse(TYPE_REJECT, cbid, errMsg);
       sendViaAny(unit, datum, cb ? cb : undefined);
     } else {
       let datum = serializeResponse(TYPE_RES, cbid, res);

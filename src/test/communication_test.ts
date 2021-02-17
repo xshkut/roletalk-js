@@ -52,6 +52,31 @@ describe("communicaion API, consistency of transferred data", () => {
       done();
     });
   });
+  it("rejected request should return Error object with corresponding message for callbacks", (done) => {
+    const errMsg1 = "error message 1";
+    const event = "someEvent3";
+    peerB.role("B").onRequest(event, (ctx, cb) => {
+      cb(new Error(errMsg1), null);
+    });
+    peerA1.destination("B").request(event, { a: 1 }, (err, ctx) => {
+      assert.deepStrictEqual(err.message, errMsg1);
+      done();
+    });
+  });
+  it("rejected request should return Error object with corresponding message for promises", async () => {
+    const errMsg2 = "error message 2";
+    const event = "someEvent4";
+    peerB.role("B").onRequest(event, (ctx, cb) => {
+      cb(new Error(errMsg2), null);
+    });
+    let error = new Error();
+    try {
+      await peerA1.destination("B").request(event, { a: 1 });
+    } catch (err) {
+      error = err;
+    }
+    assert(error.message === errMsg2);
+  });
   it("destination .send() should return a unit or undefined if such is not available", () => {
     assert(peerB.destination("A").send("someMSG", 1)!.id);
     assert(

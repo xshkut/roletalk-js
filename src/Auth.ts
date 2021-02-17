@@ -71,7 +71,7 @@ export class Auth {
           uptime: Date.now() - this._peer._constructed,
           protocol: PROTOCOL_VERSION,
         },
-        tags: this._peer.getTags()
+        tags: this._peer.getTags(),
       };
       ws.readyState === 1 && send(BYTE_AUTH_CONFIRMED, conf);
       isReady();
@@ -104,7 +104,7 @@ export class Auth {
           if (!Array.isArray(data.ids)) {
             sendRejection(
               "Wrond data received: list of verification id`s should be an array. Got: " +
-              data
+                data
             );
           } else {
             for (let id of data.ids) {

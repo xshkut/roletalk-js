@@ -105,23 +105,26 @@ export class Peer extends EventEmitter {
 
   /**Add static key-value tags to the Peer instance. The tags will be available on remote peers. New tags will not be delivered to already connected peers*/
   setTag(key: string, value: string) {
-    if (typeof key !== 'string' || typeof value !== "string") {
-      throw new Error(`Provide string arguments`)
+    if (typeof key !== "string" || typeof value !== "string") {
+      throw new Error(`Provide string arguments`);
     }
 
-    this._static_tags.set(key, value)
+    this._static_tags.set(key, value);
   }
 
   /**Retrieve Peer's static key-value tags as { [key:string]: string }*/
   getTags(): { [key: string]: string } {
-    const tags = Array.from(this._static_tags.entries()).reduce((obj, entry) => ({ ...obj, [entry[0]]: entry[1] }), {})
-    return tags
+    const tags = Array.from(this._static_tags.entries()).reduce(
+      (obj, entry) => ({ ...obj, [entry[0]]: entry[1] }),
+      {}
+    );
+    return tags;
   }
 
   /**Instantiate websocket server. Use with .handleUpgrade */
   prepareWSServer() {
     this._wss = new WebSocket.Server({
-      noServer: true
+      noServer: true,
     });
     this._wss.on("connection", (ws: WebSocket) => {
       this.auth._verifyWS(ws, (err, data) => {
@@ -131,26 +134,32 @@ export class Peer extends EventEmitter {
         UnitFromWS.call(this, ws, data);
       });
     });
-    this._wss.on("error", function () { });
+    this._wss.on("error", function () {});
   }
 
   /**Attach to existing http.Server instance
-   * 
+   *
    * Example:
    * peer.prepareWSServer()
    * server.on("upgrade", (request, socket, head) => {
    *  peer.handleUpgrade(request, socket, head)
    * })
-   * 
-  */
-  handleUpgrade(request: http.IncomingMessage, socket: Socket, upgradeHead: Buffer): void {
+   *
+   */
+  handleUpgrade(
+    request: http.IncomingMessage,
+    socket: Socket,
+    upgradeHead: Buffer
+  ): void {
     if (!this._wss) {
-      throw new Error(`Cannot handle upgrade: instantiate websocket server (use .prepareWSServer or .listen)`)
+      throw new Error(
+        `Cannot handle upgrade: instantiate websocket server (use .prepareWSServer or .listen)`
+      );
     }
 
     this._wss.handleUpgrade(request, socket, upgradeHead, (ws, request) => {
-      this._wss!.emit('connection', ws, request);
-    })
+      this._wss!.emit("connection", ws, request);
+    });
   }
 
   /**Listen to incoming connections. Starts HTTP(S) server listening immediately.*/
@@ -354,27 +363,25 @@ function _listen(this: Peer, cb: Function) {
       UnitFromWS.call(peer, ws, data);
     });
   });
-  this._wss.on("error", function () { });
+  this._wss.on("error", function () {});
 
-  let responded = false
+  let responded = false;
 
-  let listener = server.listen(
-    { port: this._port, host: this._host }, () => {
-      if (responded) return
-      responded = true
+  let listener = server.listen({ port: this._port, host: this._host }, () => {
+    if (responded) return;
+    responded = true;
 
-      this._port = (listener.address() as { port: number }).port;
-      cb(null);
-    }
-  );
+    this._port = (listener.address() as { port: number }).port;
+    cb(null);
+  });
 
   server.once("error", (err) => {
-    if (responded) return
-    responded = true
+    if (responded) return;
+    responded = true;
 
     this._listener = undefined;
     cb(err);
-  })
+  });
 
   this._listener = listener;
 }
@@ -414,7 +421,7 @@ function makeWS(
         cb(
           new Error(
             "Error when creating a unit after successfull authentication: " +
-              err.toString
+            err.toString
               ? err.toString()
               : err
           )
@@ -442,7 +449,7 @@ function UnitFromWS(
         peer: this,
         meta: data.meta,
         roles,
-        tags: tags
+        tags: tags,
       })
     );
   }

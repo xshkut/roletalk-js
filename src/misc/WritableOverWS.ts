@@ -5,7 +5,8 @@ import {
   STREAM_ERROR_FLAG,
   STREAM_FINISH_FLAG,
   STREAM_CHUNK_FLAG,
-  TYPE_STREAM_MSG, STREAM_BP_QUOTA_FLAG
+  TYPE_STREAM_MSG,
+  STREAM_BP_QUOTA_FLAG,
 } from "../constants";
 import { StreamConstructorObject } from "../interfaces";
 import * as WebSocket from "ws";
@@ -112,7 +113,10 @@ export class WritableOverWS extends Writable {
     let datum = Buffer.concat([this._fullCBBuffer!, bufferForChunk, chunk]);
     this._ws.send(datum, wsSendOptions, callback);
   }
-  _writev(chunks: [{ chunk: Buffer; encoding: BufferEncoding }], callback?: any) {
+  _writev(
+    chunks: [{ chunk: Buffer; encoding: BufferEncoding }],
+    callback?: any
+  ) {
     this._write(
       Buffer.concat(
         chunks.map((val) => {

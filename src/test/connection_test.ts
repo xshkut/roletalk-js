@@ -3,9 +3,9 @@ import * as assert from "assert";
 import { createServer, Server } from "http";
 
 const peer1 = new Peer({ name: "PEER 1" });
-peer1.setTag("some_id", "123")
-peer1.setTag("some_id", "456")
-peer1.setTag("abc", "def")
+peer1.setTag("some_id", "123");
+peer1.setTag("some_id", "456");
+peer1.setTag("abc", "def");
 peer1.auth.addPresharedKey("foo", "111222333"); //id mismatch
 peer1.auth.addPresharedKey("bar", "444555666"); //id and key match
 const peer2 = new Peer({ name: "PEER 2" });
@@ -49,8 +49,8 @@ describe("connection behaviour, authentication, roles detection, reconnection an
     assert(typeof peer1.name === "string");
   });
   it("Peer's tags should be equal on both ends of the connection", () => {
-    assert.deepStrictEqual(peer1.getTags(), peer2.units[0].getTags())
-    assert.deepStrictEqual(peer1.getTags(), { some_id: "456", abc: "def" })
+    assert.deepStrictEqual(peer1.getTags(), peer2.units[0].getTags());
+    assert.deepStrictEqual(peer1.getTags(), { some_id: "456", abc: "def" });
   });
   it("listening with port number should start HTTP server", () => {
     assert(peer1._listener! instanceof Server);
@@ -127,23 +127,30 @@ describe("connection behaviour, authentication, roles detection, reconnection an
 });
 
 describe("manual websocket handling", () => {
-  const peer1 = new Peer()
-  const peer2 = new Peer()
-  const server = createServer(() => { })
+  const peer1 = new Peer();
+  const peer2 = new Peer();
+  const server = createServer(() => {});
   before((cb) => {
-    peer1.prepareWSServer()
-    server.listen({ host: "localhost", port: 0 }, cb)
+    peer1.prepareWSServer();
+    server.listen({ host: "localhost", port: 0 }, cb);
     server.on("upgrade", (request, socket, head) => {
-      peer1.handleUpgrade(request, socket, head)
-    })
-  })
+      peer1.handleUpgrade(request, socket, head);
+    });
+  });
   it("a connection should be established to the roletalk instance attached to a server", async () => {
-    await assert.doesNotReject(peer2.connect("ws://localhost:" + (server.address() as { port: number }).port));
-    await assert.deepStrictEqual(peer2.units.map(u => u.id), [peer1.id])
-  })
+    await assert.doesNotReject(
+      peer2.connect(
+        "ws://localhost:" + (server.address() as { port: number }).port
+      )
+    );
+    await assert.deepStrictEqual(
+      peer2.units.map((u) => u.id),
+      [peer1.id]
+    );
+  });
   after(() => {
-    peer1.close()
-    peer2.close()
-    server.close()
-  })
-})
+    peer1.close();
+    peer2.close();
+    server.close();
+  });
+});

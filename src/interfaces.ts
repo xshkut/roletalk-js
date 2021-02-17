@@ -46,8 +46,8 @@ export interface InitialUnitData {
   friendly: boolean;
   roles: string[];
   tags: {
-    [key: string]: string
-  }
+    [key: string]: string;
+  };
 }
 
 /**@internal */
@@ -58,8 +58,8 @@ export interface PeerConfirmData {
   roles: string[];
   meta: PeerMetaData;
   tags: {
-    [key: string]: string
-  }
+    [key: string]: string;
+  };
 }
 
 /**Meta data of peer. This part is not tested and therefore is not reliable*/
@@ -156,7 +156,7 @@ export interface Context {
 }
 
 /**@internal */
-export interface StreamContext extends InitialStreamContext, Context { }
+export interface StreamContext extends InitialStreamContext, Context {}
 
 /**@internal */
 export interface rolesMsg {

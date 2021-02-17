@@ -242,21 +242,19 @@ describe("communicaion API, consistency of transferred data", () => {
       peer.role("A").onRequest("get_time3", (ctx, cb) => {
         setTimeout(() => cb(null, Date.now()), 100);
       });
-      peerB
-        .destination("A")
-        .request(
-          {
-            unit: peerB.units.find((unit) => unit.id === peer.id),
-            event: "get_time3",
-          },
-          null,
-          (err, ctx) => {
-            assert(err === null);
-            assert(typeof ctx.data === "number");
-            i++;
-            if (i === peersA.length - 1) done();
-          }
-        );
+      peerB.destination("A").request(
+        {
+          unit: peerB.units.find((unit) => unit.id === peer.id),
+          event: "get_time3",
+        },
+        null,
+        (err, ctx) => {
+          assert(err === null);
+          assert(typeof ctx.data === "number");
+          i++;
+          if (i === peersA.length - 1) done();
+        }
+      );
     });
   });
   it(".survey should request all connected units", (done) => {
@@ -290,15 +288,13 @@ describe("communicaion API, consistency of transferred data", () => {
       });
     });
     let ready = false;
-    let writable = peerB
-      .destination("A")
-      .Writable(
-        {
-          event: "a1",
-          unit: peerB.units.find((unit) => unit.id === peerA1.id),
-        },
-        "awd"
-      );
+    let writable = peerB.destination("A").Writable(
+      {
+        event: "a1",
+        unit: peerB.units.find((unit) => unit.id === peerA1.id),
+      },
+      "awd"
+    );
     writable.on("ready", (ctx) => {
       assert(ctx.data === "awd");
       ready = true;
@@ -329,15 +325,13 @@ describe("communicaion API, consistency of transferred data", () => {
       }
       writable.end();
     });
-    let readable = peerB
-      .destination("A")
-      .Readable(
-        {
-          event: "a2",
-          unit: peerB.units.find((unit) => unit.id === peerA1.id),
-        },
-        null
-      );
+    let readable = peerB.destination("A").Readable(
+      {
+        event: "a2",
+        unit: peerB.units.find((unit) => unit.id === peerA1.id),
+      },
+      null
+    );
     let ready = false;
     readable.on("ready", (ctx) => {
       ready = true;

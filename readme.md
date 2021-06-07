@@ -118,19 +118,19 @@ All communication (except stream sessions) can use data of any type. Type of dat
 
 ### <a name='Acquaintance'></a> Acquaintance
 
-One aditional feature of roletalk is acquaintance. It is could be considered as redunant but it nicely fits the use case of frameworks.
+One aditional feature of roletalk is the acquaintance. It is could be considered redunant but it nicely fits the use case of the framework.
 
-The process of it is simple. You have listener PEER_A which is connected to listener PEER_B. After some PEER_C has connected to PEER_A, PEER_A will send to PEER_C info {ID, ADDRESS, ROLES} of PEER_A. If PEER_C is FRIENDLY, has one or more destination from received ROLES and PEER_C is not connected to peer with provided ID it will start connection to the ADDRESS
+The concept is simple.Imagine, you have listener PEER_A which is connected to listener PEER_B. After PEER_C has been connected to PEER_A, PEER_A will send to PEER_C info {ID, ADDRESS, ROLES} of PEER_B. If PEER_C is FRIENDLY, has one or more destinations from received ROLES of PEER_B and PEER_C is not yet connected to PEER_B, it will start connection to the ADDRESS of PEER_B.
 
-Acquantance is enabled by default, but you can set Friendly option to FALSE to disable is.
+The acquantance is enabled by default, but you can set Friendly option to FALSE to disable it.
 
 ### <a name='Security'></a> Security
 
 To achieve strong MITM-protection use HTTPS.
 
-Framework is provided with simple in-built authentication mechanism: preshared ID: KEY pairs. Peers which are supposed to be connected should have at least one common ID: KEY pair.
+Framework is provided with simple in-built authentication mechanism: preshared { ID: KEY } pairs. Peers supposed to be connected should have at least one common { ID: KEY } pair.
 
-The authentication process between two peers can be described in a simple few steps:
+The authentication process between two peers can be described in a few steps:
 
 1. Each peer sends a list of his auth ID's and randomly generated CHALLENGE to another. If no auth ID:KEY specified peer sends auth confirmation.
 
